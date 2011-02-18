@@ -13,6 +13,8 @@ OVERACHIEVER_ACHID = {
 	Scavenger = 1257,		-- "The Scavenger"
 	OutlandAngler = 1225,		-- "Outland Angler"
 	NorthrendAngler = 1517,		-- "Northrend Angler"
+	Limnologist = 5478,		-- "The Limnologist"
+	Oceanographer = 5479,		-- "The Oceanographer"
 
 	GourmetOutland = 1800,		-- "The Outland Gourmet"
 	GourmetNorthrend = 1779,	-- "The Northrend Gourmet" (last part)

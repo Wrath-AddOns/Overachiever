@@ -445,7 +445,7 @@ end
 
 -- A trick to get default-UI-style tooltip like the function AchievementFrameCategory_StatusBarTooltip() displays:
 hooksecurefunc("GameTooltip_AddNewbieTip", function(self, text, ...)
-  if (not self.arg1 or not self.arg1.Overachiever_list) then  return;  end
+  if (not self.arg1 or (type(self.arg1) ~= "table") or not self.arg1.Overachiever_list) then  return;  end
   GameTooltip:Hide()
 
   local numAchievements, numCompleted, _, completed = 0, 0

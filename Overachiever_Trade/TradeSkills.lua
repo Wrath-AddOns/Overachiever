@@ -57,13 +57,16 @@ local function TradeSkillCheck(tradeName, name, getList)
     if (getList) then  list = list and wipe(list) or {};  end
 
     for id,i in pairs(lookup) do
-      _, _, completed = GetAchievementCriteriaInfo(id, i)
-      if (completed) then
-        lookup[id] = nil
-      else
-        if (not getList) then  return id;  end
-        anyIncomplete = true
-        list[#list+1] = id
+      -- If we don't care if the achievement is complete, or it isn't complete:
+      if (Overachiever_Settings.Tradeskill_ShowCompletedAch_Cooking or (not select(4, GetAchievementInfo(id)))) then
+        _, _, completed = GetAchievementCriteriaInfo(id, i)
+        if (completed) then
+          lookup[id] = nil
+        else
+          if (not getList) then  return id;  end
+          anyIncomplete = true
+          list[#list+1] = id
+        end
       end
     end
 
