@@ -29,6 +29,7 @@ OVERACHIEVER_STRINGS = {
 
 	ACH_ANGLER_INCOMPLETE = "Need to fish";
 	ACH_ANGLER_COMPLETE = "Already fished";
+	ACH_FISHSCHOOL_FORMAT = "%s School";
 
 	ACH_CONSUME_INCOMPLETE = "Need to consume";
 	ACH_CONSUME_COMPLETE = "Already consumed";
@@ -113,6 +114,10 @@ OVERACHIEVER_STRINGS = {
 	OPT_UI_REQUIREDFORMETATIP_TIP = "When the cursor is over an achievement that is required to earn another achievement, display the name of the meta-achievement.";
 	OPT_DRAGGABLE = "Make draggable";
 	OPT_DRAGSAVE = "Remember position";
+
+	OPT_LABEL_TRADESKILLUI = "Professions UI Modifications";
+	OPT_TRADESKILL_SHOWCOMPLETEDACH_COOKING = "Indicate uncooked recipes for complete achievements";
+	OPT_TRADESKILL_SHOWCOMPLETEDACH_COOKING_TIP = "If Overachiever's Trade module is enabled, then an achievement icon appears next to recipes that you need to cook in order to earn certain achievements. If this option is checked, then these icons will appear next to uncooked recipes even if the associated achievement is complete.";
 
 	OPT_SELECTSOUND = "Incomplete Achievement Reminder Sound";
 	OPT_SELECTSOUND_TIP = "Play the selected sound when an incomplete achievement reminder is added to the tooltip.";

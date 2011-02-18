@@ -16,6 +16,35 @@ local function isCriteria(achID, name)
   end
 end
 
+local isCriteria_formatted
+do
+  local cache
+  function isCriteria_formatted(achID, name, base)
+    if (not cache or not cache[achID]) then
+      cache = cache or {}
+      cache[achID] = {}
+      local n
+      for i=1,GetAchievementNumCriteria(achID) do
+        n = GetAchievementCriteriaInfo(achID, i)
+        cache[achID][base:format(n)] = i  -- Creating lookup table
+      end
+    end
+    if (cache[achID][name]) then
+      local _, _, complete = GetAchievementCriteriaInfo(achID, cache[achID][name])
+      return true, complete
+    end
+  end
+end
+--[[ Cacheless version:
+local function isCriteria_formatted(achID, name, base)
+  local n, t, complete
+  for i=1,GetAchievementNumCriteria(achID) do
+    n, t, complete = GetAchievementCriteriaInfo(achID, i)
+    if (base:format(n) == name) then  return true, complete;  end
+  end
+end
+--]]
+
 Overachiever.IsCriteria = isCriteria
 
 --[[
@@ -268,6 +297,8 @@ local WorldObjAch = {
   Scavenger = { "AnglerTip_fished", L.ACH_ANGLER_COMPLETE, L.ACH_ANGLER_INCOMPLETE, true },
   OutlandAngler = { "AnglerTip_fished", L.ACH_ANGLER_COMPLETE, L.ACH_ANGLER_INCOMPLETE, true },
   NorthrendAngler = { "AnglerTip_fished", L.ACH_ANGLER_COMPLETE, L.ACH_ANGLER_INCOMPLETE, true },
+  Limnologist = { "SchoolTip_fished", L.ACH_ANGLER_COMPLETE, L.ACH_ANGLER_INCOMPLETE, true, L.ACH_FISHSCHOOL_FORMAT },
+  Oceanographer = { "SchoolTip_fished", L.ACH_ANGLER_COMPLETE, L.ACH_ANGLER_INCOMPLETE, true, L.ACH_FISHSCHOOL_FORMAT },
 };
 
 local function WorldObjCheck(ach, text)
@@ -276,7 +307,12 @@ local function WorldObjCheck(ach, text)
     WorldObjAch[ach] = nil;
     return;
   end
-  local isCrit, complete = isCriteria(id, text)
+  local isCrit, complete
+  if (WorldObjAch[ach][5]) then
+    isCrit, complete = isCriteria_formatted(id, text, WorldObjAch[ach][5])
+  else
+    isCrit, complete = isCriteria(id, text)
+  end
   if (isCrit) then
     return id, complete and WorldObjAch[ach][2] or WorldObjAch[ach][3], complete, WorldObjAch[ach][4]
   end

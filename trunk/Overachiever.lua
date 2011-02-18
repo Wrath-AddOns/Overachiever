@@ -935,8 +935,10 @@ function Overachiever.OnEvent(self, event, arg1, ...)
 
     -- Make main achievement UI draggable:
     -- - Prevent UIParent.lua from seeing area field (or it'll do things that mess up making the frame draggable).
-    orig_AchievementFrame_area = UIPanelWindows["AchievementFrame"].area
-    UIPanelWindows["AchievementFrame"].area = nil
+    if (UIPanelWindows["AchievementFrame"]) then  -- This if statement prevents error messages when the addon MoveAnything is used to move AchievementFrame.
+      orig_AchievementFrame_area = UIPanelWindows["AchievementFrame"].area
+      UIPanelWindows["AchievementFrame"].area = nil
+    end
     -- - Hook the first OnShow call to complete this. (Not done now in case saved variables aren't ready or the frame
     --   isn't showing right away.)
     orig_AchievementFrame_OnShow = AchievementFrame:GetScript("OnShow")

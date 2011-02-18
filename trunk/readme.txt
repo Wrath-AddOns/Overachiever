@@ -1,5 +1,5 @@
 
-Overachiever v0.60
+Overachiever v0.61
 ==============================
 
 Author: Tuhljin
@@ -106,6 +106,16 @@ Change log
 ==========
 
 The change log lists changes of particular note to users, not every change made.
+
+v0.61
+- "Limnologist" and "Oceanographer" (new): Added an option to display reminder tooltips for schools of fish associated
+  with these achievements.
+- Fixed a compatibility issue with the addon MoveAnything where an error was given when the main achievement UI was
+  first loaded if MoveAnything was used to reposition AchievementFrame.
+- Fixed an issue where an error message appeared when certain tooltips were displayed.
+- Trade module: Corrected an issue where uncooked recipes were treated as if you needed to cook them to earn an
+  achievement even if the achievement was already completed. A new interface option has been added to support previous
+  behavior, so achievement icons can be placed next to uncooked recipes even if the overall achievement is complete.
 
 v0.60
 - You can now search for guild achievements using slash commands and the Tabs module. On the Search tab, a new option
