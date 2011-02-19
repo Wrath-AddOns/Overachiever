@@ -49,6 +49,7 @@ L.WATCH_COPY = "Copy To:";
 L.WATCH_POPUP_NEWLIST = "Enter the name of your new achievement watch list:";
 L.WATCH_POPUP_DELETELIST = "Are you sure you want to permanently delete the current achievement watch list?";
 L.WATCH_POPUP_CLEARLIST = "Are you sure you want to clear the contents of the current achievement watch list?";
+L.WATCH_ERR_INVALIDID = 'Removed "%s" from Watch List: An achievement with that ID could not be found.';
 
 L.TAB_SORT = "Sort by:";
 L.TAB_SORT_NAME = "Name";

@@ -141,11 +141,12 @@ function Overachiever.ExploreZoneIDLookup(zoneName)
 end
 
 
+-- !! These categories no longer exist!! :
 OVERACHIEVER_CATEGORY_HEROIC = {
 	[14921] = true, -- Lich King Dungeon
 	[14923] = true, -- Lich King 25-Player Raid
 };
-
+-- !! These categories no longer exist!! :
 OVERACHIEVER_CATEGORY_25 = {
 	[14923] = true,			-- Lich King 25-Player Raid
 	[14962] = true,			-- Secrets of Ulduar 25-Player Raid

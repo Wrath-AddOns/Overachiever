@@ -55,6 +55,7 @@ local function chatprint(msg, premsg)
   premsg = premsg or "["..THIS_TITLE.."]"
   DEFAULT_CHAT_FRAME:AddMessage("|cff7eff00"..premsg.."|r "..msg, 0.741, 1, 0.467);
 end
+Overachiever.chatprint = chatprint
 
 local function BuildCategoryInfo()
   Overachiever.UI_GetValidCategories()

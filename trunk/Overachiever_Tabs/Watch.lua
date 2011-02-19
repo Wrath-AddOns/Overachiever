@@ -43,6 +43,32 @@ local function OnLoad(v, oldver)
     end
     VARS.WatchedList = 0
   end
+  
+  -- Look for watched achievements that no longer exist (or are otherwise invalid):
+  for realm,rtab in pairs(VARS.WatchLists_Realms) do
+    for char,ctab in pairs(rtab) do
+      for id in pairs(ctab) do
+        if (not GetAchievementInfo(id)) then
+          ctab[id] = nil
+          Overachiever.chatprint( L.WATCH_ERR_INVALIDID:format(id) )
+        end
+      end
+    end
+  end
+  for id in pairs(VARS.WatchLists_General) do
+    if (not GetAchievementInfo(id)) then
+      VARS.WatchLists_General[id] = nil
+      Overachiever.chatprint( L.WATCH_ERR_INVALIDID:format(id) )
+    end
+  end
+  for name,tab in pairs(VARS.WatchLists) do
+    for id in pairs(tab) do
+      if (not GetAchievementInfo(id)) then
+        tab[id] = nil
+        Overachiever.chatprint( L.WATCH_ERR_INVALIDID:format(id) )
+      end
+    end
+  end
 
   -- With existing items, set usable references for menu's OnSelect function (for listdrop_menu) and the GameTooltip_AddNewbieTip hook below (for listdrop_menu and deflist_menu):
   listdrop_menu[1].Overachiever_list = VARS.WatchLists_General
