@@ -116,6 +116,8 @@ v0.61
 - Trade module: Corrected an issue where uncooked recipes were treated as if you needed to cook them to earn an
   achievement even if the achievement was already completed. A new interface option has been added to support previous
   behavior, so achievement icons can be placed next to uncooked recipes even if the overall achievement is complete.
+- Watch Tab: Invalid achievements are now removed from existing Watch lists when the Tabs module loads. This prevents
+  errors that could result from watching achievements that subsequently are removed from the game by Blizzard.
 
 v0.60
 - You can now search for guild achievements using slash commands and the Tabs module. On the Search tab, a new option
