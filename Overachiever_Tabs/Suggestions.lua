@@ -314,10 +314,8 @@ tinsert(ACHID_ZONE_MISC["Ironforge"], 1837)
 -- INSTANCES - ANY DIFFICULTY (any group size):
 local ACHID_INSTANCES = {
 -- Classic Dungeons
-	["The Deadmines"] = 628,
 	["Ragefire Chasm"] = 629,
 	["Wailing Caverns"] = 630,
-	["Shadowfang Keep"] = 631,
 	["Blackfathom Deeps"] = 632,
 	["The Stockade"] = 633,		-- "Stormwind Stockade"
 	["Gnomeregan"] = 634,
@@ -405,6 +403,17 @@ local ACHID_BATTLEGROUNDS = { 238, 245, IsAlliance and 246 or 1005, 247, 229, 22
 
 -- INSTANCES - NORMAL ONLY (any group size):
 local ACHID_INSTANCES_NORMAL = {
+-- Classic Dungeons
+	["The Deadmines"] = 628,
+	["Shadowfang Keep"] = 631,
+-- Cataclysm Dungeons
+	["Lost City of the Tol'vir"] = 4848,
+	["Blackrock Caverns"] = 4833,
+	["Grim Batol"] = 4840,
+	["The Vortex Pinnacle"] = 4847, -- Need to confirm zone name.
+	["Halls of Origination"] = 4841,
+	["The Stonecore"] = 4846,
+	["Throne of the Tides"] = 4839,
 }
 
 -- INSTANCES - HEROIC ONLY (any group size):
@@ -443,6 +452,17 @@ local ACHID_INSTANCES_HEROIC = {
 	["The Forge of Souls"] = { 4519, 4522, 4523 },
 	["Halls of Reflection"] = { 4521, 4526 },
 	["Pit of Saron"] = { 4520, 4524, 4525 },
+-- Cataclysm Dungeons
+	["Lost City of the Tol'vir"] = { 5291, 5292, 5066, 5290 },
+	["Blackrock Caverns"] = { 5282, 5284, 5281, 5060, 5283 },
+	["Shadowfang Keep"] = { 5505, 5093, 5503, 5504 },
+	["Grim Batol"] = { 5298, 5062, 5297 },
+	["The Vortex Pinnacle"] = { 5289, 5064, 5288 },
+	["Halls of Origination"] = { 5296, 5065, 5293, 5294, 5295 },
+	["The Deadmines"] = { 5083, 5370, 5369, 5368, 5367, 5366, 5371 },
+	["The Stonecore"] = { 5063, 5287 },
+	["Throne of the Tides"] = { 5061, 5285, 5286 },
+
 }
 
 -- INSTANCES - 10-MAN ONLY (normal or heroic):
@@ -941,8 +961,9 @@ do
       for k,v in pairs(tab) do  list[ LBZ[k] or k ] = true;  end  -- Add localized version of instance names.
     end
   end
-  addtolist(suggested, ACHID_INSTANCES, ACHID_INSTANCES_10, ACHID_INSTANCES_25, ACHID_INSTANCES_10_NORMAL,
-            ACHID_INSTANCES_25_NORMAL, ACHID_INSTANCES_10_HEROIC, ACHID_INSTANCES_25_HEROIC)
+  addtolist(suggested, ACHID_INSTANCES, ACHID_INSTANCES_NORMAL, ACHID_INSTANCES_HEROIC,
+            ACHID_INSTANCES_10, ACHID_INSTANCES_25, ACHID_INSTANCES_10_NORMAL, ACHID_INSTANCES_25_NORMAL,
+            ACHID_INSTANCES_10_HEROIC, ACHID_INSTANCES_25_HEROIC)
   addtolist = nil
   -- Arrange into alphabetically-sorted array:
   local count = 0

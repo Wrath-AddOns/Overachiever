@@ -8,11 +8,27 @@ local AchievementIcon = "Interface\\AddOns\\Overachiever\\AchShield"
 local tooltip_complete = { r = 0.2, g = 0.5, b = 0.2 }
 local tooltip_incomplete = { r = 1, g = 0.1, b = 0.1 }
 
-local function isCriteria(achID, name)
-  local n, t, complete
-  for i=1,GetAchievementNumCriteria(achID) do
-    n, t, complete = GetAchievementCriteriaInfo(achID, i)
-    if (n == name) then  return true, complete;  end
+local time = time
+
+local skipNextExamineOneLiner
+
+local isCriteria
+do
+  local cache
+  function isCriteria(achID, name)
+    if (not cache or not cache[achID]) then
+      cache = cache or {}
+      cache[achID] = {}
+      local n
+      for i=1,GetAchievementNumCriteria(achID) do
+        n = GetAchievementCriteriaInfo(achID, i)
+        cache[achID][n] = i  -- Creating lookup table
+      end
+    end
+    if (cache[achID][name]) then
+      local _, _, complete = GetAchievementCriteriaInfo(achID, cache[achID][name])
+      return true, complete
+    end
   end
 end
 
@@ -35,7 +51,16 @@ do
     end
   end
 end
---[[ Cacheless version:
+
+--[[ Cacheless versions:
+local function isCriteria(achID, name)
+  local n, t, complete
+  for i=1,GetAchievementNumCriteria(achID) do
+    n, t, complete = GetAchievementCriteriaInfo(achID, i)
+    if (n == name) then  return true, complete;  end
+  end
+end
+
 local function isCriteria_formatted(achID, name, base)
   local n, t, complete
   for i=1,GetAchievementNumCriteria(achID) do
@@ -179,6 +204,7 @@ local function RaceClassCheck(ach, tab, raceclass, race, unit)
 end
 
 function Overachiever.ExamineSetUnit(tooltip)
+  skipNextExamineOneLiner = true
   tooltip = tooltip or GameTooltip  -- Workaround since another addon is known to break this
   local name, unit = tooltip:GetUnit()
   if (not unit) then  return;  end
@@ -318,36 +344,52 @@ local function WorldObjCheck(ach, text)
   end
 end
 
-function Overachiever.ExamineOneLiner(tooltip)
--- Unfortunately, we couldn't find a "GameTooltip:SetWorldObject" or similar type of thing, so we have to check for
--- these sorts of tooltips in a less direct way.
-  tooltip = tooltip or GameTooltip  -- Workaround since another addon is known to break this
-  if (tooltip:NumLines() == 1) then
-    local n = tooltip:GetName()
-    if (_G[n.."TextRight1"]:GetText()) then  return;  end
-    local tiptext = _G[n.."TextLeft1"]:GetText()
-    local id, text, complete, angler
-    for key,tab in pairs(WorldObjAch) do
-      if (Overachiever_Settings[ tab[1] ]) then
-        id, text, complete, angler = WorldObjCheck(key, tiptext)
-        if (text) then  break;  end
-      end
-    end
-    if (text) then
-      local r, g, b
-      if (complete) then
-        r, g, b = tooltip_complete.r, tooltip_complete.g, tooltip_complete.b
-      else
-        r, g, b = tooltip_incomplete.r, tooltip_incomplete.g, tooltip_incomplete.b
-        RecentReminders[id] = time()
-        if (not angler or not Overachiever_Settings.SoundAchIncomplete_AnglerCheckPole or
-            not IsEquippedItemType("Fishing Poles")) then
-          PlayReminder()
+do
+  local last_check, last_tiptext = 0
+  local last_id, last_text, last_complete, last_angler
+  function Overachiever.ExamineOneLiner(tooltip)
+  -- Unfortunately, we couldn't find a "GameTooltip:SetWorldObject" or similar type of thing, so we have to check for
+  -- these sorts of tooltips in a less direct way.
+    if (skipNextExamineOneLiner) then  skipNextExamineOneLiner = nil;  return;  end
+    -- Skipping works because this function is consistently called after the functions that set skipNextExamineOneLiner to true.
+
+    tooltip = tooltip or GameTooltip  -- Workaround since another addon is known to break this
+    if (tooltip:NumLines() == 1) then
+      local n = tooltip:GetName()
+      if (_G[n.."TextRight1"]:GetText()) then  return;  end
+      local id, text, complete, angler
+      local tiptext = _G[n.."TextLeft1"]:GetText()
+      local t = time()
+
+      if (tiptext ~= last_tiptext or t ~= last_check) then
+        for key,tab in pairs(WorldObjAch) do
+          if (Overachiever_Settings[ tab[1] ]) then
+            id, text, complete, angler = WorldObjCheck(key, tiptext)
+            if (text) then  break;  end
+          end
         end
+        last_tiptext, last_check = tiptext, t
+        last_id, last_text, last_complete, last_angler = id, text, complete, angler
+      else
+        id, text, complete, angler = last_id, last_text, last_complete, last_angler
       end
-      tooltip:AddLine(text, r, g, b)
-      tooltip:AddTexture(AchievementIcon)
-      tooltip:Show()
+
+      if (text) then
+        local r, g, b
+        if (complete) then
+          r, g, b = tooltip_complete.r, tooltip_complete.g, tooltip_complete.b
+        else
+          r, g, b = tooltip_incomplete.r, tooltip_incomplete.g, tooltip_incomplete.b
+          RecentReminders[id] = time()
+          if (not angler or not Overachiever_Settings.SoundAchIncomplete_AnglerCheckPole or
+              not IsEquippedItemType("Fishing Poles")) then
+            PlayReminder()
+          end
+        end
+        tooltip:AddLine(text, r, g, b)
+        tooltip:AddTexture(AchievementIcon)
+        tooltip:Show()
+      end
     end
   end
 end
@@ -427,6 +469,7 @@ local function ItemConsumedCheck(ach, itemID)
 end
 
 function Overachiever.ExamineItem(tooltip)
+  skipNextExamineOneLiner = true
   tooltip = tooltip or this or GameTooltip  -- Workaround in case another addon breaks this
   local name, link = tooltip:GetItem() -- Issue: This doesn't reliably get the item we want?
   if (not link) then  return;  end
