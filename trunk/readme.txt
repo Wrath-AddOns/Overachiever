@@ -1,5 +1,5 @@
 
-Overachiever v0.61
+Overachiever v0.62
 ==============================
 
 Author: Tuhljin
@@ -106,6 +106,11 @@ Change log
 ==========
 
 The change log lists changes of particular note to users, not every change made.
+
+v0.62
+- Work in progress.
+- Further optimized the reminder tooltip system to improve performance.
+- Suggestions Tab: Updated suggestions to include Cataclysm dungeons. (Thanks Ackis!)
 
 v0.61
 - "Limnologist" and "Oceanographer" (new): Added an option to display reminder tooltips for schools of fish associated
