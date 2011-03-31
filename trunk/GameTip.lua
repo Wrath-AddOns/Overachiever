@@ -361,6 +361,7 @@ do
       local tiptext = _G[n.."TextLeft1"]:GetText()
       local t = time()
 
+      local cache_used
       if (tiptext ~= last_tiptext or t ~= last_check) then
         for key,tab in pairs(WorldObjAch) do
           if (Overachiever_Settings[ tab[1] ]) then
@@ -372,6 +373,7 @@ do
         last_id, last_text, last_complete, last_angler = id, text, complete, angler
       else
         id, text, complete, angler = last_id, last_text, last_complete, last_angler
+        cache_used = true
       end
 
       if (text) then
@@ -380,10 +382,12 @@ do
           r, g, b = tooltip_complete.r, tooltip_complete.g, tooltip_complete.b
         else
           r, g, b = tooltip_incomplete.r, tooltip_incomplete.g, tooltip_incomplete.b
-          RecentReminders[id] = time()
-          if (not angler or not Overachiever_Settings.SoundAchIncomplete_AnglerCheckPole or
-              not IsEquippedItemType("Fishing Poles")) then
-            PlayReminder()
+          if (not cache_used) then
+            RecentReminders[id] = time()
+            if (not angler or not Overachiever_Settings.SoundAchIncomplete_AnglerCheckPole or
+                not IsEquippedItemType("Fishing Poles")) then
+              PlayReminder()
+            end
           end
         end
         tooltip:AddLine(text, r, g, b)
@@ -409,6 +413,7 @@ function Overachiever.BuildItemLookupTab(id, savedtab, tab)
 -- involving consumable items, it also gave some that didn't fit well. This function instead uses hardcoded IDs
 -- taken from OVERACHIEVER_ACHID.
     tab = tab or {}
+    local GetAchievementCriteriaInfo = GetAchievementCriteriaInfo
     local i, _, asset = 1
     _, _, _, _, _, _, _, asset = GetAchievementCriteriaInfo(id, i)
     while (asset) do -- while loop used because these are "hidden" criteria: GetAchievementNumCriteria returns only 1.
