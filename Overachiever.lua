@@ -368,6 +368,7 @@ local function BuildCriteriaLookupTab(...)
   local list = getAllAchievements() -- Consider CATEGORIES_INDIV_ALL only?
   local _, critType, assetID, a, tab, savenum
   local numc, i
+  local GetAchievementCriteriaInfo = GetAchievementCriteriaInfo
   for x,id in ipairs(list) do
     --for i=1,GetAchievementNumCriteria(id) do
     numc = GetAchievementNumCriteria(id)
@@ -901,10 +902,23 @@ function Overachiever.OnEvent(self, event, arg1, ...)
     ItemRefTooltip:HookScript("OnTooltipSetItem", Overachiever.ExamineItem)
     hooksecurefunc(ItemRefTooltip, "SetHyperlink", Overachiever.ExamineAchievementTip)
     hooksecurefunc(GameTooltip, "SetHyperlink", Overachiever.ExamineAchievementTip)
+    
+    local StartTime
+    if (Overachiever_Debug) then  StartTime = GetTime();  end
 
     Overachiever.BuildItemLookupTab()
     Overachiever.BuildItemLookupTab = nil
+
+    if (Overachiever_Debug) then
+      local prev = StartTime
+      StartTime = GetTime()
+      chatprint("Building food/drink lookup tables took "..(StartTime - prev).." seconds.")
+    end
+
     BuildCriteriaLookupTab_check()
+    if (Overachiever_Debug) then
+      chatprint("Building other criteria lookup tables took "..(GetTime() - StartTime).." seconds.")
+    end
 
   elseif (event == "ZONE_CHANGED_NEW_AREA") then
     AutoTrackCheck_Explore()
