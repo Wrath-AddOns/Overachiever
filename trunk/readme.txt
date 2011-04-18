@@ -108,9 +108,11 @@ Change log
 The change log lists changes of particular note to users, not every change made.
 
 v0.62
-- Work in progress.
-- Further optimized the reminder tooltip system to improve performance.
 - Suggestions Tab: Updated suggestions to include Cataclysm dungeons. (Thanks Ackis!)
+- Further optimized the reminder tooltip system to improve performance.
+- Reduced loading time by saving the full consumed item tracking data between sessions (instead of partial data). If
+  the addon version or the game build has changed since you last played a character, or if the character's data is not
+  already saved, then load time will be about the same as it was previously because the data will be (re)built.
 
 v0.61
 - "Limnologist" and "Oceanographer" (new): Added an option to display reminder tooltips for schools of fish associated

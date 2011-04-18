@@ -890,7 +890,7 @@ function Overachiever.OnEvent(self, event, arg1, ...)
       end
      --]]
     else
-      Overachiever_CharVars = {};
+      Overachiever_CharVars = {}
     end
     Overachiever_CharVars.Version = THIS_VERSION
 
@@ -906,13 +906,13 @@ function Overachiever.OnEvent(self, event, arg1, ...)
     local StartTime
     if (Overachiever_Debug) then  StartTime = GetTime();  end
 
-    Overachiever.BuildItemLookupTab()
+    Overachiever.BuildItemLookupTab(THIS_VERSION)
     Overachiever.BuildItemLookupTab = nil
 
     if (Overachiever_Debug) then
       local prev = StartTime
       StartTime = GetTime()
-      chatprint("Building food/drink lookup tables took "..(StartTime - prev).." seconds.")
+      chatprint("Building/retrieving food/drink lookup tables took "..(StartTime - prev).." seconds.")
     end
 
     BuildCriteriaLookupTab_check()
