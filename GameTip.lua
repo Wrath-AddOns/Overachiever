@@ -405,9 +405,14 @@ end
 local FoodCriteria, DrinkCriteria = {}, {}
 local numDrinksConsumed, numFoodConsumed
 
+local ConsumeItemAch = {
+  TastesLikeChicken = { "Item_consumed", L.ACH_CONSUME_COMPLETE, L.ACH_CONSUME_INCOMPLETE, L.ACH_CONSUME_INCOMPLETE_EXTRA, FoodCriteria },
+  HappyHour = { "Item_consumed", L.ACH_CONSUME_COMPLETE, L.ACH_CONSUME_INCOMPLETE, L.ACH_CONSUME_INCOMPLETE_EXTRA, DrinkCriteria },
+};
+
 --local lastitemTime, lastitemLink = 0
 
-function Overachiever.BuildItemLookupTab(id, savedtab, tab)
+function Overachiever.BuildItemLookupTab(THIS_VERSION, id, savedtab, tab)
   if (id) then  -- Build lookup tables (since examining the criteria each time is time-consuming):
 -- This is separate from the BuildCriteriaLookupTab function because while that gave some good achievements
 -- involving consumable items, it also gave some that didn't fit well. This function instead uses hardcoded IDs
@@ -427,10 +432,10 @@ function Overachiever.BuildItemLookupTab(id, savedtab, tab)
   numDrinksConsumed = tonumber(GetStatistic(OVERACHIEVER_ACHID.Stat_ConsumeDrinks)) or 0
   numFoodConsumed = tonumber(GetStatistic(OVERACHIEVER_ACHID.Stat_ConsumeFood)) or 0
 
---[[  -- Old code to see whether tables should be built. Now, tables are always built (but only once) because
-      -- Blizzard's API no longer tells us what has been consumed. To be reliable, Overachiever needs to "see"
-      -- what is consumed so from now on we'll always use the tracking table.
-      -- (Variable ItemLookupTabBuilt is no longer used.)
+--[[  -- Old code to see whether tables should be built. Now, tables are always used (either built or retrieved
+      -- from a saved variable) because Blizzard's API no longer tells us what has been consumed. To be
+      -- reliable, Overachiever needs to "see" what is consumed so from now on we'll always use the tracking
+      -- table. (Variable ItemLookupTabBuilt is no longer used.)
   if ( ItemLookupTabBuilt or not Overachiever_Settings.Item_consumed or
        (not Overachiever_Settings.Item_consumed_whencomplete and select(4, GetAchievementInfo(foodID)) and
        select(4, GetAchievementInfo(drinkID))) ) then
@@ -440,12 +445,31 @@ function Overachiever.BuildItemLookupTab(id, savedtab, tab)
   end
 --]]
 
-  Overachiever_CharVars_Consumed = Overachiever_CharVars_Consumed or {}
-  Overachiever_CharVars_Consumed.Food = Overachiever_CharVars_Consumed.Food or {}
-  Overachiever_CharVars_Consumed.Drink = Overachiever_CharVars_Consumed.Drink or {}
+  -- Determine whether we should (re)build the lookup tables. If they don't exist (in whole or in part), the
+  -- addon has changed, or the game build has changed, the tables will be (re)built.
+  local needBuild
+  local _, gamebuild = GetBuildInfo()
+  if (not Overachiever_CharVars_Consumed or not Overachiever_CharVars_Consumed.LastBuilt or
+      not Overachiever_CharVars_Consumed.Food or not Overachiever_CharVars_Consumed.Drink) then
+    Overachiever_CharVars_Consumed = Overachiever_CharVars_Consumed or {}
+    Overachiever_CharVars_Consumed.Food = Overachiever_CharVars_Consumed.Food or {}
+    Overachiever_CharVars_Consumed.Drink = Overachiever_CharVars_Consumed.Drink or {}
+    needBuild = true
+  else
+    local oldver, oldbuild = strsplit("|", Overachiever_CharVars_Consumed.LastBuilt, 2)
+    if (oldver ~= THIS_VERSION or gamebuild ~= oldbuild) then  needBuild = true;  end
+  end
 
-  Overachiever.BuildItemLookupTab(OVERACHIEVER_ACHID.TastesLikeChicken, Overachiever_CharVars_Consumed.Food, FoodCriteria)
-  Overachiever.BuildItemLookupTab(OVERACHIEVER_ACHID.HappyHour, Overachiever_CharVars_Consumed.Drink, DrinkCriteria)
+  if (needBuild) then
+    Overachiever_CharVars_Consumed.Food = Overachiever.BuildItemLookupTab(nil, OVERACHIEVER_ACHID.TastesLikeChicken, Overachiever_CharVars_Consumed.Food, FoodCriteria)
+    Overachiever_CharVars_Consumed.Drink = Overachiever.BuildItemLookupTab(nil, OVERACHIEVER_ACHID.HappyHour, Overachiever_CharVars_Consumed.Drink, DrinkCriteria)
+    Overachiever_CharVars_Consumed.LastBuilt = THIS_VERSION.."|"..gamebuild
+  else
+    FoodCriteria, DrinkCriteria = Overachiever_CharVars_Consumed.Food, Overachiever_CharVars_Consumed.Drink
+    ConsumeItemAch.TastesLikeChicken[5] = FoodCriteria
+    ConsumeItemAch.HappyHour[5] = DrinkCriteria
+    if (Overachiever_Debug) then  Overachiever.chatprint("Skipped food/drink lookup table rebuild: Retrieved from saved variables.");  end
+  end
 end
 -- Run periodically (then "/dump TESTTAB") to see if Blizzard reinstated API-accessible tracking:
 -- /run TESTTAB={};local id,i,_,a=1832,1; _, _, c, _, _, _, _, a = GetAchievementCriteriaInfo(id, i); while (a) do TESTTAB[i]=c or nil; i=i+1; _, _, c, _, _, _, _, a = GetAchievementCriteriaInfo(id, i); end
@@ -453,11 +477,6 @@ end
 -- Also, you can use this to get an item's ID:  /run local name,link=GameTooltip:GetItem();local _,_,id=strfind(link,"item:(%d+)");print(link,":",id)
 
 local LBI = LibStub:GetLibrary("LibBabble-Inventory-3.0"):GetLookupTable()
-
-local ConsumeItemAch = {
-  TastesLikeChicken = { "Item_consumed", L.ACH_CONSUME_COMPLETE, L.ACH_CONSUME_INCOMPLETE, L.ACH_CONSUME_INCOMPLETE_EXTRA, FoodCriteria },
-  HappyHour = { "Item_consumed", L.ACH_CONSUME_COMPLETE, L.ACH_CONSUME_INCOMPLETE, L.ACH_CONSUME_INCOMPLETE_EXTRA, DrinkCriteria },
-};
 
 local function ItemConsumedCheck(ach, itemID)
   local id = OVERACHIEVER_ACHID[ach]
