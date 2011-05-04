@@ -402,7 +402,7 @@ end
 -- ITEM TOOLTIP HOOK
 -----------------------
 
-local FoodCriteria, DrinkCriteria, FoodCriteria2, DrinkCriteria2 = {}, {}
+local FoodCriteria, DrinkCriteria, FoodCriteria2, DrinkCriteria2 = {}, {}, {}, {}
 local numDrinksConsumed, numFoodConsumed
 
 local ConsumeItemAch = {
@@ -473,7 +473,7 @@ function Overachiever.BuildItemLookupTab(THIS_VERSION, id, savedtab, tab, duptab
     local oldver, oldbuild = strsplit("|", Overachiever_CharVars_Consumed.LastBuilt, 2)
     if (oldver ~= THIS_VERSION or gamebuild ~= oldbuild) then  needBuild = true;  end
   end
-
+  
   if (needBuild) then
     Overachiever_CharVars_Consumed.Food = Overachiever.BuildItemLookupTab(nil, OVERACHIEVER_ACHID.TastesLikeChicken, Overachiever_CharVars_Consumed.Food, FoodCriteria)
     Overachiever_CharVars_Consumed.Drink = Overachiever.BuildItemLookupTab(nil, OVERACHIEVER_ACHID.HappyHour, Overachiever_CharVars_Consumed.Drink, DrinkCriteria)
