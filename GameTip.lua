@@ -159,22 +159,19 @@ end
 
 local RaceClassAch = {
   FistfulOfLove = { "FistfulOfLove_petals", L.ACH_FISTFULOFLOVE_COMPLETE, L.ACH_FISTFULOFLOVE_INCOMPLETE,
-    { "Gnome WARLOCK", "Orc DEATHKNIGHT", "Human DEATHKNIGHT", "NightElf PRIEST", "Orc SHAMAN", "Tauren DRUID",
-      "Scourge WARRIOR", "Troll ROGUE", "BloodElf MAGE", "Draenei PALADIN", "Dwarf HUNTER" }
+    { "Gnome WARLOCK", "Orc DEATHKNIGHT", "Human DEATHKNIGHT", "NightElf PRIEST", "Orc SHAMAN", "Tauren DRUID", "Scourge WARRIOR", "Troll ROGUE", "BloodElf MAGE", "Draenei PALADIN", "Dwarf HUNTER" }
   },
   LetItSnow = { "LetItSnow_flaked", L.ACH_LETITSNOW_COMPLETE, L.ACH_LETITSNOW_INCOMPLETE,
-    { "Orc DEATHKNIGHT", "Human WARRIOR", "Tauren SHAMAN", "NightElf DRUID", "Scourge ROGUE", "Troll HUNTER",
-      "Gnome MAGE", "Dwarf PALADIN", "BloodElf WARLOCK", "Draenei PRIEST" }
+    { "Orc DEATHKNIGHT", "Human WARRIOR", "Tauren SHAMAN", "NightElf DRUID", "Scourge ROGUE", "Troll HUNTER", "Gnome MAGE", "Dwarf PALADIN", "BloodElf WARLOCK", "Draenei PRIEST" }
   },
   CheckYourHead = { "CheckYourHead_pumpkin", L.ACH_CHECKYOURHEAD_COMPLETE, L.ACH_CHECKYOURHEAD_INCOMPLETE,
-    { "Gnome", "BloodElf", "Draenei", "Dwarf", "Human", "NightElf", "Orc", "Tauren", "Troll", "Scourge" }, true
+    { "BloodElf", "Draenei", "Dwarf", "Gnome", "Goblin", "Human", "NightElf", "Orc", "Tauren", "Troll", "Scourge", "Worgen" }, true
   },
   TurkeyLurkey = { "TurkeyLurkey_feathered", L.ACH_TURKEYLURKEY_COMPLETE, L.ACH_TURKEYLURKEY_INCOMPLETE,
-    { "BloodElf ROGUE", "Dwarf ROGUE", "Gnome ROGUE", "Human ROGUE", "NightElf ROGUE", "Orc ROGUE", "Troll ROGUE",
-      "Scourge ROGUE" }
+    { "BloodElf ROGUE", "Dwarf ROGUE", "Gnome ROGUE", "Human ROGUE", "NightElf ROGUE", "Orc ROGUE", "Troll ROGUE", "Scourge ROGUE" }
   },
   BunnyMaker = { "BunnyMaker_eared", L.ACH_BUNNYMAKER_COMPLETE, L.ACH_BUNNYMAKER_INCOMPLETE,
-    { "BloodElf", "Draenei", "Dwarf", "Gnome", "Human", "NightElf", "Orc", "Tauren", "Troll", "Scourge" }, true,
+    { "BloodElf", "Draenei", "Dwarf", "Gnome", "Goblin", "Human", "NightElf", "Orc", "Tauren", "Troll", "Scourge", "Worgen" }, true,
     function(unit)
       if (UnitSex(unit) == 3) then
         local level = UnitLevel(unit)
@@ -185,6 +182,33 @@ local RaceClassAch = {
     end
   },
 };
+--[[
+-- /run Overachiever.Debug_GetRaceClassAchCrit()
+function Overachiever.Debug_GetRaceClassAchCrit()
+  local s, sub = ""
+  for k,tab in pairs(RaceClassAch) do
+    local id = OVERACHIEVER_ACHID[k]
+    sub = k.." ("..id.."): "
+    for i=1,GetAchievementNumCriteria(id) do
+      local n = GetAchievementCriteriaInfo(id, i)
+      local r, c
+      local n1, n2, n3, n4 = strsplit(" ", n, 4)
+      if (n2 == "Elf") then
+        r = n1..n2
+        if (n3) then  c = strupper(n3..(n4 or ""));  end
+      else
+        r = n1 == "Undead" and "Scourge" or n1
+        if (n2) then  c = strupper(n2..(n3 or ""));  end
+      end
+      n = r..(c and " "..c or "")
+      sub = sub..'"'..n..'"'..", "
+    end
+    print(sub)
+    s = s == "" and sub or s.."|n|n"..sub
+  end
+  error(s) -- Use the popup for easy copy+paste
+end
+--]]
 
 local function RaceClassCheck(ach, tab, raceclass, race, unit)
   local id = OVERACHIEVER_ACHID[ach]

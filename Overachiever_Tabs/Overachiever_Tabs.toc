@@ -1,6 +1,6 @@
-## Interface: 40100
+## Interface: 40200
 ## Title: Overachiever - Tabs
-## Version: 0.63
+## Version: 0.64
 ## Author: Tuhljin
 ## Notes: Achievement frame tabs module.
 ## LoadOnDemand: 1

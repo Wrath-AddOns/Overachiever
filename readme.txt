@@ -1,5 +1,5 @@
 
-Overachiever v0.63
+Overachiever v0.64
 ==============================
 
 Author: Tuhljin
@@ -106,6 +106,14 @@ Change log
 ==========
 
 The change log lists changes of particular note to users, not every change made.
+
+v0.64
+- Updated for WoW patch 4.2.
+- Suggestions Tab: Removed several suggestions that are now Feats of Strength and one that was removed from the game.
+- "Check Your Head" and "Shake Your Bunny-Maker": Fixed an issue where some races were associated with the wrong
+  criteria. (Blizzard added goblins and worgen to the criteria and also changed the order.)
+- Updated options layout.
+- Work in progress.
 
 v0.63
 - Updated for WoW patch 4.1.

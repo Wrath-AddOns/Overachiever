@@ -119,7 +119,7 @@ function Overachiever.CreateOptions(THIS_TITLE, BuildCriteriaLookupTab_check, Au
   local mainpanel, oldver = TjOptions.CreatePanel(THIS_TITLE, nil, {
 	title = title,
 	itemspacing = 3,
-	scrolling = true,
+	--scrolling = true,
 	items = items_general,
 	variables = "Overachiever_Settings",
 	defaults = Overachiever.DefaultSettings
@@ -229,7 +229,7 @@ do
 
       data.icon1 = first
       data.justifyH = data.justifyH or "LEFT"
-      data.width = data.width or (369 - w)
+      data.width = data.width or (505 - w)
       data.lbl_yOffset = yOffset
 
       local text = data.text

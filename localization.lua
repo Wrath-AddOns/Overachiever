@@ -58,8 +58,8 @@ OVERACHIEVER_STRINGS = {
 	OPT_LABEL_SEASONALACHS = "SEASONAL ACHIEVEMENTS";
 
 	OPT_LABEL_ACHTWO = '"%s" and "%s"';
-	OPT_LABEL_ACHTHREE = '"%s," "%s," and|n"%s"';
-	OPT_LABEL_ACHFOUR = '"%s,"|n"%s,"|n"%s,"|n"%s"';
+	OPT_LABEL_ACHTHREE = '"%s," "%s," and "%s"';
+	OPT_LABEL_ACHFOUR = '"%s," "%s,"|n"%s," "%s"';
 
 	OPT_ACHUNKNOWN = "<Unknown>";
 

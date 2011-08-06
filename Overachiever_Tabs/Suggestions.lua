@@ -333,7 +333,7 @@ local ACHID_INSTANCES = {
 	["Scholomance"] = 645,
 	["Stratholme"] = 646,
 -- Classic Raids
-	["Zul'Gurub"] = { 688, 560, 957 },	-- "Zul'Gurub", "Deadliest Catch", "Hero of the Zandalar"
+	-- These are now Feats of Strength: ["Zul'Gurub"] = { 688, 560, 957 },	-- "Zul'Gurub", "Deadliest Catch", "Hero of the Zandalar"
 	["Ruins of Ahn'Qiraj"] = 689,
 	--["Onyxia's Lair"] = 684, -- This is now a Feat of Strength
 	["Molten Core"] = 686,
@@ -342,7 +342,7 @@ local ACHID_INSTANCES = {
 -- Burning Crusade
 	["Auchenai Crypts"] = 666,
 	["The Mechanar"] = 658,
-	["Zul'Aman"] = 691,
+	-- This is now a Feat of Strength: ["Zul'Aman"] = 691,
 	["The Blood Furnace"] = 648,
 	["Hellfire Ramparts"] = 647,
 	["Mana-Tombs"] = 651,
@@ -469,12 +469,12 @@ local ACHID_INSTANCES_HEROIC = {
 -- INSTANCES - 10-MAN ONLY (normal or heroic):
 local ACHID_INSTANCES_10 = {
 -- Lich King Raids
-	["Naxxramas"] = { 2146, 576, 578, 572, 1856, 2176, 2178, 2180, 568, 2187, 1996, 1997, 1858, 564, 2182, 2184,
-		566, 574, 562 },
+	["Naxxramas"] = { 2146, 576, 578, 572, 1856, 2176, 2178, 2180, 568, 1996, 1997, 1858, 564, 2182, 2184,
+		566, 574, 562 }, -- 2187 "The Undying" is now a Feat of Strength
 	["Onyxia's Lair"] = { 4396, 4402, 4403, 4404 },
 	["The Eye of Eternity"] = { 622, 1874, 2148, 1869 },
 	["The Obsidian Sanctum"] = { 1876, 2047, 2049, 2050, 2051, 624 },
-	["Ulduar"] = { 2957, 2903, 2894,
+	["Ulduar"] = { 2957, 2894, -- 2903 "Champion of Ulduar" is now a Feat of Strength
 		SUBZONES = {
 			--["*Formation Grounds*The Colossal Forge*Razorscale's Aerie*The Scrapyard*"] = 2886, -- Siege
 			["Formation Grounds"] = { 3097, 2905, 2907, 2909, 2911, 2913 },
@@ -497,7 +497,8 @@ local ACHID_INSTANCES_10 = {
 			["The Descent into Madness"] = { 2996, 3181 },
 			["The Prison of Yogg-Saron"] = { 3009, 3157, 3008, 3012, 3014, 3015 },
 
-			["The Celestial Planetarium"] = { 3036, 3003, 3004, 3316 }, -- Alganon
+			["The Celestial Planetarium"] = { 3036, 3003 }, -- Alganon
+			  -- 3004 "He Feeds On Your Tears (10 player)" and 3316 "Herald of the Titans" are now Feats of Strength
 		},
 	},
 	["Vault of Archavon"] = { 1722, 3136, 3836, 4016 },
@@ -508,12 +509,13 @@ local ACHID_INSTANCES_10 = {
 -- INSTANCES - 25-MAN ONLY (normal or heroic):
 local ACHID_INSTANCES_25 = {
 -- Lich King Raids
-	["Naxxramas"] = { 2186, 579, 565, 577, 575, 2177, 563, 567, 1857, 569, 573, 1859, 2139, 2181, 2183, 2185,
+	["Naxxramas"] = { 579, 565, 577, 575, 2177, 563, 567, 1857, 569, 573, 1859, 2139, 2181, 2183, 2185,
 		2147, 2140, 2179 },
+		-- made Feats of Strength: 2186
 	["Onyxia's Lair"] = { 4397, 4405, 4406, 4407 },
 	["The Eye of Eternity"] = { 623, 1875, 1870, 2149 },
 	["The Obsidian Sanctum"] = { 625, 2048, 2052, 2053, 2054, 1877 },
-	["Ulduar"] = { 2958, 2904, 2895,
+	["Ulduar"] = { 2958, 2895, -- 2904 "Conqueror of Ulduar" is now a Feat of Strength
 		SUBZONES = {
 			--["*Formation Grounds*The Colossal Forge*Razorscale's Aerie*The Scrapyard*"] = 2887, -- Siege
 			["Formation Grounds"] = { 3098, 2906, 2908, 2910, 2912, 2918 },
@@ -536,11 +538,12 @@ local ACHID_INSTANCES_25 = {
 			["The Descent into Madness"] = { 2997, 3188 },
 			["The Prison of Yogg-Saron"] = { 3011, 3161, 3010, 3013, 3017, 3016 },
 
-			["The Celestial Planetarium"] = { 3037, 3002, 3005 }, -- Alganon
+			["The Celestial Planetarium"] = { 3037, 3002 }, -- Alganon
+			  -- 3005 "He Feeds On Your Tears (25 player)" is now a Feat of Strength
 		},
 	},
 	["Vault of Archavon"] = { 1721, 3137, 3837, 4017 },
-	["Trial of the Crusader"] = { 3916, 3937, 3814, 3815, 3816, 3997, 3813 },
+	["Trial of the Crusader"] = { 3916, 3937, 3815, 3816, 3997, 3813 }, -- removed 3814
 	["Icecrown Citadel"] = { 4620, 4621, 4610, 4614, 4615, 4611, 4612, 4613, 4616, 4622, 4618, 4619, 4617 },
 }
 
@@ -552,7 +555,7 @@ local ACHID_INSTANCES_10_NORMAL = {
 
 -- INSTANCES - HEROIC 10-MAN ONLY:
 local ACHID_INSTANCES_10_HEROIC = {
-	["Trial of the Crusader"] = { 3918, 3808 },
+	["Trial of the Crusader"] = 3918, -- 3808 "A Tribute to Skill (10 player)" is now a Feat of Strength
 	["Icecrown Citadel"] = 4636,
 	["The Ruby Sanctum"] = 4818, -- Need to confirm zone name.
 }
@@ -565,7 +568,7 @@ local ACHID_INSTANCES_25_NORMAL = {
 
 -- INSTANCES - HEROIC 25-MAN ONLY:
 local ACHID_INSTANCES_25_HEROIC = {
-	["Trial of the Crusader"] = { 3812, 3817 },
+	["Trial of the Crusader"] = { 3812 }, -- 3817 "A Tribute to Skill (25 player)" is now a Feat of Strength
 	["Icecrown Citadel"] = 4637,
 	["The Ruby Sanctum"] = 4816, -- Need to confirm zone name.
 }
@@ -604,8 +607,8 @@ local ACHID_TRADESKILL_ZONE = {
 		["Shattrath City"] = 905,	-- "Old Man Barlowned"
 		["Stormwind City"] = { "150:2" },	-- "The Fishing Diplomat"
 		["Terokkar Forest"] = { 905, 726 },	-- "Old Man Barlowned", "Mr. Pinchy's Magical Crawdad Box"
-		["Zul'Gurub"] = 560,		-- "Deadliest Catch"
-		
+		--Feat of Strength: ["Zul'Gurub"] = 560,		-- "Deadliest Catch"
+
 		-- "Master Angler of Azeroth":
 		["The Cape of Stranglethorn"] = 306,
 		["Northern Stranglethorn"] = 306, -- Need to confirm it belongs in both zones
@@ -1231,6 +1234,16 @@ local function getAchIDsFromTab(from, to)
     end
   end
 end
+--local isAchievementInUI = Overachiever.IsAchievementInUI
+--local function isPreviousAchievementInUI(id)
+--  id = GetPreviousAchievement(id)
+--  if (id) then
+--    if (isAchievementInUI(id)) then  return true;  end
+--    return isPreviousAchievementInUI(id)
+--  end
+--end
+local FEAT_OF_STRENGTH_ID = 81;
+local GUILD_FEAT_OF_STRENGTH_ID = 15093;
 
 function Overachiever.Debug_GetMissingAch()
   wipe(suggested)
@@ -1243,7 +1256,14 @@ function Overachiever.Debug_GetMissingAch()
       print("Invalid ID type:",id,type(id))
       count = count + 1
     elseif (GetAchievementInfo(id)) then
-      if (crit) then
+      --if (not isAchievementInUI(id, true) and not isPreviousAchievementInUI(id)) then
+      --  print(GetAchievementLink(id),"is not found in the UI for this character.")
+      --  count = count + 1
+      local cat = GetAchievementCategory(id)
+      if (cat == FEAT_OF_STRENGTH_ID or cat == GUILD_FEAT_OF_STRENGTH_ID) then
+        print(GetAchievementLink(id)," ("..id..") is a Feat of Strength.")
+        count = count + 1
+      elseif (crit) then
         local num = GetAchievementNumCriteria(id)
         for c in pairs(crit) do
           if (c > num) then
@@ -1260,3 +1280,4 @@ function Overachiever.Debug_GetMissingAch()
   print("Overachiever.Debug_GetMissingAch():",count,"problems found.")
 end
 --]]
+
