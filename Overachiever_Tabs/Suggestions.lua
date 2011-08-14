@@ -199,7 +199,11 @@ local ACHID_ZONE_MISC = {
 	["Darkshore"] = { "4827:4" },	-- "Surveying the Damage"
 	["Desolace"] = "4827:8",	-- "Surveying the Damage"
 	["Durotar"] = "4827:7",		-- "Surveying the Damage"
-	["Mount Hyjal"] = { 4959, 5483 },	-- "Beware of the 'Unbeatable?' Pterodactyl", "Bounce"
+	["Molten Front"] = { 5859, 5866, 5867,	-- "Legacy of Leyara", "The Molten Front Offensive", "Flawless Victory", "Fireside Chat", "Master of the Molten Flow",
+		5870, 5871, 5872, 5873, 5874, 5879 }, -- "King of the Spider-Hill", "Ready for Raiding II", "Death From Above", "Veteran of the Molten Front"
+	["Mount Hyjal"] = { 4959, 5483,		-- "Beware of the 'Unbeatable?' Pterodactyl", "Bounce",
+		5859, 5860, 5861, 5862, 5864,	-- "Legacy of Leyara", "The 'Unbeatable?' Pterodactyl: BEATEN.", "The Fiery Lords of Sethria's Roost", "Ludicrous Speed", "Gang War",
+		5865, 5868, 5869 },		-- "Have... Have We Met?", "And the Meek Shall Inherit Kalimdor", "Infernal Ambassadors"
 	["Southern Barrens"] = "4827:1",	-- "Surveying the Damage"
 	["Tanaris"] = "4827:5",		-- "Surveying the Damage"
 	["Thousand Needles"] = "4827:9",	-- "Surveying the Damage"
@@ -270,10 +274,10 @@ if (IsAlliance) then
   tinsert(ACHID_ZONE_MISC["Twilight Highlands"], 5320) -- "King of the Mountain"
   tinsert(ACHID_ZONE_MISC["Twilight Highlands"], 5481) -- "Wildhammer Tour of Duty"
   tinsert(ACHID_ZONE_MISC["Darkshore"], 5453) -- "Ghosts in the Dark"
-  -- "City Defender", "Shave and a Haircut":
-  ACHID_ZONE_MISC["Stormwind City"] = { 388, 545, 5476, 5474 } -- Also: "Fish or Cut Bait", "Let's Do Lunch"
-  ACHID_ZONE_MISC["Ironforge"] = { 388, 545 }
-  ACHID_ZONE_MISC["Darnassus"] = 388
+  -- As applicable, "City Defender", "Shave and a Haircut", "Fish or Cut Bait: <City>", "Let's Do Lunch: <City>":
+  ACHID_ZONE_MISC["Stormwind City"] = { 388, 545, 5476, 5474 }
+  ACHID_ZONE_MISC["Ironforge"] = { 388, 545, 5847, 5841 }
+  ACHID_ZONE_MISC["Darnassus"] = { 388, 5848, 5842 }
   ACHID_ZONE_MISC["The Exodar"] = 388
   -- "Wrath of the Alliance", faction leader kill, "For The Alliance!":
   ACHID_ZONE_MISC["Orgrimmar"] = { 604, 610, 614 }
@@ -290,10 +294,10 @@ else
   tinsert(ACHID_ZONE_MISC["Wintergrasp"], 2776)	-- "Master of Wintergrasp"
   tinsert(ACHID_ZONE_MISC["Twilight Highlands"], 5482) -- "Dragonmaw Tour of Duty"
   tinsert(ACHID_ZONE_MISC["Twilight Highlands"], 5321) -- "King of the Mountain"
-  -- "City Defender", "Shave and a Haircut":
-  ACHID_ZONE_MISC["Orgrimmar"] = { 1006, 545, 5477, 5475 } -- Also: "Fish or Cut Bait", "Let's Do Lunch"
-  ACHID_ZONE_MISC["Thunder Bluff"] = 1006
-  ACHID_ZONE_MISC["Undercity"] = { 1006, 545 }
+  -- As applicable, "City Defender", "Shave and a Haircut", "Fish or Cut Bait: <City>", "Let's Do Lunch: <City>":
+  ACHID_ZONE_MISC["Orgrimmar"] = { 1006, 545, 5477, 5475 }
+  ACHID_ZONE_MISC["Thunder Bluff"] = { 1006, 5849, 5843 }
+  ACHID_ZONE_MISC["Undercity"] = { 1006, 545, 5850, 5844 }
   ACHID_ZONE_MISC["Silvermoon City"] = 1006
   -- "Wrath of the Horde", faction leader kill, "For The Horde!":
   ACHID_ZONE_MISC["Stormwind City"] = { 603, 615, 619 }
@@ -382,6 +386,13 @@ local ACHID_INSTANCES = {
 	["The Forge of Souls"] = 4516,
 	["Halls of Reflection"] = 4518,
 	["Pit of Saron"] = 4517,
+	
+-- Cataclysm Dungeons
+	-- Heroic only, but these dungeons are heroic only so it may as well always show up if suggesting for the zone:
+	["Zul'Aman"] = { 5769, 5858, 5760, 5761, 5750 },  -- "Heroic: Zul'Aman", "Bear-ly Made It", "Ring Out!", "Hex Mix", "Tunnel Vision"
+	["Zul'Gurub"] = { 5768, 5765, 5743, 5762, 5759, 5744 },  -- "Heroic: Zul'Gurub", "Here, Kitty Kitty...", "It's Not Easy Being Green", "Ohganot So Fast!", "Spirit Twister", "Gurubashi Headhunter"
+-- Cataclysm Raids
+	["Firelands"] = { 5802, 5828, 5855 }, -- "Firelands", "Glory of the Firelands Raider", "Ragnar-O's"
 }
 -- Battlegrounds
 ACHID_INSTANCES["Eye of the Storm"] = { 1171, 587, 1258, 211 }
@@ -463,7 +474,6 @@ local ACHID_INSTANCES_HEROIC = {
 	["The Deadmines"] = { 5083, 5370, 5369, 5368, 5367, 5366, 5371 },
 	["The Stonecore"] = { 5063, 5287 },
 	["Throne of the Tides"] = { 5061, 5285, 5286 },
-
 }
 
 -- INSTANCES - 10-MAN ONLY (normal or heroic):
@@ -558,6 +568,8 @@ local ACHID_INSTANCES_10_HEROIC = {
 	["Trial of the Crusader"] = 3918, -- 3808 "A Tribute to Skill (10 player)" is now a Feat of Strength
 	["Icecrown Citadel"] = 4636,
 	["The Ruby Sanctum"] = 4818, -- Need to confirm zone name.
+-- Cataclysm Raids
+	["Firelands"] = 5803,	-- "Heroic: Ragnaros" (can be 10 or 25 apparently but putting it here allows detection that it's a raid when getting Suggestions outside it)
 }
 
 -- INSTANCES - NORMAL 25-MAN ONLY:
@@ -571,6 +583,8 @@ local ACHID_INSTANCES_25_HEROIC = {
 	["Trial of the Crusader"] = { 3812 }, -- 3817 "A Tribute to Skill (25 player)" is now a Feat of Strength
 	["Icecrown Citadel"] = 4637,
 	["The Ruby Sanctum"] = 4816, -- Need to confirm zone name.
+-- Cataclysm Raids
+	["Firelands"] = 5803,	-- "Heroic: Ragnaros" (can be 10 or 25 apparently but putting it here allows detection that it's a raid when getting Suggestions outside it)
 }
 
 
@@ -589,8 +603,8 @@ end
 ----------------------------------------------------
 
 local ACHID_TRADESKILL = {
-	["Cooking"] = IsAlliance and { 1563, 5474 } or { 1784, 5475 },	-- "Hail to the Chef", "Let's Do Lunch"
-	["Fishing"] = { 1516, 5478, 5479 },	-- "Accomplished Angler", "The Limnologist", "The Oceanographer"
+	["Cooking"] = IsAlliance and { 1563, 5845 } or { 1784, 5846 },	-- "Hail to the Chef", "A Bunch of Lunch"
+	["Fishing"] = { 1516, 5478, 5479, IsAlliance and 5851 or 5852 }, -- "Accomplished Angler", "The Limnologist", "The Oceanographer", "Gone Fishin'"
 }
 
 local ACHID_TRADESKILL_ZONE = {
@@ -600,11 +614,11 @@ local ACHID_TRADESKILL_ZONE = {
 		["Shattrath City"] = 906	-- "Kickin' It Up a Notch"
         },
 	["Fishing"] = {
-		["Dalaran"] = { 2096, 1958 },	-- "The Coin Master", "I Smell A Giant Rat"
-		["Ironforge"] = 1837,		-- "Old Ironjaw"
-		["Orgrimmar"] = {1836,"150:1"},	-- "Old Crafty", "The Fishing Diplomat"
-		["Serpentshrine Cavern"] = 144,	-- "The Lurker Above"
-		["Shattrath City"] = 905,	-- "Old Man Barlowned"
+		["Dalaran"] = { 2096, 1958 },		-- "The Coin Master", "I Smell A Giant Rat"
+		["Ironforge"] = { 1837 },		-- "Old Ironjaw"
+		["Orgrimmar"] = {1836, "150:1"},	-- "Old Crafty", "The Fishing Diplomat"
+		["Serpentshrine Cavern"] = 144,		-- "The Lurker Above"
+		["Shattrath City"] = 905,		-- "Old Man Barlowned"
 		["Stormwind City"] = { "150:2" },	-- "The Fishing Diplomat"
 		["Terokkar Forest"] = { 905, 726 },	-- "Old Man Barlowned", "Mr. Pinchy's Magical Crawdad Box"
 		--Feat of Strength: ["Zul'Gurub"] = 560,		-- "Deadliest Catch"
@@ -623,11 +637,19 @@ local ACHID_TRADESKILL_ZONE = {
         }
 }
 if (IsAlliance) then
-  tinsert(ACHID_TRADESKILL_ZONE["Fishing"]["Stormwind City"], 5476) -- "Fish or Cut Bait"
-  tinsert(ACHID_TRADESKILL_ZONE["Fishing"]["Stormwind City"], 5474) -- "Let's Do Lunch"
+  tinsert(ACHID_TRADESKILL_ZONE["Fishing"]["Stormwind City"], 5476)	-- "Fish or Cut Bait: Stormwind"
+  tinsert(ACHID_TRADESKILL_ZONE["Fishing"]["Ironforge"], 5847)		-- "Fish or Cut Bait: Ironforge"
+  ACHID_TRADESKILL_ZONE["Fishing"]["Darnassus"] = 5848			-- "Fish or Cut Bait: Darnassus"
+  ACHID_TRADESKILL_ZONE["Cooking"]["Stormwind City"] = 5474		-- "Let's Do Lunch: Stormwind"
+  ACHID_TRADESKILL_ZONE["Cooking"]["Ironforge"] = 5841			-- "Let's Do Lunch: Ironforge"
+  ACHID_TRADESKILL_ZONE["Cooking"]["Darnassus"] = 5842			-- "Let's Do Lunch: Darnassus"
 else
-  tinsert(ACHID_TRADESKILL_ZONE["Fishing"]["Orgrimmar"], 5477) -- "Fish or Cut Bait"
-  tinsert(ACHID_TRADESKILL_ZONE["Fishing"]["Orgrimmar"], 5475) -- "Let's Do Lunch"
+  tinsert(ACHID_TRADESKILL_ZONE["Fishing"]["Orgrimmar"], 5477)		-- "Fish or Cut Bait: Orgrimmar"
+  ACHID_TRADESKILL_ZONE["Fishing"]["Thunder Bluff"] = 5849		-- "Fish or Cut Bait: Thunder Bluff"
+  ACHID_TRADESKILL_ZONE["Fishing"]["Undercity"] = 5850			-- "Fish or Cut Bait: Undercity"
+  ACHID_TRADESKILL_ZONE["Cooking"]["Orgrimmar"] = 5475			-- "Let's Do Lunch: Orgrimmar"
+  ACHID_TRADESKILL_ZONE["Cooking"]["Thunder Bluff"] = 5843		-- "Let's Do Lunch: Thunder Bluff"
+  ACHID_TRADESKILL_ZONE["Cooking"]["Undercity"] = 5844			-- "Let's Do Lunch: Undercity"
 end
 
 local ACHID_TRADESKILL_BG = { Cooking = 1785 }	-- "Dinner Impossible"
@@ -968,6 +990,7 @@ do
   addtolist(suggested, ACHID_INSTANCES, ACHID_INSTANCES_NORMAL, ACHID_INSTANCES_HEROIC,
             ACHID_INSTANCES_10, ACHID_INSTANCES_25, ACHID_INSTANCES_10_NORMAL, ACHID_INSTANCES_25_NORMAL,
             ACHID_INSTANCES_10_HEROIC, ACHID_INSTANCES_25_HEROIC)
+  addtolist(suggested, ACHID_ZONE_MISC); -- Required for "unlisted" zones like Molten Front (doesn't appear in GetMapContinents/GetMapZones scan)
   addtolist = nil
   -- Arrange into alphabetically-sorted array:
   local count = 0
