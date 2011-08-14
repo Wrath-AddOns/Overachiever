@@ -308,7 +308,7 @@ function Overachiever.ExamineSetUnit(tooltip)
               for id, crit in pairs(potential) do
                 cat = GetAchievementCategory(id)
                 if ((not heroic and (OVERACHIEVER_CATEGORY_HEROIC[cat] or (OVERACHIEVER_HEROIC_CRITERIA[id] and OVERACHIEVER_HEROIC_CRITERIA[id][crit])))
-		    or (not twentyfive and OVERACHIEVER_CATEGORY_25[cat])) then
+                    or (not twentyfive and OVERACHIEVER_CATEGORY_25[cat])) then
                   numincomplete = numincomplete - 1
                 else
                   t = t or time()
@@ -533,6 +533,20 @@ local function ItemConsumedCheck(ach, itemID)
   end
 end
 
+
+local MiscItemAch = {
+  [62680] = { "RightAsRain", "Item_satisfied", L.ACH_CONSUME_91_COMPLETE, L.ACH_CONSUME_91_INCOMPLETE },
+}
+
+local function MiscItemCheck(tab)
+  --local tab = MiscItemAch[itemID]
+  if (not Overachiever_Settings[ tab[2] ]) then  return;  end
+  local id = OVERACHIEVER_ACHID[tab[1]]
+  local _, _, _, complete = GetAchievementInfo(id)
+  return id, complete and tab[3] or tab[4], complete
+end
+
+
 function Overachiever.ExamineItem(tooltip)
   skipNextExamineOneLiner = true
   tooltip = tooltip or this or GameTooltip  -- Workaround in case another addon breaks this
@@ -565,8 +579,31 @@ function Overachiever.ExamineItem(tooltip)
       end
       tooltip:AddLine(text, r, g, b)
       tooltip:AddTexture(AchievementIcon)
-      tooltip:Show()
+      needtipshow = true
     end
+
+    if (MiscItemAch[itemID]) then
+      id, text, complete = MiscItemCheck(MiscItemAch[itemID])
+      if (text) then
+        local r, g, b
+        if (complete) then
+          r, g, b = tooltip_complete.r, tooltip_complete.g, tooltip_complete.b
+        else
+          r, g, b = tooltip_incomplete.r, tooltip_incomplete.g, tooltip_incomplete.b
+          if (tooltip == GameTooltip and itemMinLevel <= UnitLevel("player")) then
+            -- Extra checks needed since the previous item sometimes shows up on the tooltip?
+            PlayReminder()
+            RecentReminders[id] = time()
+          end
+        end
+        tooltip:AddLine(text, r, g, b)
+        tooltip:AddTexture(AchievementIcon)
+        needtipshow = true
+      end
+    end
+
+    if (needtipshow) then  tooltip:Show();  end
+
   end
 end
 

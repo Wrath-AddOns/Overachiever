@@ -35,6 +35,9 @@ OVERACHIEVER_STRINGS = {
 	ACH_CONSUME_COMPLETE = "Already consumed";
 	ACH_CONSUME_INCOMPLETE_EXTRA = "Haven't consumed";
 
+	ACH_CONSUME_91_INCOMPLETE = "I dare you to eat 91 all at once!";
+	ACH_CONSUME_91_COMPLETE = "Gluttony already proven"; --"1000% Satisfied";
+
 	ACH_LETITSNOW_INCOMPLETE = "Need to use Handful of Snowflakes";
 	ACH_LETITSNOW_COMPLETE = "Already used Handful of Snowflakes";
 	ACH_FISTFULOFLOVE_INCOMPLETE = "Need to use Handful of Rose Petals";
@@ -102,6 +105,9 @@ OVERACHIEVER_STRINGS = {
 	OPT_CONSUMEITEMTIPS_TIP2 = "Items that you are too low level to consume will not trigger a reminder sound.";
 	--OPT_CONSUMEITEMTIPS_TIP3 = "Note: This option can add a few seconds to your initial load time.";
 	OPT_CONSUMEITEMTIPS_WHENCOMPLETE = "Show even if achievement is complete";
+
+	OPT_SATISFIEDTIPS = "1000% Satisfied?";
+	OPT_SATISFIEDTIPS_TIP = "Add a line to the tooltips of items that are part the achievement's criteria to indicate whether you need to consume them.";
 
 	OPT_LABEL_NEEDTOKILL = 'Kill Creature Achievements ("%s," "%s," etc.)';
 	OPT_KILLCREATURETIPS = "Creature killed?";
