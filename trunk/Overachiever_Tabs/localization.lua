@@ -94,6 +94,9 @@ elseif (locale == "esES" or locale == "esMX") then  -- Spanish
 		end
 	end
 
+elseif (locale == "ptBR") then  -- Brazilian Portuguese
+--@localization(locale="ptBR", format="lua_additive_table", namespace="Tabs", handle-subnamespaces="subtable")@
+
 end
 if (not L.SUBZONES) then
 	L.SUBZONES = {

@@ -39,4 +39,7 @@ elseif (locale == "esES" or locale == "esMX") then  -- Spanish
 --@localization(locale="esMX", format="lua_additive_table", namespace="Trade", handle-subnamespaces="none")@
 	end
 
+elseif (locale == "ptBR") then  -- Brazilian Portuguese
+--@localization(locale="ptBR", format="lua_additive_table", namespace="Trade", handle-subnamespaces="none")@
+
 end
