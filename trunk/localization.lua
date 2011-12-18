@@ -165,35 +165,38 @@ if (ACHIEVEMENT_TOOLTIP_COMPLETE == "Achievement earned by %1$s on %3$d/%2$d/20%
 end
 
 if (locale == "deDE") then  -- German
--- Thanks to users Svensn and Farook at wowinterface.com for these translations:
+-- Thanks to users Svensn and Farook at wowinterface.com for many of these translations:
 --@localization(locale="deDE", format="lua_additive_table", handle-subnamespaces="none")@
 
 elseif (locale == "frFR") then  -- French
--- Thanks to Atropyne (EU-Garona) for these translations:
+-- Thanks to Atropyne (EU-Garona) for many of these translations:
 --@localization(locale="frFR", format="lua_additive_table", handle-subnamespaces="none")@
 
 elseif (locale == "zhTW") then  -- Traditional Chinese
--- Thanks to user xyrho at wowinterface.com and laincat at curse.com for these translations:
+-- Thanks to user xyrho at wowinterface.com and laincat at curse.com for many of these translations:
 --@localization(locale="zhTW", format="lua_additive_table", handle-subnamespaces="none")@
 
 elseif (locale == "zhCN") then  -- Simplified Chinese
--- Thanks to user Miste(晨光麦) at wowinterface.com and yeah-chen and chrisccc at curse.com for these translations:
+-- Thanks to user Miste(晨光麦) at wowinterface.com and yeah-chen and chrisccc at curse.com for many of these translations:
 --@localization(locale="zhCN", format="lua_additive_table", handle-subnamespaces="none")@
 
 elseif (locale == "ruRU") then  -- Russian
--- Thanks to user Swix at wowinterface.com for these translations:
+-- Thanks to user Swix at wowinterface.com for many of these translations:
 --@localization(locale="ruRU", format="lua_additive_table", handle-subnamespaces="none")@
 
 elseif (locale == "koKR") then  -- Korean
 --@localization(locale="koKR", format="lua_additive_table", handle-subnamespaces="none")@
 
 elseif (locale == "esES" or locale == "esMX") then  -- Spanish
--- Thanks to user PatoDaia at wowinterface.com for these translations:
+-- Thanks to user PatoDaia at wowinterface.com for many of these translations:
 --@localization(locale="esES", format="lua_additive_table", handle-subnamespaces="none")@
 
 	if (locale == "esMX") then  -- Spanish (Mexican)
 --@localization(locale="esMX", format="lua_additive_table", handle-subnamespaces="none")@
 	end
+
+elseif (locale == "ptBR") then  -- Brazilian Portuguese
+--@localization(locale="ptBR", format="lua_additive_table", handle-subnamespaces="none")@
 
 end
 

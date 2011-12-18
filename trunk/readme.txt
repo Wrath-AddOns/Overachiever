@@ -1,5 +1,5 @@
 
-Overachiever v0.64
+Overachiever v0.65
 ==============================
 
 Author: Tuhljin
@@ -106,6 +106,13 @@ Change log
 ==========
 
 The change log lists changes of particular note to users, not every change made.
+
+v0.65
+- Updated for WoW patch 4.3.
+- Suggestions Tab: Added suggestion for Tol Barad/Tol Barad Peninsula.
+- Brazilian Portuguese localization (ptBR) is now supported.
+- Remember, translations are provided by users like you. Thanks for your generosity! Please help contribute if you are
+  able: http://wow.curseforge.com/projects/overachiever/localization/
 
 v0.64
 - Updated for WoW patch 4.2.
@@ -370,8 +377,7 @@ v0.32
   names of any meta-achievements that list this achievement as a criteria.
 - Changed achievement sorting so that two strings beginning with numbers compare the numbers first. This means
   "5 Exalted Reputations" is now listed before "20 Exalted Reputations," for example.
-- Updated most localizations. Translations are generously provided by users like you! Please help contribute if you
-  are able: http://wow.curseforge.com/projects/overachiever/localization/
+- Updated most localizations. Translations are generously provided by users like you! Please help contribute if you  are able: http://wow.curseforge.com/projects/overachiever/localization/
 
 v0.31
 - Suggestions Tab: Many new suggestions based on your current location are possible, including those for: completing
