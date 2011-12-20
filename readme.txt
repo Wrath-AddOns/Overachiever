@@ -109,7 +109,9 @@ The change log lists changes of particular note to users, not every change made.
 
 v0.65
 - Updated for WoW patch 4.3.
-- Suggestions Tab: Added suggestion for Tol Barad/Tol Barad Peninsula.
+- Suggestions Tab: Added suggestions for the Darkmoon Faire, Twin Peaks battleground, Tol Barad/Tol Barad Peninsula,
+  and Alterac Valley. ("The Alterac Blitz" was moved out of the meta-achievement so it's now a suggestion, lest it be
+  forgotten!)
 - Brazilian Portuguese localization (ptBR) is now supported.
 - Remember, translations are provided by users like you. Thanks for your generosity! Please help contribute if you are
   able: http://wow.curseforge.com/projects/overachiever/localization/
