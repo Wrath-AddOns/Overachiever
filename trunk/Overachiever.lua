@@ -36,6 +36,20 @@ do
 end
 local GetAchievementInfo = Overachiever.GetAchievementInfo
 
+-- Overcome problem where GetAchievementCriteriaInfo throws an error if the achievement ID or criteria number is invalid:
+do
+  local GAI = GetAchievementCriteriaInfo
+  function Overachiever.GetAchievementCriteriaInfo(...)
+    if (pcall(GAI, ...)) then
+      return GAI(...); -- Calling it again instead of saving values from previous call seems to be better since we would have to deal with new tables, unpack, manipulating the table for unpack to actually work as expected, etc.
+      --tremove(achievementInfo, 1)
+      --achievementInfo[#achievementInfo+1] = ''; -- Inserting this on the end is necessary for unpack to work as expected if there are any nil values in the table.
+      --return unpack(achievementInfo)
+    end
+  end
+end
+local GetAchievementCriteriaInfo = Overachiever.GetAchievementCriteriaInfo
+
 
 local function copytab(from, to)
   for k,v in pairs(from) do
@@ -845,7 +859,7 @@ function Overachiever.OnEvent(self, event, arg1, ...)
   if (event == "PLAYER_ENTERING_WORLD") then
     Overachiever.MainFrame:UnregisterEvent("PLAYER_ENTERING_WORLD")
     Overachiever.MainFrame:RegisterEvent("ZONE_CHANGED_NEW_AREA")
-
+    
     BuildCategoryInfo()
     BuildCategoryInfo = nil
 
@@ -869,7 +883,7 @@ function Overachiever.OnEvent(self, event, arg1, ...)
         Overachiever_CharVars_Default.Pos_AchievementWatchFrame = nil
       end
     end
-
+    
     if (Overachiever_CharVars) then
       oldver = tonumber(Overachiever_CharVars.Version)
       if (oldver < 0.40) then  Overachiever_CharVars.Pos_AchievementWatchFrame = nil;  end
@@ -904,7 +918,7 @@ function Overachiever.OnEvent(self, event, arg1, ...)
     
     local StartTime
     if (Overachiever_Debug) then  StartTime = GetTime();  end
-
+    
     Overachiever.BuildItemLookupTab(THIS_VERSION)
     Overachiever.BuildItemLookupTab = nil
 
