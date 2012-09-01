@@ -760,15 +760,39 @@ do
   end
 
   function achbtnOnEnter(self)
+    local id, tipset, guildtip = self.id, 0
     GameTooltip:SetOwner(self, "ANCHOR_NONE")
     GameTooltip:SetPoint("TOPLEFT", self, "TOPRIGHT", 8, 0)
     GameTooltip:SetBackdropColor(TOOLTIP_DEFAULT_BACKGROUND_COLOR.r, TOOLTIP_DEFAULT_BACKGROUND_COLOR.g, TOOLTIP_DEFAULT_BACKGROUND_COLOR.b)
+
+	-- This section based on part of AchievementShield_OnEnter:
+	if ( self.accountWide ) then
+		if ( self.completed ) then
+			GameTooltip:AddLine(ACCOUNT_WIDE_ACHIEVEMENT_COMPLETED);
+		else
+			GameTooltip:AddLine(ACCOUNT_WIDE_ACHIEVEMENT);
+		end
+		tipset = 1
+		GameTooltip:Show();
+	end
+	if ( (tipset == 0 or not self.completed) and self.shield.earnedBy ) then
+		GameTooltip:AddLine(format(ACHIEVEMENT_EARNED_BY,self.shield.earnedBy));
+		local me = UnitName("player")
+		if ( not self.shield.wasEarnedByMe ) then
+			GameTooltip:AddLine(format(ACHIEVEMENT_NOT_COMPLETED_BY, me));
+		elseif ( me ~= self.shield.earnedBy ) then
+			GameTooltip:AddLine(format(ACHIEVEMENT_COMPLETED_BY, me));
+		end
+		GameTooltip:Show();
+		tipset = 1
+	end
+
+
     checkGuildMembersTooltip(self)
 
     -- This guild data doesn't pop up as consistently as I'd like but the same thing happens with the default UI and after running tests with the relevant events and functions, it seems to be a Blizzard bug.
     -- Generally, if there's anything to display, selecting the achievement and then moving the cursor away and back will make it work for that achievement. (Same workaround goes for default UI.)
 
-    local id, tipset, guildtip = self.id, 0
     if (GameTooltip:NumLines() > 0) then  tipset, guildtip = 1, true;  end
     button = self
 
