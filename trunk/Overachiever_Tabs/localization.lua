@@ -30,6 +30,15 @@ L.SUGGESTIONS_LOCATION_TIP = "Override Zone/Instance Location"
 L.SUGGESTIONS_LOCATION_TIP2 = "Leave blank to get suggestions for your current location or start typing to get a matching valid zone or instance name to use instead. Press |cffffffffTab|r to cycle between locations that match the text to the left of the cursor. |cffffffffShift+Tab|r cycles in reverse order. If the cursor is at the leftmost position, it cycles between all valid locations."
 L.SUGGESTIONS_LOCATION_SUBZONE = "Subzone:"
 L.SUGGESTIONS_LOCATION_NOSUBZONE = "(unspecified)"
+L.SUGGESTIONS_DIFFICULTY = "Instance Difficulty:"
+L.SUGGESTIONS_DIFFICULTY_AUTO = "Auto-Detect"
+L.SUGGESTIONS_DIFFICULTY_NORMAL = "Normal"
+L.SUGGESTIONS_DIFFICULTY_HEROIC = "Heroic"
+L.SUGGESTIONS_RAIDSIZE = "Raid Size:"
+L.SUGGESTIONS_RAIDSIZE_AUTO = "Auto-Detect"
+L.SUGGESTIONS_RAIDSIZE_10 = "10-man"
+L.SUGGESTIONS_RAIDSIZE_25 = "25-man"
+
 
 L.WATCH_TAB = "Watch";
 L.WATCH_HELP = "Create your watch list by |cffffffffalt+clicking|r on achievements in the other tabs or achievement chat links. |cffffffffAlt+click|r on one displayed here to stop watching it.";
@@ -96,6 +105,9 @@ elseif (locale == "esES" or locale == "esMX") then  -- Spanish
 
 elseif (locale == "ptBR") then  -- Brazilian Portuguese
 --@localization(locale="ptBR", format="lua_additive_table", namespace="Tabs", handle-subnamespaces="subtable")@
+
+elseif (locale == "itIT") then  -- Italian
+--@localization(locale="itIT", format="lua_additive_table", namespace="Tabs", handle-subnamespaces="subtable")@
 
 end
 if (not L.SUBZONES) then
