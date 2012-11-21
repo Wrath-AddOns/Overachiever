@@ -21,6 +21,7 @@ OVERACHIEVER_STRINGS = {
 	KILL_COMPLETE = "Already killed";
 
 	CRITTER = "Critter";
+	WILDPET = "Wild Pet";
 	ACH_LOVECRITTERS_INCOMPLETE = "Needs some /love";
 	ACH_LOVECRITTERS_COMPLETE = "Already /loved";
 
