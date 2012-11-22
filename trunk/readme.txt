@@ -108,7 +108,6 @@ Change log
 The change log lists changes of particular note to users, not every change made.
 
 v0.69
-- Work in progress.
 - Fixed an issue where critters that were reclassified as wild pets wouldn't trigger achievement reminders.
 - "Turkey Lurkey": Fixed an issue where the proper tooltip reminder wouldn't be displayed in some cases.
 
