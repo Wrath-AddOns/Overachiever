@@ -1,5 +1,5 @@
 
-Overachiever v0.69
+Overachiever v0.70
 ==============================
 
 Author: Tuhljin
@@ -106,6 +106,15 @@ Change log
 ==========
 
 The change log lists changes of particular note to users, not every change made.
+
+v0.70
+- Updated for WoW patch 5.1.
+- "Pandaren Cuisine" and "Pandaren Delicacies" added to the consumed item tracking system.
+- Kill Creature Achievements: Fixed an issue where reminder tooltips weren't working. (This means you, "Glorious!")
+- Suggestions Tab, Kill Creature Achievements: When a reminder that you need to kill one of these creatures is
+  triggered, the related achievement will temporarily be added to the suggestions list, as intended.
+- Switched to LibBabble-Subzone library for zone/subzone localizations. (Should correct some issues with suggestions,
+  among other things, for users with non-English clients.)
 
 v0.69
 - Fixed an issue where critters that were reclassified as wild pets wouldn't trigger achievement reminders.
