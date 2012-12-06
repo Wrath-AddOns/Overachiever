@@ -11,8 +11,8 @@ local L = OVERACHIEVER_STRINGS
 local GetAchievementInfo = Overachiever.GetAchievementInfo
 local GetAchievementCriteriaInfo = Overachiever.GetAchievementCriteriaInfo
 
-local LBZ = LibStub("LibBabble-Zone-3.0"):GetUnstrictLookupTable()
-local LBZR = LibStub("LibBabble-Zone-3.0"):GetReverseLookupTable()
+local LBZ = LibStub("LibBabble-SubZone-3.0"):GetUnstrictLookupTable()
+local LBZR = LibStub("LibBabble-SubZone-3.0"):GetReverseLookupTable()
 local LBI = LibStub:GetLibrary("LibBabble-Inventory-3.0"):GetLookupTable()
 local LBIR = LibStub:GetLibrary("LibBabble-Inventory-3.0"):GetReverseLookupTable()
 
