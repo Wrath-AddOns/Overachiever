@@ -15,7 +15,7 @@ OVERACHIEVER_ACHID = {
 	DrownYourSorrows = 5754,	-- "Drown Your Sorrows"
 	PandarenCuisine = 7329,		-- "Pandaren Cuisine"
 	PandarenDelicacies = 7330,	-- "Pandaren Delicacies"
-	
+
 	RightAsRain = 5779,		-- "You'll Feel Right as Rain"
 
 	Scavenger = 1257,		-- "The Scavenger"
@@ -23,10 +23,12 @@ OVERACHIEVER_ACHID = {
 	NorthrendAngler = 1517,		-- "Northrend Angler"
 	Limnologist = 5478,		-- "The Limnologist"
 	Oceanographer = 5479,		-- "The Oceanographer"
+	PandarianAngler = 7611,		-- "Pandarian Angler"
 
 	GourmetOutland = 1800,		-- "The Outland Gourmet"
 	GourmetNorthrend = 1779,	-- "The Northrend Gourmet" (last part)
 	GourmetCataclysm = 5473,	-- "The Cataclysmic Gourmet" (last part)
+	GourmetPandaren = 7327,		-- "The Pandaren Gourmet" (last part)
 	--GourmetWinter = 1688,		-- "The Winter Veil Gourmet"
 
 	MediumRare = 1311,		-- "Medium Rare"
