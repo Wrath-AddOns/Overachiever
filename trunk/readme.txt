@@ -118,8 +118,8 @@ v0.70
   triggered, the related achievement will temporarily be added to the suggestions list, as intended.
 - Suggestions Tab: Suggestions added for Mists of Pandaria raids.
 - Suggestions Tab: Fixed an issue where Cooking and Fishing achievements could "take over" the list, preventing you
-  you from seeing other suggestions once you looked at the tab while the Cooking tradeskill window was open or your
-  fishing pole was equipped.
+  from seeing other suggestions once you looked at the tab while the Cooking tradeskill window was open or your fishing
+  pole was equipped.
 - Switched to LibBabble-Subzone library for zone/subzone localizations. (Should correct some issues with suggestions,
   among other things, for users with non-English clients.)
 
