@@ -110,7 +110,7 @@ The change log lists changes of particular note to users, not every change made.
 v0.73
 - Updated for WoW patch 5.4.
 - Suggestions Tab:
--- Added suggestions for Siege of Orgrimmar and Deepwind Gorge.
+-- Added suggestions for Siege of Orgrimmar, Deepwind Gorge, and Timeless Isle.
 -- Removed suggestions that are now Feats of Strength.
 
 v0.71
