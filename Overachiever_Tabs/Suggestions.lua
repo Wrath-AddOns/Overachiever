@@ -319,6 +319,9 @@ local ACHID_ZONE_MISC = {
 		--7315 "Eternally in the Vale" is now a Feat of Strength
 	},
 	["Isle of Thunder"] = 8121, -- "Stormbreaker"
+	["Timeless Isle"] = {
+		8715, 8726, 8725, 8728, 8712, 8723, 8533, 8724, 8730, 8717
+	},
 }
 if (IsAlliance) then
   tinsert(ACHID_ZONE_MISC["Grizzly Hills"], 2016) -- "Grizzled Veteran"
