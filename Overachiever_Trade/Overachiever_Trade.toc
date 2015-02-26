@@ -1,6 +1,6 @@
-## Interface: 60000
+## Interface: 60100
 ## Title: Overachiever - Trade
-## Version: 0.81
+## Version: 0.82
 ## Author: Tuhljin
 ## Notes: Trade Skills module.
 ## LoadOnDemand: 1
