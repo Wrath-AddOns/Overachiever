@@ -1,5 +1,5 @@
 
-Overachiever v0.82
+Overachiever v0.83
 ==============================
 
 Author: Tuhljin
@@ -106,6 +106,10 @@ Change log
 ==========
 
 The change log lists changes of particular note to users, not every change made.
+
+v0.83
+- Updated for WoW patch 6.2.
+- Suggestions Tab: Added suggestions for Tanaan Jungle and the "storylines" and "bonus objectives" achievements for the other Draenor zones.
 
 v0.82
 - Updated for WoW patch 6.1.

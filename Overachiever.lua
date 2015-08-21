@@ -332,7 +332,7 @@ do
 end
 
 local function checkGuildMembersTooltip(frame)
-  if (not isGuildAchievement(frame.id)) then  return;  end
+  if (frame.id and not isGuildAchievement(frame.id)) then  return;  end
   local gv = isUIInGuildView()
   if (not gv) then  AchievementFrame_ToggleView();  end  -- Toggle so we're in guild mode so AchievementFrameAchievements_CheckGuildMembersTooltip will work as desired.
   AchievementFrameAchievements_CheckGuildMembersTooltip(frame)
