@@ -1429,12 +1429,14 @@ local function grabFromCategory(cat, ...)
   local id, prev, p2
   for i = 1, GetCategoryNumAchievements(cat) do
     id = GetAchievementInfo(cat, i)
-    prev, p2 = nil, GetPreviousAchievement(id)
-    while (p2 and GetAchievementCategory(p2) == cat) do
-      prev = p2
-      p2 = GetPreviousAchievement(id)
-    end
-    suggested[ (prev or id) ] = true
+	if (id) then
+      prev, p2 = nil, GetPreviousAchievement(id)
+      while (p2 and GetAchievementCategory(p2) == cat) do
+        prev = p2
+        p2 = GetPreviousAchievement(id)
+      end
+      suggested[ (prev or id) ] = true
+	end
   end
   -- Add achievements specified by function call (useful for meta-achievements in a different category):
   for i=1, select("#", ...) do
@@ -1479,7 +1481,9 @@ function Overachiever.Debug_GetIDsInCat(cat)
   local id, n
   for i=1,GetCategoryNumAchievements(cat) do
     id, n = GetAchievementInfo(cat, i)
-    tab[n] = id
+    if (id) then
+	  tab[n] = id
+    end
   end
 end
 --]]
