@@ -797,9 +797,9 @@ if (SharedMedia) then
   ["Sound\\Interface\\Glyph_MinorCreate.ogg"] = L.SOUND_GLYPH_CREATE_MINOR,
   ["Sound\\Interface\\Glyph_MajorDestroy.ogg"] = L.SOUND_GLYPH_DESTROY_MAJOR,
   ["Sound\\Interface\\Glyph_MinorDestroy.ogg"] = L.SOUND_GLYPH_DESTROY_MINOR,
-  ["Sound\\Interface\\UI_BattlegroundCountdown_Timer.ogg"] = L.,
-  ["Sound\\Interface\\UI_Challenges_MedalExpires.ogg"] = L.,
-  ["Sound\\Interface\\UI_Garrison_Toast_InvasionAlert.ogg"] = L.,
+  ["Sound\\Interface\\UI_BattlegroundCountdown_Timer.ogg"] = L.SOUND_BGTIMER,
+  ["Sound\\Interface\\UI_Challenges_MedalExpires.ogg"] = L.SOUND_MEDAL_EXPIRES,
+  ["Sound\\Interface\\UI_Garrison_Toast_InvasionAlert.ogg"] = L.SOUND_GARRISON_INVASION,
   --[[ don't work for some reason
   ["Sound\\Interface\\Deathbind Sound.ogg"] = "Deathbind",
   ["Sound\\Interface\\FX_Shimmer_Whoosh_Generic.ogg"] = "Shimmer Whoosh",
