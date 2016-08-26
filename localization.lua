@@ -154,6 +154,15 @@ OVERACHIEVER_STRINGS = {
 	SOUND_SIMON_STARTGAME = "Simon Start Game";
 	SOUND_SIMON_STARTLEVEL = "Simon Start Level";
 	SOUND_YAR = "Yarrrr";
+	SOUND_AGGRO_WARNING = "Aggro Warning";
+	SOUND_AGGRO_PULLED = "Aggro Pulled";
+	SOUND_GLYPH_CREATE_MAJOR = "Glyph Create Major";
+	SOUND_GLYPH_CREATE_MINOR = "Glyph Create Minor";
+	SOUND_GLYPH_DESTROY_MAJOR = "Glyph Destroy Major";
+	SOUND_GLYPH_DESTROY_MINOR = "Glyph Destroy Minor";
+	SOUND_BGTIMER = "Battleground Timer";
+	SOUND_MEDAL_EXPIRES = "Medal Expires";
+	SOUND_GARRISON_INVASION = "Garrison Invasion Alert";
 }
 
 local L, locale = OVERACHIEVER_STRINGS, GetLocale()
