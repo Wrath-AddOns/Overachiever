@@ -160,6 +160,12 @@ OVERACHIEVER_EXPLOREZONEID = {
 	["Spires of Arak"] = 8941,
 	["Nagrand"] = 8942,
 	["Tanaan Jungle"] = 10260,
+-- Legion
+	["Azsuna"] = 10665,
+	["Val'sharah"] = 10666,
+	["Highmountain"] = 10667,
+	["Stormheim"] = 10668,
+	["Suramar"] = 10669,
 };
 -- "Explore Cataclysm": 4868
 
@@ -169,18 +175,18 @@ function Overachiever.ExploreZoneIDLookup(zoneName)
 end
 
 
--- !! These categories no longer exist!! :
+--[[ These categories no longer exist!:
 OVERACHIEVER_CATEGORY_HEROIC = {
 	[14921] = true, -- Lich King Dungeon
 	[14923] = true, -- Lich King 25-Player Raid
 };
--- !! These categories no longer exist!! :
 OVERACHIEVER_CATEGORY_25 = {
 	[14923] = true,			-- Lich King 25-Player Raid
 	[14962] = true,			-- Secrets of Ulduar 25-Player Raid
 	[15002] = true,			-- Call of the Crusade 25-Player Raid
 	[15042] = true,			-- Fall of the Lich King 25-Player Raid
 };
+--]]
 
 OVERACHIEVER_HEROIC_CRITERIA = {
 	[1658] =			-- "Champions of the Frozen Wastes"
