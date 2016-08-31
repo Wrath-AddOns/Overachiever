@@ -34,11 +34,14 @@ L.SUGGESTIONS_DIFFICULTY = "Instance Difficulty:"
 L.SUGGESTIONS_DIFFICULTY_AUTO = "Auto-Detect"
 L.SUGGESTIONS_DIFFICULTY_NORMAL = "Normal"
 L.SUGGESTIONS_DIFFICULTY_HEROIC = "Heroic"
+L.SUGGESTIONS_DIFFICULTY_MYTHIC = "Mythic"
 L.SUGGESTIONS_RAIDSIZE = "Raid Size:"
 L.SUGGESTIONS_RAIDSIZE_AUTO = "Auto-Detect"
 L.SUGGESTIONS_RAIDSIZE_10 = "10-man"
 L.SUGGESTIONS_RAIDSIZE_25 = "25-man"
 
+L.SUGGESTIONS_ZONERENAME_DALARAN_NORTHREND = "Dalaran (Northrend)"
+L.SUGGESTIONS_ZONERENAME_DALARAN_BROKENISLES = "Dalaran (Broken Isles)"
 
 L.WATCH_TAB = "Watch";
 L.WATCH_HELP = "Create your watch list by |cffffffffalt+clicking|r on achievements in the other tabs or achievement chat links. |cffffffffAlt+click|r on one displayed here to stop watching it.";

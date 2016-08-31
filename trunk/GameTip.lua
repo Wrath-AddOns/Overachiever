@@ -134,11 +134,74 @@ function Overachiever.RecentReminders_Check()
   end
 end
 
+local function isTwentyFiver(diffID)
+  if (diffID == 4 or diffID == 6 or diffID == 7 or diffID == 20) then  return true;  end
+  return false
+end
+
+function Overachiever.GetDifficulty()
+  if (IsInInstance()) then
+  -- IF IN AN INSTANCE:
+  -- Returns: <instance type ("arena", "party", "pvp", "raid", or "scenario")>, <Is Heroic?>, <Is Mythic?>, <Challenge Mode?>, <Legacy raid size 25 players?>, <Heroic Raid?>, <Mythic Raid?>
+  --   If in a raid, the "Heroic Raid?" return will match the "Heroic?" return. Otherwise, it will be nil. (Similar for "Mythic Raid?".)
+  --   Note: While it may seem that the "Heroic?" and "Heroic Raid?" returns are redundant here, it's done this
+  --   way to make the return values consistent with those given when you're NOT in an instance.
+
+    --local name, itype, difficultyID, difficultyName, maxPlayers, playerDifficulty, isDynamicInstance, mapID, instanceGroupSize = GetInstanceInfo()
+	--local difficultyName, instanceType, isHeroic, isChallengeMode, displayHeroic, displayMythic, toggleDifficultyID = GetDifficultyInfo(difficultyID);
+	local _, itype, difficultyID = GetInstanceInfo()
+	local _, _, isHeroic, isChallengeMode, _, displayMythic, toggleDifficultyID = GetDifficultyInfo(difficultyID)
+	if (itype == "raid") then  return itype, isHeroic, displayMythic, isChallengeMode, isHeroic, displayMythic, isTwentyFiver(difficultyID);  end
+	return itype, isHeroic, displayMythic, isChallengeMode, nil, nil, nil
+  else
+  -- IF NOT IN AN INSTANCE:
+  -- Returns: false, <Dungeon set as Heroic?>, <Dungeon set as Mythic?>, nil, <Legacy raid size is 25 players?>, <Raid set as Heroic?>, <Raid set as Mythic?>
+
+    local d = GetDungeonDifficultyID()
+	local _, _, isHeroicD, _, _, displayMythicD = GetDifficultyInfo(d);
+    local r = GetLegacyRaidDifficultyID() --GetRaidDifficultyID()
+	local _, _, isHeroicR, _, _, displayMythicR = GetDifficultyInfo(r)
+	return false, isHeroicD, displayMythicD, nil, isTwentyFiver(r), isHeroicR, displayMythicR --isTwentyFiver(GetLegacyRaidDifficultyID())
+  end
+end
+
+--[[
+http://wowprogramming.com/docs/api/GetInstanceInfo
+local name, itype, difficulty, difficultyName, maxPlayers, playerDifficulty, isDynamicInstance, mapID, instanceGroupSize = GetInstanceInfo()
+difficulty:
+0 - None; not in an Instance.
+1 - 5-player Instance.
+2 - 5-player Heroic Instance.
+3 - 10-player Raid Instance.
+4 - 25-player Raid Instance.
+5 - 10-player Heroic Raid Instance.
+6 - 25-player Heroic Raid Instance.
+7 - 25-player Raid Finder Instance.
+8 - Challenge Mode Instance.
+9 - 40-player Raid Instance.
+10 - Not used.
+11 - Heroic Scenario Instance.
+12 - Scenario Instance.
+13 - Not used.
+14 - 10-30-player Normal Raid Instance.
+15 - 10-30-player Heroic Raid Instance.
+16 - 20-player Mythic Raid Instance .
+17 - 10-30-player Raid Finder Instance.
+18 - 40-player Event raid (Used by the level 100 version of Molten Core for WoW's 10th anniversary).
+19 - 5-player Event instance (Used by the level 90 version of UBRS at WoD launch).
+20 - 25-player Event scenario (unknown usage).
+21 - Not used.
+22 - Not used.
+23 - Mythic 5-player Instance.
+24 - Timewalker 5-player Instance.
+--]]
+
+--[[
 function Overachiever.GetDifficulty()
   local inInstance = IsInInstance()
   if (inInstance) then
 -- IF IN AN INSTANCE:
-  -- Returns: <instance type ("pvp"/"arena"/"party"/"raid")>, <Heroic?>, <25-player Raid?>, <Heroic Raid?>, <Dynamic?>
+  -- Returns: <instance type ("arena", "party", "pvp", "raid", or "scenario")>, <Heroic?>, <25-player Raid?>, <Heroic Raid?>, <Dynamic?>
   --   If in a raid, the "Heroic Raid?" return will match the "Heroic?" return. Otherwise, it will be nil (actually
   --   no return). "Dynamic?" refers to whether the current instance's difficulty can be changed on the fly, as is
   --   the case with the Icecrown Citadel raid.
@@ -155,6 +218,7 @@ function Overachiever.GetDifficulty()
   local r = GetRaidDifficultyID()
   return false, (d > 1), (r == 4 or r == 6), (r > 4)
 end
+--]]
 
 
 -- UNIT TOOLTIP HOOK
@@ -330,11 +394,21 @@ function Overachiever.ExamineSetUnit(tooltip)
         if (num > 0) then
           if (numincomplete > 0) then
             local cat, t
-            local instype, heroic, twentyfive = Overachiever.GetDifficulty()
+            local instype, heroic, mythic, challenge, twentyfive = Overachiever.GetDifficulty()
             for id, crit in pairs(potential) do
+			  --[[
               cat = GetAchievementCategory(id)
               if (((not instype or not heroic) and (OVERACHIEVER_CATEGORY_HEROIC[cat] or (OVERACHIEVER_HEROIC_CRITERIA[id] and OVERACHIEVER_HEROIC_CRITERIA[id][crit])))
                   or ((not instype or not twentyfive) and OVERACHIEVER_CATEGORY_25[cat])) then
+                numincomplete = numincomplete - 1 -- Discount this reminder if it's heroic-only and you're not in a heroic instance or if it's 25-man only and you're not in a 25-man instance.
+              else
+                t = t or time()
+                RecentReminders[id] = t
+              end
+			  --]]
+			  -- We don't have an easy way to detect whether the achievement is heroic-only any more here. (Maybe add a new function for this later?)
+			  -- We can still use the criteria-specific table, though:
+              if ((not instype or not heroic) and (OVERACHIEVER_HEROIC_CRITERIA[id] and OVERACHIEVER_HEROIC_CRITERIA[id][crit])) then
                 numincomplete = numincomplete - 1 -- Discount this reminder if it's heroic-only and you're not in a heroic instance or if it's 25-man only and you're not in a 25-man instance.
               else
                 t = t or time()

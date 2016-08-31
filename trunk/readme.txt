@@ -1,5 +1,5 @@
 
-Overachiever v0.90
+Overachiever v0.91
 ==============================
 
 Author: Tuhljin
@@ -106,6 +106,12 @@ Change log
 ==========
 
 The change log lists changes of particular note to users, not every change made.
+
+v0.91
+- Suggestions Tab:
+-- Added numerous suggestions for Legion zones, dungeons, and raids.
+-- Added "Mythic" to instance difficulty override dropdown.
+-- Now considers the different "Dalaran" zones individually (so suggestions for Dalaran in Northrend don't show in other Dalaran zones).
 
 v0.90
 - Updated for WoW patch 7.0.x. Updated TOC and fixed several errors. (Haven't added new suggestions yet.)
