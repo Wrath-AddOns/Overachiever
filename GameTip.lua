@@ -107,6 +107,22 @@ local function isCriteria_hidden(achID, name)
 end
 --]]
 
+
+local function getMobID(unit)
+  local guid = UnitGUID(unit)
+  if (not guid) then  return;  end
+  local unitType, _, _, _, _, id = ("-"):split(guid)
+  if (unitType == "Creature") then
+    --Overachiever.chatprint("ExamineSetUnit "..(id and tonumber(id) or "nil"))
+    return tonumber(id)
+  end
+  --guid = tonumber( "0x"..strsub(guid, 6, 10) )
+  --guid = tonumber(guid:sub(6,10), 16)
+  --guid = tonumber((guid):sub(-12, -9), 16)
+  --return guid
+end
+
+
 local lastreminder = 0
 local SharedMedia = LibStub:GetLibrary("LibSharedMedia-3.0")
 
@@ -371,9 +387,7 @@ function Overachiever.ExamineSetUnit(tooltip)
       end
 
     elseif (Overachiever_Settings.CreatureTip_killed and UnitCanAttack("player", unit)) then
-      local guid = UnitGUID(unit)
-      --guid = tonumber( "0x"..strsub(guid, 6, 10) )
-      guid = tonumber(guid:sub(6,10), 16)
+      local guid = getMobID(unit)
       local tab = Overachiever.AchLookup_kill[guid]
       if (tab) then
         local num, numincomplete, potential, _, achcom, c, t = 0, 0

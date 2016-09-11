@@ -1,5 +1,5 @@
 
-Overachiever v0.91
+Overachiever v0.92
 ==============================
 
 Author: Tuhljin
@@ -106,6 +106,9 @@ Change log
 ==========
 
 The change log lists changes of particular note to users, not every change made.
+
+v0.92
+- Fixed reminder tooltips not showing for achievements that identified the mob by ID (non-critter "need to kill" achievements).
 
 v0.91
 - Suggestions Tab:
