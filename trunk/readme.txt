@@ -108,7 +108,10 @@ Change log
 The change log lists changes of particular note to users, not every change made.
 
 v0.92
+- New options: Can now react to the Achievement Progress toast by tracking the achievement, linking the achievement and showing the completed criteria in the chat log, and/or adding the achievement to the Suggestions tab as a "Recent Reminder".
+- Added a "Recently spotted objective" tooltip to certain types of achievements on the Recent Reminders list in the achievement UI indicating what was seen that triggered the reminder. (E.g., it would show name of the mob that needs to be killed.) Helpful when you briefly run the mouse over something that triggers the reminder sound (if you turned that on!) but you don't know what it was.
 - Fixed reminder tooltips not showing for achievements that identified the mob by ID (non-critter "need to kill" achievements).
+- Attempt to fix compatibility issue with other addons resulting in an error that appears when the achievement frame is opened.
 
 v0.91
 - Suggestions Tab:

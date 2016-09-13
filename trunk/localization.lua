@@ -9,8 +9,14 @@ OVERACHIEVER_STRINGS = {
 	BINDING_NAME_OVERACHIEVER_TAB_SUGGESTIONS = "Open Suggestions Tab";
 	BINDING_NAME_OVERACHIEVER_TAB_WATCH = "Open Watch Tab";
 
+	OVERACHIEVER_INSTALLED_TOAST = "OVERACHIEVER INSTALLED!";
+	OVERACHIEVER_INSTALLED_MSG = "|cff7eff00Overachiever|r v%s was installed.";
+	OVERACHIEVER_UPDATED_TOAST = "OVERACHIEVER UPDATED!";
+	OVERACHIEVER_UPDATED_MSG = "|cff7eff00Overachiever|r was updated to v%s.";
+
 	SERIESTIP = "Part of a series:";
 	REQUIREDFORMETATIP = "Required for:";
+	RECENTREMINDERCRITERIA = "Recently spotted objective:";
 
 	PROGRESS = "Progress";
 	YOURPROGRESS = "Your Progress";
@@ -56,6 +62,7 @@ OVERACHIEVER_STRINGS = {
 	MSG_ONEFOUND = "1 other achievement found: ";
 	MSG_NUMFOUNDLIST = "%s other achievements found:";
 	MSG_ACHNOTFOUND = "Achievement not found.";
+	MSG_CRITERIAPROGRESS = "|cff7eff00Achievement Progress:|r %s (%s)";
 
 	OPTPANEL_REMINDERTOOLTIPS = "Reminder Tooltips";
 
@@ -81,6 +88,14 @@ OVERACHIEVER_STRINGS = {
 	OPT_AUTOTRACKEXPLORE = "Auto-track exploration achievements as you travel";
 	OPT_AUTOTRACKEXPLORE_TIP = "When you enter a zone, automatically track its exploration achievement. If already tracking an exploration achievement, this will replace the previous automatically-tracked one if there is one or another exploration achievement otherwise.";
 	OPT_AUTOTRACKEXPLORE_COMPLETED = "Including completed achievements";
+	OPT_AUTOTRACK_CRITERIATOAST = 'Auto-track upon "Achievement Progress" toast';
+	OPT_AUTOTRACK_CRITERIATOAST_TIP = 'When the "Achievement Progress" toast appears, automatically track the achievement (if the tracking limit permits).';
+
+	OPT_LABEL_CRITERIATOAST = "Progress Reaction (Non-Tracking)";
+	OPT_CRITERIATOAST_CHATLOG = "Add to chat log";
+	OPT_CRITERIATOAST_CHATLOG_TIP = 'When the "Achievement Progress" toast appears, link the achievement and show the completed criteria in the chat log.';
+	OPT_CRITERIATOAST_SUGGEST = "Add to Recent Reminders (Suggestions)";
+	OPT_CRITERIATOAST_SUGGEST_TIP = 'When the "Achievement Progress" toast appears, temporarily add the achievement to the Suggestions tab as a "Recent Reminder."';
 
 	OPT_CRITTERTIPS = "Critter /loved?";
 	OPT_CRITTERTIPS_TIP = "If this achievement is incomplete, add a line to the tooltips of critters that are part of its criteria to indicate whether you still need to /love that type of critter.";

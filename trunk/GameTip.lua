@@ -5,6 +5,8 @@ local GetStatistic = GetStatistic
 local GetAchievementInfo = Overachiever.GetAchievementInfo
 local GetAchievementCriteriaInfo = Overachiever.GetAchievementCriteriaInfo
 
+local REMINDER_EXPIRE_SECONDS = 120  -- Allow reminders from up to 2 minutes ago
+
 local AchievementIcon = "Interface\\AddOns\\Overachiever\\AchShield"
 local tooltip_complete = { r = 0.2, g = 0.5, b = 0.2 }
 local tooltip_incomplete = { r = 1, g = 0.1, b = 0.1 }
@@ -139,13 +141,16 @@ end
 
 
 Overachiever.RecentReminders = {}  -- Used by Tabs module
+Overachiever.RecentReminders_Criteria = {}
 local RecentReminders = Overachiever.RecentReminders
+local RecentReminders_Criteria = Overachiever.RecentReminders_Criteria
 
 function Overachiever.RecentReminders_Check()
-  local earliest = time() - 120  -- Allow reminders from up to 2 minutes ago
+  local earliest = time() - REMINDER_EXPIRE_SECONDS
   for id,t in pairs(RecentReminders) do
     if (t < earliest) then
       RecentReminders[id] = nil
+	  RecentReminders_Criteria[id] = nil
     end
   end
 end
@@ -355,6 +360,8 @@ function Overachiever.ExamineSetUnit(tooltip)
               r, g, b = tooltip_incomplete.r, tooltip_incomplete.g, tooltip_incomplete.b
               PlayReminder()
               RecentReminders[id] = time()
+			  local playername = UnitName(unit)
+			  if (playername) then  RecentReminders_Criteria[id] = playername .. " (" .. raceclass .. ")";  end
             end
             tooltip:AddLine(text, r, g, b)
             tooltip:AddTexture(AchievementIcon)
@@ -378,6 +385,7 @@ function Overachiever.ExamineSetUnit(tooltip)
               r, g, b = tooltip_incomplete.r, tooltip_incomplete.g, tooltip_incomplete.b
               PlayReminder()
               RecentReminders[id] = time()
+			  RecentReminders_Criteria[id] = name
             end
             tooltip:AddLine(text, r, g, b)
             tooltip:AddTexture(AchievementIcon)
@@ -400,7 +408,7 @@ function Overachiever.ExamineSetUnit(tooltip)
             if (not c) then
               numincomplete = numincomplete + 1
               potential = potential or {}
-              potential[id] = i+1
+			  potential[id] = tab[i+1]
             end
           end
         end
@@ -427,6 +435,7 @@ function Overachiever.ExamineSetUnit(tooltip)
               else
                 t = t or time()
                 RecentReminders[id] = t
+				RecentReminders_Criteria[id] = crit
               end
             end
           end
@@ -522,6 +531,7 @@ do
           r, g, b = tooltip_incomplete.r, tooltip_incomplete.g, tooltip_incomplete.b
           if (not cache_used) then
             RecentReminders[id] = time()
+			RecentReminders_Criteria[id] = tiptext
             if (not angler or not Overachiever_Settings.SoundAchIncomplete_AnglerCheckPole or
                 not IsEquippedItemType("Fishing Poles")) then
               PlayReminder()
