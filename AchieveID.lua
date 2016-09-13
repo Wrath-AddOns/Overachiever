@@ -189,7 +189,11 @@ OVERACHIEVER_CATEGORY_25 = {
 --]]
 
 OVERACHIEVER_HEROIC_CRITERIA = {
-	[1658] =			-- "Champions of the Frozen Wastes"
+	[1658] =			-- "Champion of the Frozen Wastes"
+		{ [1] = true, [2] = true, [3] = true, [4] = true, [5] = true, [6] = true, [7] = true, [8] = true,		  
+		  [12] = true, [13] = true, [14] = true, [15] = true },
+--[[ this data seems wrong. was this achievement changed at some point or has it always been wrong?
 		{ [4] = true, [5] = true, [6] = true, [7] = true, [8] = true, [9] = true, [10] = true, [11] = true, [12] = true,
 		  [13] = true, [14] = true, [15] = true },
+--]]
 };
