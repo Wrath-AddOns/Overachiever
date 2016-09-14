@@ -501,13 +501,13 @@ end
 do
   local last_check, last_tiptext = 0
   local last_id, last_text, last_complete, last_angler
-  --local tooltipUsed
+  local tooltipUsed
 
   function Overachiever.ExamineOneLiner(tooltip)
   -- Unfortunately, there isn't a "GameTooltip:SetWorldObject" or similar type of thing, so we have to check for
   -- these sorts of tooltips in a less direct way.
 
-    --tooltipUsed = nil
+    tooltipUsed = nil
 
     --if (skipNextExamineOneLiner) then  skipNextExamineOneLiner = nil;  return;  end
     -- Skipping works because this function is consistently called after the functions that set skipNextExamineOneLiner to true.
@@ -558,9 +558,13 @@ do
         tooltip:AddLine(text, r, g, b)
         tooltip:AddTexture(AchievementIcon)
         tooltip:Show()
-		--tooltipUsed = true
+		tooltipUsed = true
       end
     end
+  end
+
+  local function delayedExamine()
+    Overachiever.ExamineOneLiner(GameTooltip)
   end
 
   -- We need this function because something is making the tooltip refresh its text while it's open, causing us to lose what we added:
@@ -569,11 +573,16 @@ do
 	-- displayed or about to be "shown" again (even though the text might be the same as before), but the problem is that if it's the latter, our
 	-- OnShow hook (Overachiever.ExamineOneLiner) doesn't get called if the frame was still visible. So, we hide it, so when GameTooltip:Show() is
 	-- called next, our hook is always called. (And if it was the latter, the tooltip not being displayed, then hiding it *shouldn't* cause problems.)
-	tooltip:Hide()
-	-- Tried to use a variable to track when we needed to do this to avoid doing it all the time, just in case this conflicts with some tooltip addon
-    -- or something, but there are cases where it didn't work (e.g. when you have a mob's tooltip visible as you move the cursor to the triggering
-	-- world object):
-	--if (tooltipUsed) then  tooltip:Hide();  end
+	--tooltip:Hide()
+	-- We can't just do the above, as if causes the tooltip to be hidden when we don't want it to. (Depends on addons you're using. Seems most common in
+	-- my testing with buffs/debuffs that have a timer ticking.) So, we use a variable to track when we know we need to do this. However, that doesn't
+	-- catch all instances, so the C_Timer.After call is used to catch the rest. (We don't want to only use the timer call because if it's the refreshing
+	-- tooltip issue, what we add is for a brief moment not shown - repeatedly, every few seconds, since the tooltip keeps refreshing.)
+	if (tooltipUsed) then
+	  tooltip:Hide()
+	elseif (tooltip == GameTooltip) then
+	  C_Timer.After(0, delayedExamine)
+	end
   end
 end
 

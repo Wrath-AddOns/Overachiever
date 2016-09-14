@@ -1,5 +1,5 @@
 
-Overachiever v0.92
+Overachiever v0.93
 ==============================
 
 Author: Tuhljin
@@ -106,6 +106,9 @@ Change log
 ==========
 
 The change log lists changes of particular note to users, not every change made.
+
+v0.93
+- Fix an issue where the tooltip disappears when it shouldn't. (When this was depends on user's other addons.)
 
 v0.92
 - New options: Can now react to the Achievement Progress toast by tracking the achievement, linking the achievement and showing the completed criteria in the chat log, and/or adding the achievement to the Suggestions tab as a "Recent Reminder".
