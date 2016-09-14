@@ -564,7 +564,7 @@ do
   end
 
   local function delayedExamine()
-    Overachiever.ExamineOneLiner(GameTooltip)
+    if (GameTooltip:IsShown()) then  Overachiever.ExamineOneLiner(GameTooltip);  end
   end
 
   -- We need this function because something is making the tooltip refresh its text while it's open, causing us to lose what we added:
