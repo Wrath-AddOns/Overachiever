@@ -36,7 +36,12 @@ OVERACHIEVER_STRINGS = {
 
 	ACH_ANGLER_INCOMPLETE = "Need to fish";
 	ACH_ANGLER_COMPLETE = "Already fished";
-	ACH_FISHSCHOOL_FORMAT = "%s School";
+	-- Since some achievements say to catch a certain fish but don't require fishing from a specific node and so don't give the node's name in the criteria,
+	-- use this to make reminder tooltips work on those nodes where the fish name is known but the node's full name isn't. The %s is a stand-in for the
+	-- fish name. Put each possibility on a new line.
+	ACH_FISHSCHOOL_FORMAT = [[%s School
+School of %s
+%s Swarm]];
 
 	ACH_CONSUME_INCOMPLETE = "Need to consume";
 	ACH_CONSUME_COMPLETE = "Already consumed";

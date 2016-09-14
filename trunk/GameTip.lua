@@ -13,7 +13,9 @@ local tooltip_incomplete = { r = 1, g = 0.1, b = 0.1 }
 
 local time = time
 
-local skipNextExamineOneLiner
+local chatprint = Overachiever.chatprint
+
+--local skipNextExamineOneLiner
 
 local isCriteria
 do
@@ -45,7 +47,12 @@ do
       local n
       for i=1,GetAchievementNumCriteria(achID) do
         n = GetAchievementCriteriaInfo(achID, i)
-        cache[achID][base:format(n)] = i  -- Creating lookup table
+		local arr = { strsplit("\n", base) }
+		-- Creating lookup table
+		--cache[achID][base:format(n)] = i
+		for k,v in ipairs(arr) do
+		  cache[achID][v:format(n)] = i
+		end
       end
     end
     if (cache[achID][name]) then
@@ -115,7 +122,7 @@ local function getMobID(unit)
   if (not guid) then  return;  end
   local unitType, _, _, _, _, id = ("-"):split(guid)
   if (unitType == "Creature") then
-    --Overachiever.chatprint("ExamineSetUnit "..(id and tonumber(id) or "nil"))
+    --chatprint("ExamineSetUnit "..(id and tonumber(id) or "nil"))
     return tonumber(id)
   end
   --guid = tonumber( "0x"..strsub(guid, 6, 10) )
@@ -131,7 +138,7 @@ local SharedMedia = LibStub:GetLibrary("LibSharedMedia-3.0")
 local function PlayReminder()
   if (Overachiever_Settings.SoundAchIncomplete ~= 0 and time() >= lastreminder + 15) then
     local sound = SharedMedia:Fetch("sound", Overachiever_Settings.SoundAchIncomplete)
-	--Overachiever.chatprint("sound: " .. (sound and sound or "nope"))
+	--chatprint("sound: " .. (sound and sound or "nope"))
     if (sound) then
       PlaySoundFile(sound)
       lastreminder = time()
@@ -338,15 +345,15 @@ local function RaceClassCheck(ach, tab, raceclass, race, unit)
 end
 
 function Overachiever.ExamineSetUnit(tooltip)
-  skipNextExamineOneLiner = true
+  --skipNextExamineOneLiner = true
   tooltip = tooltip or GameTooltip  -- Workaround since another addon is known to break this
   local name, unit = tooltip:GetUnit()
   if (not unit) then  return;  end
   local id, text, complete, needtipshow
 
   if (UnitIsPlayer(unit)) then
-    local _, r, c = UnitRace(unit)
-    _, c = UnitClass(unit)
+    local raceName, r = UnitRace(unit)
+	local className, c = UnitClass(unit)
     if (r and c) then
       local raceclass = r.." "..c
       for key,tab in pairs(RaceClassAch) do
@@ -361,7 +368,7 @@ function Overachiever.ExamineSetUnit(tooltip)
               PlayReminder()
               RecentReminders[id] = time()
 			  local playername = UnitName(unit)
-			  if (playername) then  RecentReminders_Criteria[id] = playername .. " (" .. raceclass .. ")";  end
+			  if (playername) then  RecentReminders_Criteria[id] = playername .. " (" .. raceName .. " " .. className .. ")";  end
             end
             tooltip:AddLine(text, r, g, b)
             tooltip:AddTexture(AchievementIcon)
@@ -494,11 +501,18 @@ end
 do
   local last_check, last_tiptext = 0
   local last_id, last_text, last_complete, last_angler
+  --local tooltipUsed
+
   function Overachiever.ExamineOneLiner(tooltip)
-  -- Unfortunately, we couldn't find a "GameTooltip:SetWorldObject" or similar type of thing, so we have to check for
+  -- Unfortunately, there isn't a "GameTooltip:SetWorldObject" or similar type of thing, so we have to check for
   -- these sorts of tooltips in a less direct way.
-    if (skipNextExamineOneLiner) then  skipNextExamineOneLiner = nil;  return;  end
+
+    --tooltipUsed = nil
+
+    --if (skipNextExamineOneLiner) then  skipNextExamineOneLiner = nil;  return;  end
     -- Skipping works because this function is consistently called after the functions that set skipNextExamineOneLiner to true.
+	-- At least, it used to or seemed like it did. On second examination (years later, perhaps due to API changes?), it seems unnecessary so we can
+	-- do without it.
 
     tooltip = tooltip or GameTooltip  -- Workaround since another addon is known to break this
     if (tooltip:NumLines() == 1) then
@@ -509,6 +523,7 @@ do
       local t = time()
 
       local cache_used
+	  --local prev_tiptext = last_tiptext
       if (tiptext ~= last_tiptext or t ~= last_check) then
         for key,tab in pairs(WorldObjAch) do
           if (Overachiever_Settings[ tab[1] ]) then
@@ -532,17 +547,33 @@ do
           if (not cache_used) then
             RecentReminders[id] = time()
 			RecentReminders_Criteria[id] = tiptext
-            if (not angler or not Overachiever_Settings.SoundAchIncomplete_AnglerCheckPole or
-                not IsEquippedItemType("Fishing Poles")) then
-              PlayReminder()
-            end
+			--if (tiptext ~= prev_tiptext) then
+              if (not angler or not Overachiever_Settings.SoundAchIncomplete_AnglerCheckPole or
+                  not IsEquippedItemType("Fishing Poles")) then
+                PlayReminder()
+              end
+			--end
           end
         end
         tooltip:AddLine(text, r, g, b)
         tooltip:AddTexture(AchievementIcon)
         tooltip:Show()
+		--tooltipUsed = true
       end
     end
+  end
+
+  -- We need this function because something is making the tooltip refresh its text while it's open, causing us to lose what we added:
+  function Overachiever.ExamineOneLiner_clear(tooltip)
+    -- This is a workaround. I'm not sure why Blizzard makes the tooltip refresh like they do. Anyway, we know the tooltip's either not going to be
+	-- displayed or about to be "shown" again (even though the text might be the same as before), but the problem is that if it's the latter, our
+	-- OnShow hook (Overachiever.ExamineOneLiner) doesn't get called if the frame was still visible. So, we hide it, so when GameTooltip:Show() is
+	-- called next, our hook is always called. (And if it was the latter, the tooltip not being displayed, then hiding it *shouldn't* cause problems.)
+	tooltip:Hide()
+	-- Tried to use a variable to track when we needed to do this to avoid doing it all the time, just in case this conflicts with some tooltip addon
+    -- or something, but there are cases where it didn't work (e.g. when you have a mob's tooltip visible as you move the cursor to the triggering
+	-- world object):
+	--if (tooltipUsed) then  tooltip:Hide();  end
   end
 end
 
@@ -590,11 +621,11 @@ function Overachiever.BuildItemLookupTab(THIS_VERSION, id, savedtab, tab, duptab
           tab[k] = v;
           if (savedtab) then  savedtab[k] = v;  end
         end
-        if (Overachiever_Debug) then  Overachiever.chatprint("Skipped lookup table rebuild for Ach #"..id..": Used default list because WoW API no longer supports the required method and character has no relevant saved data.");  end
+        if (Overachiever_Debug) then  chatprint("Skipped lookup table rebuild for Ach #"..id..": Used default list because WoW API no longer supports the required method and character has no relevant saved data.");  end
       elseif (savedtab) then
         wipe(tab)
         for k,v in pairs(savedtab) do  tab[k] = v;  end  -- Copy table (cannot just set using "=" or reference will be lost)
-        if (Overachiever_Debug) then  Overachiever.chatprint("Skipped lookup table rebuild for Ach #"..id..": Retrieved from saved variables because WoW API no longer supports the required method.");  end
+        if (Overachiever_Debug) then  chatprint("Skipped lookup table rebuild for Ach #"..id..": Retrieved from saved variables because WoW API no longer supports the required method.");  end
       end
       return tab
     end
@@ -666,7 +697,7 @@ function Overachiever.BuildItemLookupTab(THIS_VERSION, id, savedtab, tab, duptab
     ConsumeItemAch.TastesLikeChicken[5], ConsumeItemAch.HappyHour[5] = FoodCriteria, DrinkCriteria
     ConsumeItemAch.CataclysmicallyDelicious[5], ConsumeItemAch.DrownYourSorrows[5] = FoodCriteria2, DrinkCriteria2
     ConsumeItemAch.PandarenCuisine[5], ConsumeItemAch.PandarenDelicacies[5] = PandaEats, PandaEats2
-    if (Overachiever_Debug) then  Overachiever.chatprint("Skipped food/drink lookup table rebuild: Retrieved from saved variables.");  end
+    if (Overachiever_Debug) then  chatprint("Skipped food/drink lookup table rebuild: Retrieved from saved variables.");  end
   end
   Overachiever.Consumed_Default = nil
 end
@@ -717,7 +748,7 @@ end
 
 
 function Overachiever.ExamineItem(tooltip)
-  skipNextExamineOneLiner = true
+  --skipNextExamineOneLiner = true
   tooltip = tooltip or this or GameTooltip  -- Workaround in case another addon breaks this
   local name, link = tooltip:GetItem() -- Issue: This doesn't reliably get the item we want?
   if (not link) then  return;  end
@@ -916,7 +947,7 @@ if (SharedMedia) then
   }
   for data,name in pairs(soundtab) do
     if (not SharedMedia:Register("sound", "Blizzard: "..name, data)) then
-	  Overachiever.chatprint('Error: Failed to register Blizzard sound "' .. name .. '"')
+	  chatprint('Error: Failed to register Blizzard sound "' .. name .. '"')
 	end
   end
   soundtab = nil

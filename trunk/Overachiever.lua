@@ -802,6 +802,7 @@ do
 
   function achbtnOnEnter(self)
     local id, tipset, guildtip = self.id, 0
+	-- If tipset is 1, then if adding a new line, you should add an empty line first. 0 means nothing is on the tooltip yet. Otherwise, use 2.
     GameTooltip:SetOwner(self, "ANCHOR_NONE")
     GameTooltip:SetPoint("TOPLEFT", self, "TOPRIGHT", 8, 0)
     GameTooltip:SetBackdropColor(TOOLTIP_DEFAULT_BACKGROUND_COLOR.r, TOOLTIP_DEFAULT_BACKGROUND_COLOR.g, TOOLTIP_DEFAULT_BACKGROUND_COLOR.b)
@@ -839,7 +840,7 @@ do
 
     if (Overachiever_Settings.UI_SeriesTooltip and (GetNextAchievement(id) or GetPreviousAchievement(id))) then
       if (tipset == 1) then  GameTooltip:AddLine(" ");  end
-      tipset = tipset + 1
+      tipset = 2 --tipset + 1
       GameTooltip:AddLine(L.SERIESTIP)
       GameTooltip:AddLine(" ")
       local ach = GetPreviousAchievement(id)
@@ -870,23 +871,23 @@ do
       GameTooltip:AddLine(" ")
     end
 
+    if (Overachiever_Settings.UI_RequiredForMetaTooltip and AchLookup_metaach[id]) then
+      if (tipset == 1) then  GameTooltip:AddLine(" ");  end
+      tipset = 2 --tipset + 1
+      GameTooltip:AddLine(L.REQUIREDFORMETATIP)
+      GameTooltip:AddLine(" ")
+      AddAchListToTooltip(GameTooltip, AchLookup_metaach[id])
+      GameTooltip:AddLine(" ")
+    end
+
     if (Overachiever.RecentReminders[id] and Overachiever.RecentReminders_Criteria[id]) then
       if (tipset == 1) then  GameTooltip:AddLine(" ");  end
-      tipset = tipset + 1
+      tipset = 2 --tipset + 1
       GameTooltip:AddLine(L.RECENTREMINDERCRITERIA)
       GameTooltip:AddLine(" ")
 	  local s = Overachiever.RecentReminders_Criteria[id]
 	  if (type(s) == "number") then  s = GetAchievementCriteriaInfo(id, s);  end
       GameTooltip:AddLine(s, 1, 1, 1)
-      GameTooltip:AddLine(" ")
-    end
-
-    if (Overachiever_Settings.UI_RequiredForMetaTooltip and AchLookup_metaach[id]) then
-      if (tipset == 1) then  GameTooltip:AddLine(" ");  end
-      tipset = tipset + 1
-      GameTooltip:AddLine(L.REQUIREDFORMETATIP)
-      GameTooltip:AddLine(" ")
-      AddAchListToTooltip(GameTooltip, AchLookup_metaach[id])
       GameTooltip:AddLine(" ")
     end
 
@@ -897,7 +898,7 @@ do
       else
         GameTooltip:AddLine("|cff7eff00ID:|r "..id, 0.741, 1, 0.467)
       end
-      tipset = tipset + 1
+      tipset = 1 --tipset + 1
     end
 
     if (tipset > 0) then
@@ -1035,7 +1036,8 @@ function Overachiever.OnEvent(self, event, arg1, ...)
 
     GameTooltip:HookScript("OnTooltipSetUnit", Overachiever.ExamineSetUnit)
     GameTooltip:HookScript("OnShow", Overachiever.ExamineOneLiner)
-    GameTooltip:HookScript("OnTooltipSetItem", Overachiever.ExamineItem)
+	GameTooltip:HookScript("OnTooltipCleared", Overachiever.ExamineOneLiner_clear)
+	GameTooltip:HookScript("OnTooltipSetItem", Overachiever.ExamineItem)
     ItemRefTooltip:HookScript("OnTooltipSetItem", Overachiever.ExamineItem)
     hooksecurefunc(ItemRefTooltip, "SetHyperlink", Overachiever.ExamineAchievementTip)
     hooksecurefunc(GameTooltip, "SetHyperlink", Overachiever.ExamineAchievementTip)
@@ -1130,7 +1132,7 @@ function Overachiever.OnEvent(self, event, arg1, ...)
       Overachiever_CharVars.TrackedAch = nil
     end
    --]]
-
+  
   end
 end
 
