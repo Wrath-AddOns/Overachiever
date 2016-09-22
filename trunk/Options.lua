@@ -24,6 +24,8 @@ Overachiever.DefaultSettings = {
   LetItSnow_flaked = false;
   FistfulOfLove_petals = false;
   BunnyMaker_eared = false;
+  Brewfest_consumed = false;
+  Brewfest_consumed_whencomplete = false;
   CheckYourHead_pumpkin = false;
   TurkeyLurkey_feathered = false;
   Draggable_AchFrame = true;
@@ -104,7 +106,7 @@ function Overachiever.CreateOptions(THIS_TITLE, BuildCriteriaLookupTab_check, Au
 	{ type = "Oa_AchLabel", text = L.OPT_LABEL_ACHSIX, topBuffer = 4, id1 = IDs.TastesLikeChicken, id2 = IDs.HappyHour, id3 = IDs.CataclysmicallyDelicious, id4 = IDs.DrownYourSorrows, id5 = IDs.PandarenCuisine, id6 = IDs.PandarenDelicacies, xOffset = 0 },
 	{ variable = "Item_consumed", text = L.OPT_CONSUMEITEMTIPS, tooltip = L.OPT_CONSUMEITEMTIPS_TIP, tooltip2 = L.OPT_CONSUMEITEMTIPS_TIP2, xOffset = 28 },
 	{ variable = "Item_consumed_whencomplete", text = L.OPT_CONSUMEITEMTIPS_WHENCOMPLETE, xOffset = 39 },
-	
+
 	{ type = "Oa_AchLabel", topBuffer = 4, id1 = IDs.RightAsRain, xOffset = 0 },
 	{ variable = "Item_satisfied", text = L.OPT_SATISFIEDTIPS, tooltip = L.OPT_SATISFIEDTIPS_TIP, xOffset = 28 },
 
@@ -115,6 +117,10 @@ function Overachiever.CreateOptions(THIS_TITLE, BuildCriteriaLookupTab_check, Au
 
 	{ type = "Oa_AchLabel", topBuffer = 4, xOffset = 0, id1 = IDs.BunnyMaker, xOffset = 0 },
 	{ variable = "BunnyMaker_eared", text = L.OPT_BUNNYMAKERTIPS, tooltip = L.OPT_BUNNYMAKERTIPS_TIP, xOffset = 28 },
+
+	{ type = "Oa_AchLabel", topBuffer = 4, id1 = IDs.BrewfestDiet, xOffset = 0 },
+	{ variable = "Brewfest_consumed", text = L.OPT_CONSUMEITEMTIPS, tooltip = L.OPT_CONSUMEITEMTIPS_TIP, tooltip2 = L.OPT_CONSUMEITEMTIPS_TIP2, xOffset = 28 },
+	{ variable = "Brewfest_consumed_whencomplete", text = L.OPT_CONSUMEITEMTIPS_WHENCOMPLETE, xOffset = 39 },
 
 	{ type = "Oa_AchLabel", topBuffer = 4, id1 = IDs.CheckYourHead, xOffset = 0 },
 	{ variable = "CheckYourHead_pumpkin", text = L.OPT_CHECKYOURHEADTIPS, tooltip = L.OPT_CHECKYOURHEADTIPS_TIP, xOffset = 28 },

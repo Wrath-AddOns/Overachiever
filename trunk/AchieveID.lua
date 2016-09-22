@@ -15,6 +15,7 @@ OVERACHIEVER_ACHID = {
 	DrownYourSorrows = 5754,	-- "Drown Your Sorrows"
 	PandarenCuisine = 7329,		-- "Pandaren Cuisine"
 	PandarenDelicacies = 7330,	-- "Pandaren Delicacies"
+	BrewfestDiet = 1185,		-- "The Brewfest Diet"
 
 	RightAsRain = 5779,		-- "You'll Feel Right as Rain"
 
