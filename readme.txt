@@ -1,5 +1,5 @@
 
-Overachiever v0.93
+Overachiever v0.94
 ==============================
 
 Author: Tuhljin
@@ -106,6 +106,10 @@ Change log
 ==========
 
 The change log lists changes of particular note to users, not every change made.
+
+v0.94
+- "Brewfest Diet" (new): Added options to display a reminder tooltip for Brewfest food you need to eat.
+- The "Recently spotted objective" feature now works with items you need to consume.
 
 v0.93
 - Fix an issue where the tooltip disappears when it shouldn't. (When this was depends on user's other addons.)
