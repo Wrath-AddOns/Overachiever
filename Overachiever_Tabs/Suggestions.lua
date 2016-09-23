@@ -263,6 +263,7 @@ local achDraenorGarrison = {
 	IsAlliance and 9210 or 9132, -- Garrison Buddies
 	IsAlliance and 9928 or 9901, -- Don't Call Me Junior
 	IsAlliance and 9828 or 9897, -- Ten Hit Tunes
+	8933, -- Staying Regular
 	9094, -- Garrison Architect
 	9076, -- Choppin' Some Logs
 	9429, -- Upgrading the Mill
