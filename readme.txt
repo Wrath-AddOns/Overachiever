@@ -112,11 +112,17 @@ v0.94
 - "Brewfest Diet" (new): Added options to display a reminder tooltip for Brewfest food you need to eat.
 - "Fairegoer's Feast" (new): Added options to display a reminder tooltip for Darkmoon Faire food you need to eat.
 - The "Recently spotted objective" feature now works with items you need to consume.
-- Suggestions Tab: Added several new suggestions for the Darkmoon Faire.
-- Trade module: "The Draenor Gourmet" is now considered when determining if you need to cook a recipe.
+- Trade module: "The Draenor Gourmet" and "The Legion Menu" are now considered when determining if you need to cook a recipe.
 - Stopped a crash that could occur if you attempt to open to an achievement that is really a statistic.
 - Fixed an issue where your progress was being added to achievement tooltips where doing so was redundant.
 - The "Creature killed?" option for general Kill Creature Achievements now defaults to being enabled. (Your setting won't change if you are upgrading from a previous version of the addon.)
+- Suggestions Tab:
+-- Can now tell the different "Shadowmoon Valley" and "Nagrand" zones apart.
+-- Added several new suggestions for the Darkmoon Faire.
+-- Moved "Weed Whacker" suggestion to The Everbloom, where it belongs.
+-- Added other suggestions for The Everbloom so "Weed Whacker" doesn't feel lonely.
+-- Added suggestions for the player garrison.
+-- Added additional suggestions for some other Draenor zones.
 
 v0.93
 - Fix an issue where the tooltip disappears when it shouldn't. (When this was depends on user's other addons.)
