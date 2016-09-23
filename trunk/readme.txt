@@ -114,7 +114,7 @@ v0.94
 - The "Recently spotted objective" feature now works with items you need to consume.
 - Trade module: "The Draenor Gourmet" and "The Legion Menu" are now considered when determining if you need to cook a recipe.
 - Stopped a crash that could occur if you attempt to open to an achievement that is really a statistic.
-- Fixed an issue where your progress was being added to achievement tooltips where doing so was redundant.
+- Fixed an issue where your progress was being added to achievement tooltips when doing so was redundant.
 - The "Creature killed?" option for general Kill Creature Achievements now defaults to being enabled. (Your setting won't change if you are upgrading from a previous version of the addon.)
 - Suggestions Tab:
 -- Can now tell the different "Shadowmoon Valley" and "Nagrand" zones apart.
