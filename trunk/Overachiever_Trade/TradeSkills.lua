@@ -16,6 +16,7 @@ do
       GourmetCataclysm = true,
       GourmetPandaren = true,
 	  GourmetDraenor = true,
+	  LegionMenu = true,
     }
   }
   local lookup, id, name, _, completed

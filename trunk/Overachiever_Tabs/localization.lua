@@ -42,6 +42,10 @@ L.SUGGESTIONS_RAIDSIZE_25 = "25-man"
 
 L.SUGGESTIONS_ZONERENAME_DALARAN_NORTHREND = "Dalaran (Northrend)"
 L.SUGGESTIONS_ZONERENAME_DALARAN_BROKENISLES = "Dalaran (Broken Isles)"
+L.SUGGESTIONS_ZONERENAME_SHADOWMOONVALLEY_OUTLAND = "Shadowmoon Valley (Outland)"
+L.SUGGESTIONS_ZONERENAME_SHADOWMOONVALLEY_DRAENOR = "Shadowmoon Valley (Draenor)"
+L.SUGGESTIONS_ZONERENAME_NAGRAND_OUTLAND = "Nagrand (Outland)"
+L.SUGGESTIONS_ZONERENAME_NAGRAND_DRAENOR = "Nagrand (Draenor)"
 
 L.WATCH_TAB = "Watch";
 L.WATCH_HELP = "Create your watch list by |cffffffffalt+clicking|r on achievements in the other tabs or achievement chat links. |cffffffffAlt+click|r on one displayed here to stop watching it.";
