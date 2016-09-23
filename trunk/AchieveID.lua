@@ -15,7 +15,9 @@ OVERACHIEVER_ACHID = {
 	DrownYourSorrows = 5754,	-- "Drown Your Sorrows"
 	PandarenCuisine = 7329,		-- "Pandaren Cuisine"
 	PandarenDelicacies = 7330,	-- "Pandaren Delicacies"
+	DraenorCuisine = 9502,		-- "Draenor Cuisine"
 	BrewfestDiet = 1185,		-- "The Brewfest Diet"
+	DarkmoonFaireFeast = 6026,		-- "Fairegoer's Feast"
 
 	RightAsRain = 5779,		-- "You'll Feel Right as Rain"
 
@@ -30,7 +32,8 @@ OVERACHIEVER_ACHID = {
 	GourmetNorthrend = 1779,	-- "The Northrend Gourmet" (last part)
 	GourmetCataclysm = 5473,	-- "The Cataclysmic Gourmet" (last part)
 	GourmetPandaren = 7327,		-- "The Pandaren Gourmet" (last part)
-	--GourmetWinter = 1688,		-- "The Winter Veil Gourmet"
+	--GourmetWinter = 1688,		-- "The Winter Veil Gourmet" -- requires proper season; waiting on season detection feature?
+	GourmetDraenor = 9501,		-- "The Draenor Gourmet"
 
 	MediumRare = 1311,		-- "Medium Rare"
 	BloodyRare = 1312,		-- "Bloody Rare"
