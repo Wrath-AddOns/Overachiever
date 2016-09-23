@@ -108,8 +108,15 @@ Change log
 The change log lists changes of particular note to users, not every change made.
 
 v0.94
+- "Draenor Cuisine" (new): Added to the consumed item tracking system.
 - "Brewfest Diet" (new): Added options to display a reminder tooltip for Brewfest food you need to eat.
+- "Fairegoer's Feast" (new): Added options to display a reminder tooltip for Darkmoon Faire food you need to eat.
 - The "Recently spotted objective" feature now works with items you need to consume.
+- Suggestions Tab: Added several new suggestions for the Darkmoon Faire.
+- Trade module: "The Draenor Gourmet" is now considered when determining if you need to cook a recipe.
+- Stopped a crash that could occur if you attempt to open to an achievement that is really a statistic.
+- Fixed an issue where your progress was being added to achievement tooltips where doing so was redundant.
+- The "Creature killed?" option for general Kill Creature Achievements now defaults to being enabled. (Your setting won't change if you are upgrading from a previous version of the addon.)
 
 v0.93
 - Fix an issue where the tooltip disappears when it shouldn't. (When this was depends on user's other addons.)

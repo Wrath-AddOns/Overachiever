@@ -14,7 +14,8 @@ do
       GourmetOutland = true,
       GourmetNorthrend = true,
       GourmetCataclysm = true,
-      GourmetPandaren = true
+      GourmetPandaren = true,
+	  GourmetDraenor = true,
     }
   }
   local lookup, id, name, _, completed

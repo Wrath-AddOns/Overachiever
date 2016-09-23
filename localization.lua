@@ -77,6 +77,7 @@ School of %s
 	OPT_LABEL_ACHTHREE = '"%s," "%s," and "%s"';
 	OPT_LABEL_ACHFOUR = '"%s," "%s,"|n"%s," "%s"';
 	OPT_LABEL_ACHSIX = '"%s," "%s,"|n"%s," "%s"|n"%s," "%s"';
+	OPT_LABEL_ACHSEVEN = '"%s," "%s,"|n"%s," "%s"|n"%s," "%s," "%s"';
 
 	OPT_ACHUNKNOWN = "<Unknown>";
 

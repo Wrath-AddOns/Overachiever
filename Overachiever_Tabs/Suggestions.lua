@@ -213,6 +213,17 @@ local achClassHall = {
 	11220, -- Roster of Champions
 }
 
+local achDarkmoonFaire = {
+	6019, 6021, 6023, 6027, 6028, 6029, 6032, 6026, 6025, 6022, 6020, IsAlliance and 6030 or 6031, 6332, 9250, 9885, 9894, 9983, 9755, 9756, 9770, 9786, 9780, 9793, 9800, 9806, 9812, 9819
+}
+-- To get base data:
+-- 1. /run Overachiever.Debug_GetIDsInCat(15101, true)
+-- 2. /reload
+-- 3. Look in WTF saved variables for: Overachiever_Settings.Debug_AchIDsInCat
+-- Run again on a character of the other faction and compare, then, adjust for the faction-specific ones (e.g. "IsAlliance and 6030 or 6031").
+-- But don't just leave it at that; look over them to see if there are any you ought to omit since they're redundant (perhaps because another achievement
+-- in the list includes it as a criteria) or otherwise not worth suggesting.
+
 local ACHID_ZONE_MISC = {
 -- Kalimdor
 	["Ashenvale"] = "4827:6",	-- "Surveying the Damage"
@@ -284,11 +295,9 @@ local ACHID_ZONE_MISC = {
 	["Zul'Drak"] = { "1576:2", "1596:2" },	-- "Of Blood and Anguish", "Guru of Drakuru"
 	["Wintergrasp"] = { 1752, 2199, 1717, 1751, 1755, 1727, 1723 },
 -- Darkmoon Faire
-	["Darkmoon Island"] = { 6020, 6021, 6022, 6023, 6026, 6027, 6028, 6029, IsAlliance and 6030 or 6031, 6032, 6025,
-		9250, 6019, 6332 },
-	["Darkmoon Faire"] = { 6020, 6021, 6022, 6023, 6026, 6027, 6028, 6029, IsAlliance and 6030 or 6031, 6032, 6025,
-		9250, 6019, 6332 },
-	-- !! not 100% certain which is needed; may be both; test when the faire's available
+	["Darkmoon Island"] = achDarkmoonFaire,
+	["Darkmoon Faire"] = achDarkmoonFaire,
+	-- !! - not 100% certain which is needed; may be both; test when the faire's available
 -- Other Cataclysm-related
 	["Deepholm"] = { 5445, 5446, 5447, 5449 },	-- "Fungalophobia", "The Glop Family Line",
 							-- "My Very Own Broodmother", "Rock Lover"
@@ -1737,21 +1746,26 @@ end
 -- ULDUAR 25: Results from grabFromCategory(14962, 2958):
 --	{ 2895, 2904, 2906, 2908, 2910, 2912, 2918, 2921, 2926, 2928, 2932, 2935, 2936, 2938, 2942, 2943, 2946, 2948, 2952, 2956, 2958, 2960, 2962, 2965, 2968, 2970, 2972, 2974, 2976, 2978, 2981, 2983, 2984, 2995, 2997, 3002, 3005, 3010, 3011, 3013, 3016, 3017, 3037, 3077, 3098, 3118, 3161, 3185, 3237 }
 
---[[
+--[[ ]]
 -- /run Overachiever.Debug_GetIDsInCat( GetAchievementCategory(GetTrackedAchievements()) )
-function Overachiever.Debug_GetIDsInCat(cat)
+function Overachiever.Debug_GetIDsInCat(cat, simple)
   local tab = Overachiever_Settings.Debug_AchIDsInCat
   if (not tab) then  Overachiever_Settings.Debug_AchIDsInCat = {};  tab = Overachiever_Settings.Debug_AchIDsInCat;  end
   local catname = GetCategoryInfo(cat)
   tab[catname] = {}
-  tab = tab[catname]
+  local subtab = tab[catname]
   local id, n
   for i=1,GetCategoryNumAchievements(cat) do
     id, n = GetAchievementInfo(cat, i)
     if (id) then
-	  tab[n] = id
+      if (simple) then
+        subtab[i] = id
+      else
+        subtab[n] = id
+      end
     end
   end
+  if (simple) then  tab[catname] = table.concat(tab[catname], ", ");  end
 end
 --]]
 

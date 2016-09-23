@@ -594,7 +594,7 @@ end
 -- It should be much easier to add stuff in the new version, as well. Make it so you can just add to the data table; don't require additional lines of code
 -- to process it (e.g. instead of calling BuildItemLookupTab for each directly, use a loop through the table).
 
-local FoodCriteria, DrinkCriteria, FoodCriteria2, DrinkCriteria2, PandaEats, PandaEats2, BrewfestEats = {}, {}, {}, {}, {}, {}, {}
+local FoodCriteria, DrinkCriteria, FoodCriteria2, DrinkCriteria2, PandaEats, PandaEats2, DraenorEats, BrewfestEats, DarkmoonFaireEats = {}, {}, {}, {}, {}, {}, {}, {}, {}
 local numDrinksConsumed, numFoodConsumed
 
 local ConsumeItemAch = {
@@ -604,7 +604,9 @@ local ConsumeItemAch = {
   DrownYourSorrows = { "Item_consumed", L.ACH_CONSUME_COMPLETE, L.ACH_CONSUME_INCOMPLETE, L.ACH_CONSUME_INCOMPLETE_EXTRA, DrinkCriteria2 },
   PandarenCuisine = { "Item_consumed", L.ACH_CONSUME_COMPLETE, L.ACH_CONSUME_INCOMPLETE, L.ACH_CONSUME_INCOMPLETE_EXTRA, PandaEats, "PandaEats" },
   PandarenDelicacies = { "Item_consumed", L.ACH_CONSUME_COMPLETE, L.ACH_CONSUME_INCOMPLETE, L.ACH_CONSUME_INCOMPLETE_EXTRA, PandaEats2, "PandaEats2" },
+  DraenorCuisine = { "Item_consumed", L.ACH_CONSUME_COMPLETE, L.ACH_CONSUME_INCOMPLETE, L.ACH_CONSUME_INCOMPLETE_EXTRA, DraenorEats },
   BrewfestDiet = { "Brewfest_consumed", L.ACH_CONSUME_COMPLETE, L.ACH_CONSUME_INCOMPLETE, L.ACH_CONSUME_INCOMPLETE_EXTRA, BrewfestEats },
+  DarkmoonFaireFeast = { "Darkmoon_consumed", L.ACH_CONSUME_COMPLETE, L.ACH_CONSUME_INCOMPLETE, L.ACH_CONSUME_INCOMPLETE_EXTRA, DarkmoonFaireEats },
 };
 
 --local lastitemTime, lastitemLink = 0
@@ -717,7 +719,9 @@ function Overachiever.BuildItemLookupTab(THIS_VERSION, id, savedtab, tab, duptab
     if (Overachiever_Debug) then  chatprint("Skipped food/drink lookup table rebuild: Retrieved from saved variables.");  end
   end
   -- Since the API gives us data on criteria completion, we don't need char vars for this so gather their data now: (some achievements from above should probably be given this treatment instead)
+  Overachiever.BuildItemLookupTab(nil, OVERACHIEVER_ACHID.DraenorCuisine, nil, DraenorEats, nil, true)
   Overachiever.BuildItemLookupTab(nil, OVERACHIEVER_ACHID.BrewfestDiet, nil, BrewfestEats, nil, true)
+  Overachiever.BuildItemLookupTab(nil, OVERACHIEVER_ACHID.DarkmoonFaireFeast, nil, DarkmoonFaireEats, nil, true)
 
   Overachiever.Consumed_Default = nil
 end
