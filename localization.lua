@@ -16,6 +16,7 @@ OVERACHIEVER_STRINGS = {
 
 	SERIESTIP = "Part of a series:";
 	REQUIREDFORMETATIP = "Required for:";
+	PROGRESSIFOTHERCOMPLETED = "%s's Progress:";
 	RECENTREMINDERCRITERIA = "Recently spotted objective:";
 
 	PROGRESS = "Progress";
@@ -60,6 +61,14 @@ School of %s
 	ACH_CHECKYOURHEAD_COMPLETE = "Already pumpkin-headed";
 	ACH_TURKEYLURKEY_INCOMPLETE = "Needs feathers";
 	ACH_TURKEYLURKEY_COMPLETE = "Already feathered";
+
+	HOLIDAY_DARKMOONFAIRE = "Darmoon Faire";
+	HOLIDAY_BREWFEST = "Brewfest";
+	HOLIDAY_HALLOWSEND = "Hallow's End";
+	HOLIDAY_DAYOFTHEDEAD = "Day of the Dead";
+	HOLIDAY_PIGRIMSBOUNTY = "Pilgrim's Bounty";
+	HOLIDAY_WINTERVEIL = "Feast of Winter Veil";
+	HOLIDAY_WINTERVEIL_SHORT = "Winter Veil";
 
 	MSG_INVALIDID = "Invalid input: No achievement with that ID.";
 	MSG_NAMENOTFOUND = 'No achievement with name containing "|cffffffff%s|r" was found.';
@@ -142,8 +151,14 @@ School of %s
 	OPT_UI_SERIESTIP_TIP = "When the cursor is over an achievement that is part of a series, display the names of others in the series and its relation to them.";
 	OPT_UI_REQUIREDFORMETATIP = "Tooltip for achievements required by others";
 	OPT_UI_REQUIREDFORMETATIP_TIP = "When the cursor is over an achievement that is required to earn another achievement, display the name of the meta-achievement.";
+	OPT_UI_PROGRESSIFOTHERCOMPLETED = "Tooltip for quantity-based progress if completed by another";
+	OPT_UI_PROGRESSIFOTHERCOMPLETED_TIP = "When the cursor is over a quantity-based achievement (e.g. critera of \"Obtain 10 mounts\") that was completed but not by the current character, display the current character's progress.";
 	OPT_DRAGGABLE = "Make draggable";
 	OPT_DRAGSAVE = "Remember position";
+	OPT_UI_HOLIDAYNOTICE = "Display notice if a holiday event is active";
+	OPT_UI_HOLIDAYNOTICE_SUGGESTIONSTABONLY = "On Suggestions tab only";
+	OPT_UI_HOLIDAYNOTICE_TIP = "If there is a holiday event today (e.g. Brewfest or Darkmoon Faire), a graphical notice appears next to the achievement UI. Clicking it displays achievements for that event. Put your cursor over it for more details.";
+	OPT_UI_HOLIDAYNOTICE_TIP2 = "|cffffffffTabs module with Suggestions tab is required.|r";
 
 	OPT_LABEL_TRADESKILLUI = "Professions UI Modifications";
 	OPT_TRADESKILL_SHOWCOMPLETEDACH_COOKING = "Indicate uncooked recipes for complete achievements";

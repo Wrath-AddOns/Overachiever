@@ -1,6 +1,6 @@
 ## Interface: 70000
 ## Title: Overachiever - Tabs
-## Version: 0.94
+## Version: 0.95
 ## Author: Tuhljin
 ## Notes: Achievement frame tabs module.
 ## LoadOnDemand: 1
@@ -14,3 +14,5 @@ build.lua
 Search.lua
 Suggestions.lua
 Watch.lua
+Related.lua
+CalendarNotice.lua
