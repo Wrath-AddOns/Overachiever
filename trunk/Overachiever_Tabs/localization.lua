@@ -67,12 +67,43 @@ L.WATCH_POPUP_DELETELIST = "Are you sure you want to permanently delete the curr
 L.WATCH_POPUP_CLEARLIST = "Are you sure you want to clear the contents of the current achievement watch list?";
 L.WATCH_ERR_INVALIDID = 'Removed "%s" from Watch List: An achievement with that ID could not be found.';
 
+L.RELATED_TAB = "Related";
+L.RELATED_HELP = "This tab shows achievements that are related to one another. One achievement was chosen as the base. The rest are in the same series as the base, are one of the criteria of the base or of another in its series, or have as one of their own criteria either the base or an achievement in its series.";
+L.RELATED_RESULTS = "Found %s |4achievement:achievements;.";
+L.RELATED_BASE = "Base Achievement:";
+L.RELATED_CLOSE = "Close";
+L.RELATED_RECURSIVE = "Extended";
+L.RELATED_RECURSIVE_TIP = "Do a recursive search so all achievements that are indirectly related to the base achievement are also included.";
+
 L.TAB_SORT = "Sort by:";
 L.TAB_SORT_NAME = "Name";
 L.TAB_SORT_ID = "ID";
 L.TAB_SORT_POINTS = "Point value";
 L.TAB_SORT_COMPLETE = "Date completed";
-L.TAB_HELP = "|cffffffffCtrl-click|r on an achievement to jump to its place in the standard UI.|n|nA |cffffffffblue background|r means it is part of a series for which you haven't completed an earlier step.|n|nA |cffffffffred background|r means it cannot be found in the standard UI for this character because it is exclusive to the opposing faction or is an unacquired Feat of Strength.|n|nA |cffffffffgreen background|r means the achievement is on the \"Recent Reminder\" list. It became especially relevant within the last 2 minutes (e.g. because its timer started or an objective was seen in a tooltip).";
+L.TAB_SORT_RELATION = "Relation";
+L.TAB_HELP = "|cffffffffCtrl-click|r on an achievement to jump to its place in the standard UI.|n|n|cffffffffCtrl-shift-click|r on an achievement to view related achievements.|n|nA |cffffffffblue background|r means it is part of a series for which you haven't completed an earlier step.|n|nA |cffffffffred background|r means it cannot be found in the standard UI for this character because it is exclusive to the opposing faction or is an unacquired Feat of Strength.|n|nA |cffffffffgreen background|r means the achievement is on the \"Recent Reminder\" list. It became especially relevant within the last 2 minutes (e.g. because its timer started or an objective was seen in a tooltip).";
+
+L.EVENTNOTICE_ONGOING = "This event is ongoing.";
+L.EVENTNOTICE_STARTED_TODAY = "This event started earlier today.";
+L.EVENTNOTICE_STARTS_HOURS = "This event starts in|cff7eff00 %s |4hour:hours;|r.";
+L.EVENTNOTICE_STARTS_MINUTES = "This event starts in|cff7eff00 %s |4minute:minutes;|r.";
+L.EVENTNOTICE_ENDED_TODAY = "|cffff2020This event ended|r earlier today."
+L.EVENTNOTICE_ENDS_DAYS = "It ends in|cffff2020 %s |4day:days;|r.";
+L.EVENTNOTICE_ENDS_HOURS = "It ends in|cffff2020 %s |4hour:hours;|r.";
+L.EVENTNOTICE_ENDS_MINUTES = "It ends in|cffff2020 %s |4minute:minutes;|r.";
+L.EVENTNOTICE_ENDS_DATETIME = "It ends on %2$d/%1$02d at %3$s (server time).";  -- 1 - day 2 - month 3 - time
+L.EVENTNOTICE_ENDS_TIME = "It ends today at %3$s (server time).";
+L.EVENTNOTICE_TIP = "Hold |cffffffffShift|r for more details.";
+L.EVENTNOTICE_HELP = "|cffffffffClick|r to see related achievements.|n|cffffffffCtrl-click|r to open the calendar.|n|cffffffffShift-right-click|r to temporarily hide this notice."; --|n|cffffffffRight-click|r for more options.";
+
+
+--if (locale == "enGB") then  -- English (EU)
+-- Unfortunately, GetLocale() returns "enUS" even when "enGB" would be more appropriate, and the SHORTDATE
+-- global string is defined incorrectly for enGB clients (it's set as it is for enUS), so we have to do things
+-- this way:
+if (ACHIEVEMENT_TOOLTIP_COMPLETE == "Achievement earned by %1$s on %3$d/%2$d/20%4$02d") then
+	L.EVENTNOTICE_ENDS_DATETIME = "It ends on %1$d/%2$02d at %3$s (server time).";  -- 1 - day 2 - month 3 - time
+end
 
 if (locale == "deDE") then  -- German
 --@localization(locale="deDE", format="lua_additive_table", namespace="Tabs", handle-subnamespaces="subtable")@
@@ -117,6 +148,7 @@ elseif (locale == "itIT") then  -- Italian
 --@localization(locale="itIT", format="lua_additive_table", namespace="Tabs", handle-subnamespaces="subtable")@
 
 end
+
 if (not L.SUBZONES) then
 	L.SUBZONES = {
 	-- Ulduar:
