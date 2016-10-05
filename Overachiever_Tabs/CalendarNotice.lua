@@ -107,7 +107,17 @@ function notice_OnEnter(self)
 				if (not shiftKey) then --and month ~= self.monthEnd and self.monthEnd >= 1 and self.monthEnd <= 12) then
 					local d = TjCalendar.GetDaysUntil(self.yearEnd, self.monthEnd, self.dayEnd)
 					if (d and d > 0 and d <= SHOW_DAYS_UNLESS_OVER) then
-						endLine = L.EVENTNOTICE_ENDS_DAYS:format(d)
+						if (d == 1) then
+							local t = timeUntil(24, 0) -- Time until the next day.
+							t = t + (self.hourEnd * 60) + self.minuteEnd -- Add time from there to the end time.
+							if (t < 60) then
+								endLine = L.EVENTNOTICE_ENDS_MINUTES:format(t)
+							elseif (t < 1440) then -- 1440 minutes is 24 hours
+								--endLine = L.EVENTNOTICE_ENDS_HOURS:format(math.ceil(t / 60))
+								endLine = L.EVENTNOTICE_ENDS_HOURS:format(math.floor((t / 60) + 0.5))
+							end
+						end
+						if (not endLine) then  endLine = L.EVENTNOTICE_ENDS_DAYS:format(d);  end
 					end
 				end
 				if (not endLine) then
