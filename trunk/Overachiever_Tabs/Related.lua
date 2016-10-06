@@ -28,7 +28,7 @@ local next = next
 local pairs = pairs
 
 
-local metas = Overachiever.GetMetaCriteriaLookup()
+local metas -- = Overachiever.GetMetaCriteriaLookup()
 local seriesLookup, seriesPlace = {}, {}
 local seriesCount = 0
 
@@ -351,6 +351,7 @@ end
 
 
 function Overachiever.OpenRelatedTab(id)
+	metas = metas or Overachiever.GetMetaCriteriaLookup()
 	if (not frame) then
 		buildRelatedTab()
 		buildRelatedTab = nil
