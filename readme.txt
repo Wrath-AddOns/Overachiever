@@ -1,5 +1,5 @@
 
-Overachiever v0.95
+Overachiever v0.96
 ==============================
 
 Author: Tuhljin
@@ -106,6 +106,11 @@ Change log
 ==========
 
 The change log lists changes of particular note to users, not every change made.
+
+v0.96
+- WIP
+- Suggestions Tab: Fix automatic suggestions not showing when in Ironforge.
+- Fix addon compatibility issue resulting in an error on startup for new users.
 
 v0.95
 - New option: Add tooltip in achievement UI giving your character's progress on quantity-based achievements which were earned on your account but not with the current character.

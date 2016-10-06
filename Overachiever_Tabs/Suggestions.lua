@@ -605,6 +605,8 @@ tinsert(ACHID_ZONE_MISC["Thunder Bluff"], "6621:2")
 tinsert(ACHID_ZONE_MISC["Undercity"], "6621:3")
 tinsert(ACHID_ZONE_MISC["Silvermoon City"], "6621:4")
 
+ACHID_ZONE_MISC["City of Ironforge"] = ACHID_ZONE_MISC["Ironforge"]
+
 -- INSTANCES - ANY DIFFICULTY (any group size):
 local ACHID_INSTANCES = {
 -- Classic Dungeons
@@ -1187,6 +1189,8 @@ else
   ACHID_TRADESKILL_ZONE["Cooking"]["Thunder Bluff"] = 5843		-- "Let's Do Lunch: Thunder Bluff"
   ACHID_TRADESKILL_ZONE["Cooking"]["Undercity"] = 5844			-- "Let's Do Lunch: Undercity"
 end
+
+ACHID_TRADESKILL_ZONE["Fishing"]["City of Ironforge"] = ACHID_TRADESKILL_ZONE["Fishing"]["Ironforge"]
 
 local ACHID_TRADESKILL_BG = { Cooking = 1785 }	-- "Dinner Impossible"
 
