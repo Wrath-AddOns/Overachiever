@@ -40,6 +40,7 @@ Overachiever.DefaultSettings = {
   Tradeskill_ShowCompletedAch_Cooking = false;
   SoundAchIncomplete = 0;
   SoundAchIncomplete_AnglerCheckPole = true;
+  SoundAchIncomplete_KillCheckCombat = true;
   ProgressToast_AutoTrack = false;
   ProgressToast_ChatLog = true;
   ProgressToast_Suggest = true;
@@ -92,6 +93,8 @@ function Overachiever.CreateOptions(THIS_TITLE, BuildCriteriaLookupTab_check, Au
 	  xOffset = 0, topBuffer = 10, OnChange = SoundSelected },
 	{ variable = "SoundAchIncomplete_AnglerCheckPole", text = L.OPT_SELECTSOUND_ANGLERCHECKPOLE,
 	  tooltip = L.OPT_SELECTSOUND_ANGLERCHECKPOLE_TIP, xOffset = 15 },
+	{ variable = "SoundAchIncomplete_KillCheckCombat", text = L.OPT_SELECTSOUND_CHECKCOMBAT,
+	  tooltip = L.OPT_SELECTSOUND_CHECKCOMBAT_TIP, xOffset = 15 },
   }
 
   local items_reminders = {
