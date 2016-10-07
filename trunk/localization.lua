@@ -169,6 +169,8 @@ School of %s
 	OPT_SELECTSOUND_TIP2 = "Sounds will only play once every 15 seconds.";
 	OPT_SELECTSOUND_ANGLERCHECKPOLE = "Exclude fishing node reminders if pole is equipped";
 	OPT_SELECTSOUND_ANGLERCHECKPOLE_TIP = "Don't play reminder sound from fishing nodes if your fishing pole is equipped.";
+	OPT_SELECTSOUND_CHECKCOMBAT = "Exclude kill reminders if in combat with creature";
+	OPT_SELECTSOUND_CHECKCOMBAT_TIP = "Don't play reminder sound from needing to kill a creature while you are in combat with it.";
 
 	SOUND_BELL_ALLIANCE = "Bell - Alliance";
 	SOUND_BELL_HORDE = "Bell - Horde";

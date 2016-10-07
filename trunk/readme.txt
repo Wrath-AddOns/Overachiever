@@ -108,9 +108,9 @@ Change log
 The change log lists changes of particular note to users, not every change made.
 
 v0.96
-- WIP
-- Suggestions Tab: Fix automatic suggestions not showing when in Ironforge.
-- Fix addon compatibility issue resulting in an error on startup for new users.
+- New option added to prevent the reminder sound from being triggered by needing to kill a creature when you're already in combat with it. (Enabled by default.)
+- Suggestions Tab: Fix failure to default to suggestions for Ironforge when in that zone.
+- Fix addon compatibility issue resulting in an error on startup for some users.
 
 v0.95
 - New option: Add tooltip in achievement UI giving your character's progress on quantity-based achievements which were earned on your account but not with the current character.
@@ -643,4 +643,3 @@ v0.12
 
 v0.11
 - Initial release.
- 
