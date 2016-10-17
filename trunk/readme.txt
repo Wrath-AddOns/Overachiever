@@ -1,5 +1,5 @@
 
-Overachiever v0.96
+Overachiever v0.97
 ==============================
 
 Author: Tuhljin
@@ -106,6 +106,13 @@ Change log
 ==========
 
 The change log lists changes of particular note to users, not every change made.
+
+v0.97
+- Fixed issue where the position of the draggable Achievement UI was not used despite the "Remember position" option being enabled. The option once again divorces the Achievement UI from the positioning system used by Character Info, the Spellbook, etc.
+- Attempt to fix addon compatibility issue resulting in an error message the first time the achievement frame is opened if Overachiever's draggable Achievement UI option is enabled.
+- Suggestions Tab: Added additional suggestions for Draenor zones/dungeons/raids and Cataclysm raids. (Thanks to chrisnolanca for many of these.)
+- Fix detection of fishing poles for non-English locales.
+- Tabs module: Fix problem where an achievement that was given a blue background due to being a future step of a series continued to use that background after it became the current step (because an achievement was completed that session).
 
 v0.96
 - New option added to prevent the reminder sound from being triggered by needing to kill a creature when you're already in combat with it. (Enabled by default.)
