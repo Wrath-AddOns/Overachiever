@@ -557,7 +557,7 @@ do
 			RecentReminders_Criteria[id] = tiptext
 			--if (tiptext ~= prev_tiptext) then
               if (not angler or not Overachiever_Settings.SoundAchIncomplete_AnglerCheckPole or
-                  not IsEquippedItemType("Fishing Poles")) then
+                  not IsEquippedItemType(LBI["Fishing Poles"])) then
                 PlayReminder()
               end
 			--end
