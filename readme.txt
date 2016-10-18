@@ -109,13 +109,13 @@ Change log
 The change log lists changes of particular note to users, not every change made.
 
 v0.97
-- Fixed issue where the position of the draggable Achievement UI was not used despite the "Remember position" option being enabled. The option once again divorces the Achievement UI from the positioning system used by Character Info, the Spellbook, etc.
-- Attempt to fix addon compatibility issue resulting in an error message the first time the achievement frame is opened if Overachiever's draggable Achievement UI option is enabled.
 - Suggestions Tab: Added additional suggestions for Draenor zones/dungeons/raids and Cataclysm raids. (Thanks to chrisnolanca for many of these.)
-- Fix detection of fishing poles for non-English locales.
-- Fix "Pandarian Angler" reminder tooltips being shown based on the wrong option.
 - "Draenor Angler" (new): Added an option to display a reminder tooltip for fishing nodes that you need to fish from. The Recent Reminders that result will actually be for its criteria achievements, since it is a meta-achievement.
 - Now shows "Already fished" tooltip even if the entire achievement is complete (if the option is enabled) unless the achievement only required a certain number of fish from a list to be fished ("Limnologist", "Oceanographer").
+- Fix detection of fishing poles for non-English locales.
+- Fix "Pandarian Angler" reminder tooltips being shown based on the wrong option.
+- Fixed issue where the position of the draggable Achievement UI was not used despite the "Remember position" option being enabled. The option once again divorces the Achievement UI from the positioning system used by Character Info, the Spellbook, etc.
+- Attempt to fix addon compatibility issue resulting in an error message the first time the achievement frame is opened if Overachiever's draggable Achievement UI option is enabled.
 - Tabs module: Fix problem where an achievement that was given a blue background due to being a future step of a series continued to use that background after it became the current step (because an achievement was completed that session).
 
 v0.96
