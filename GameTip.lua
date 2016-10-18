@@ -508,7 +508,6 @@ if (L.ACH_ANGLER_COUNT) then
 		end
 	end
 end
-print("whats arr",arr,k,v,text,WorldObjLookup)--asdf
 
 local function WorldObjCheck(ach, text)
   local id, data, complete
@@ -525,20 +524,19 @@ local function WorldObjCheck(ach, text)
   else
     data = WorldObjAch[ach]
     id = OVERACHIEVER_ACHID[ach]
-    complete = select(4, GetAchievementInfo(id))
-    if (complete and data[6]) then
+    local achComplete = select(4, GetAchievementInfo(id))
+    if (achComplete and data[6]) then
       WorldObjAch[ach] = nil;
       return;
     end
-    if (not complete) then
-      local isCrit
-      if (data[5]) then
-        isCrit, complete = isCriteria_formatted(id, text, data[5])
-      else
-        isCrit, complete = isCriteria(id, text)
-      end
-      if (not isCrit) then  return;  end
+    local isCrit
+    if (data[5]) then
+      isCrit, complete = isCriteria_formatted(id, text, data[5])
+    else
+      isCrit, complete = isCriteria(id, text)
     end
+    if (not isCrit) then  return;  end
+	complete = complete or achComplete
   end
 
   return id, complete and data[2] or data[3], complete, data[4]
