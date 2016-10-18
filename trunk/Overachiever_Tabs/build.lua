@@ -919,10 +919,12 @@ do
       isSet = true
 	elseif (event == "ACHIEVEMENT_EARNED") then
       isAchievementInUI_cache[arg1] = nil
+	  local failsafe = 0
       local nextID = GetNextAchievement(arg1)
-      while (nextID) do
+      while (nextID and failsafe < 100) do
         isAchievementInUI_cache[nextID] = nil
-        nextID = GetNextAchievement(arg1)
+        nextID = GetNextAchievement(nextID)
+		failsafe = failsafe + 1
       end
     end
   end
