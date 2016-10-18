@@ -44,6 +44,16 @@ OVERACHIEVER_STRINGS = {
 School of %s
 %s Swarm]];
 
+	-- For fishing achievements that have only one criteria and which require fishing from a node. Put each on a new line. Format: <achievement ID>=<fishing node names (separated by commas)>
+	ACH_ANGLER_COUNT = [[9455=Fire Ammonite School
+9456=Abyssal Gulper School,Oily Abyssal Gulper School
+9457=Blackwater Whiptail School
+9458=Blind Lake Sturgeon School
+9459=Fat Sleeper School
+9460=Jawless Skulker School
+9461=Sea Scorpion School,Oily Sea Scorpion School
+]];
+
 	ACH_CONSUME_INCOMPLETE = "Need to consume";
 	ACH_CONSUME_COMPLETE = "Already consumed";
 	ACH_CONSUME_INCOMPLETE_EXTRA = "Haven't consumed";
@@ -120,6 +130,8 @@ School of %s
 	OPT_WELLREADTIPS_TIP = "If the achievement is incomplete, add a line to the tooltips of books that are part of its criteria to indicate whether you need to read them.";
 	OPT_ANGLERTIPS = "Fishing node fished?";
 	OPT_ANGLERTIPS_TIP = "If the achievement is incomplete, add a line to the tooltips of fishing nodes that are part of its criteria to indicate whether you need to fish from them.";
+	OPT_ANGLERTIPS_TIP_ALWAYS = "Add a line to the tooltips of fishing nodes that are part of its criteria to indicate whether you need to fish from them.";
+	OPT_LABEL_DRAENORANGLER = '"%s" Sub-Achievements';
 
 	OPT_LETITSNOWTIPS = "Handful of Snowflakes used?";
 	OPT_LETITSNOWTIPS_TIP = "If the achievement is incomplete, add a line to the tooltips of players of an appropriate race/class combo to indicate whether you need to use a Handful of Snowflakes on them.";

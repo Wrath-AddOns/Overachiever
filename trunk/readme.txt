@@ -26,13 +26,14 @@ Achievement-specific:
 * Automatically track exploration achievements as you travel (if desired).
 * Critters' tooltips remind you which ones you need to earn "To All The Squirrels I've Loved Before."
 * "Well Read" and "Higher Learning": Add whether you've read a relevant book to its tooltip.
-* "The Scavenger," "Outland Angler," and "Northrend Angler": Show whether you've fished a node in its tooltip.
+* "The Scavenger," "Outland Angler," and "Northrend Angler", etc.: Show whether you've fished a node in its tooltip.
 * "Let It Snow" and "Fistful of Love": Show whether you need to use a Handful of Snowflakes or a Handful of Rose
   Petals on players in their tooltips.
 * "Shake Your Bunny-Maker": Show whether you need to use Spring Flowers on players in their tooltips. Enemy players
   of an unknown level are assumed to be at least level 18.
 * "It's Happy Hour Somewhere" and "Tastes Like Chicken": Show whether you've consumed a food or drink item.
 * Select a sound effect to play when one of the above reminders show up in a tooltip if you need to do something.
+* And many more.
 
 Options can be found using the /oa command or at Interface Options -> AddOns tab -> Overachiever.
 
@@ -112,6 +113,9 @@ v0.97
 - Attempt to fix addon compatibility issue resulting in an error message the first time the achievement frame is opened if Overachiever's draggable Achievement UI option is enabled.
 - Suggestions Tab: Added additional suggestions for Draenor zones/dungeons/raids and Cataclysm raids. (Thanks to chrisnolanca for many of these.)
 - Fix detection of fishing poles for non-English locales.
+- Fix "Pandarian Angler" reminder tooltips being shown based on the wrong option.
+- "Draenor Angler" (new): Added an option to display a reminder tooltip for fishing nodes that you need to fish from. The Recent Reminders that result will actually be for its criteria achievements, since it is a meta-achievement.
+- Now shows "Already fished" tooltip even if the entire achievement is complete (if the option is enabled) unless the achievement only required a certain number of fish from a list to be fished ("Limnologist", "Oceanographer").
 - Tabs module: Fix problem where an achievement that was given a blue background due to being a future step of a series continued to use that background after it became the current step (because an achievement was completed that session).
 
 v0.96
