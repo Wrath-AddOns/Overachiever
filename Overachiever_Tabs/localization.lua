@@ -3,7 +3,7 @@ local L, locale = OVERACHIEVER_STRINGS, GetLocale()
 
 L.SEARCH_TAB = "Search";
 L.SEARCH_HELP = "Use this tab to search for achievements. You can also search for achievements by name or ID using slash commands. See Overachiever's readme.txt file for details.";
-L.SEARCH_NAME = "Name:";
+L.SEARCH_NAME = "Name or ID:";
 L.SEARCH_DESC = "Description:";
 L.SEARCH_CRITERIA = "Criteria:";
 L.SEARCH_REWARD = "Reward:";
@@ -46,6 +46,7 @@ L.SUGGESTIONS_ZONERENAME_SHADOWMOONVALLEY_OUTLAND = "Shadowmoon Valley (Outland)
 L.SUGGESTIONS_ZONERENAME_SHADOWMOONVALLEY_DRAENOR = "Shadowmoon Valley (Draenor)"
 L.SUGGESTIONS_ZONERENAME_NAGRAND_OUTLAND = "Nagrand (Outland)"
 L.SUGGESTIONS_ZONERENAME_NAGRAND_DRAENOR = "Nagrand (Draenor)"
+L.SUGGESTIONS_ZONERENAME_KARAZHAN_LEGION = "Return to Karazhan"
 
 L.WATCH_TAB = "Watch";
 L.WATCH_HELP = "Create your watch list by |cffffffffalt+clicking|r on achievements in the other tabs or achievement chat links. |cffffffffAlt+click|r on one displayed here to stop watching it.";
