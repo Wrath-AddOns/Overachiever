@@ -547,12 +547,12 @@ local ACHID_ZONE_MISC = {
 		11133, -- Why Can't I Hold All This Mana?
 		11340, -- Insurrection
 	},
-	["Dalaran Sewers"] = {
+	--[[ ["Dalaran Sewers"] = {
 		11066, -- Underbelly Tycoon
-	},
+	}, --]]
 	["Dalaran (Broken Isles)"] = { -- RENAMED ZONE
 		10722, -- The Wish Remover
-		--11066, -- Underbelly Tycoon
+		11066, -- Underbelly Tycoon
 	},
 -- Legion: Class Halls
 	["Acherus: The Ebon Hold"] = achClassHall, -- Death knight

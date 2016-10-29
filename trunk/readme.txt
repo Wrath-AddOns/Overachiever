@@ -1,5 +1,5 @@
 
-Overachiever v0.98
+Overachiever v0.99
 ==============================
 
 Author: Tuhljin
@@ -107,6 +107,11 @@ Change log
 ==========
 
 The change log lists changes of particular note to users, not every change made.
+
+v0.99
+- Suggestions Tab:
+-- Fix issue where the current instance's difficulty could be improperly detected, resulting in missing/wrong suggestions.
+-- Suggest "Underbelly Tycoon" in correct zone (Dalaran (Broken Isles)).
 
 v0.98
 - Updated for WoW patch 7.1.
