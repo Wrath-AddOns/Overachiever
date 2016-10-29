@@ -185,7 +185,7 @@ function Overachiever.GetDifficulty()
 	--local difficultyName, instanceType, isHeroic, isChallengeMode, displayHeroic, displayMythic, toggleDifficultyID = GetDifficultyInfo(difficultyID);
 	local _, itype, difficultyID = GetInstanceInfo()
 	local _, _, isHeroic, isChallengeMode, _, displayMythic, toggleDifficultyID = GetDifficultyInfo(difficultyID)
-	if (itype == "raid") then  return itype, isHeroic, displayMythic, isChallengeMode, isHeroic, displayMythic, isTwentyFiver(difficultyID);  end
+	if (itype == "raid") then  return itype, isHeroic, displayMythic, isChallengeMode, isTwentyFiver(difficultyID), isHeroic, displayMythic;  end
 	return itype, isHeroic, displayMythic, isChallengeMode, nil, nil, nil
   else
   -- IF NOT IN AN INSTANCE:
