@@ -56,6 +56,16 @@ OVERACHIEVER_ACHID = {
 	-- Statistics:
 	Stat_ConsumeDrinks = 346,	-- "Beverages consumed"
 	Stat_ConsumeFood = 347,		-- "Food eaten"
+	--1774 "Different beverages consumed"
+	--1775 "Different foods eaten"
+};
+
+OVERACHIEVER_MOB_CRIT = {
+	-- For achievements where Overachiever.AchLookup_kill doesn't work, e.g. due to the asset ID being for quests instead of NPCs for some reason.
+	-- Format: <mob ID> = { <achievement ID>, <ach's criteria index>[, <2nd achievement ID>, <2nd ach's criteria index>[, ...]] }  ()
+
+	-- Adventurer of Stormheim:
+	[92152] = { 11263, 7 },	-- Whitewater Typhoon
 };
 
 

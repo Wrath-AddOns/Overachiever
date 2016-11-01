@@ -109,9 +109,14 @@ Change log
 The change log lists changes of particular note to users, not every change made.
 
 v0.99
+- Overachiever's dropdown menus now respond to clicks anywhere instead of only on the down-arrow button.
+- Made the default UI's "Achievement Filter" dropdown respond to clicks anywhere instead of only on the down-arrow button.
+- Added initial support for "need to kill" achievement reminders that require mob IDs to be entered manually (due to the WoW API not providing them) and began entering IDs for criteria of "Adventurer of Stormheim". WIP.
 - Suggestions Tab:
 -- Fix issue where the current instance's difficulty could be improperly detected, resulting in missing/wrong suggestions.
 -- Suggest "Underbelly Tycoon" in correct zone (Dalaran (Broken Isles)).
+-- Suggest "Securing Draenor" at the player garrison.
+-- Fix failure to show suggestions for subzones of Shadowmoon Valley (Draenor) and Frostfire Ridge other than the garrison.
 
 v0.98
 - Updated for WoW patch 7.1.

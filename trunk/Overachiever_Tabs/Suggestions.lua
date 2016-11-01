@@ -278,6 +278,8 @@ local achDraenorGarrison = {
 
 	9099, -- Time for an Upgrade
 	9405, -- Working Some Orders
+
+	IsAlliance and 9564 or 9562, -- Securing Draenor
 }
 local achDraenorGarrisonShipyard = {
 	10177, -- Set Sail! (series)
@@ -597,7 +599,7 @@ if (IsAlliance) then
   tinsert(ACHID_ZONE_MISC["Shadowmoon Valley (Draenor)"], 9528) -- "On the Shadow's Trail"
   tinsert(ACHID_ZONE_MISC["Shadowmoon Valley (Draenor)"], 9602) -- "Shoot For the Moon"
   ACHID_ZONE_MISC["Lunarfall"] = achDraenorGarrison
-  ACHID_ZONE_MISC["Shadowmoon Valley (Draenor)"].SUBZONES = { ["Lunarfall Shipyard"] = achDraenorGarrisonShipyard }
+  ACHID_ZONE_MISC["Shadowmoon Valley (Draenor)"].SUBZONES["Lunarfall Shipyard"] = achDraenorGarrisonShipyard
 
 else
   tinsert(ACHID_ZONE_MISC["Azshara"], 5454) -- "Joy Ride"
@@ -624,7 +626,7 @@ else
   tinsert(ACHID_ZONE_MISC["Frostfire Ridge"], 9529) -- "On the Shadow's Trail"
 
   ACHID_ZONE_MISC["Frostwall"] = achDraenorGarrison -- !! name not 100% verified (have to run Horde char around outskirts of their garrison, refreshing suggestions, to test)
-  ACHID_ZONE_MISC["Frostfire Ridge"].SUBZONES = { ["Frostwall Shipyard"] = achDraenorGarrisonShipyard }
+  ACHID_ZONE_MISC["Frostfire Ridge"].SUBZONES["Frostwall Shipyard"] = achDraenorGarrisonShipyard
 
 end
 -- "The Fishing Diplomat":
