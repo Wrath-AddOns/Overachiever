@@ -39,7 +39,7 @@
 --
 
 
-local THIS_VERSION = 0.07
+local THIS_VERSION = 0.08
 
 if (not TjBagWatch or TjBagWatch.Version < THIS_VERSION) then
   TjBagWatch = TjBagWatch or {}
@@ -70,19 +70,25 @@ if (not TjBagWatch or TjBagWatch.Version < THIS_VERSION) then
 
   local UpdateCount
   do
-    local prevcount, changes
+    --local prevcount
+    local changes
 
     local function getCountFromBag(bagID)
-      local tab = 0
-      local prev
+      local tab, prev
       if (ItemCount_InBag[bagID]) then
+        --[[
         prev = wipe(prevcount)
         tab = ItemCount_InBag[bagID]
         for k,v in pairs(tab) do  prev[k] = v;  end
         wipe(tab)
+        --]]
+        -- Not CPU efficient to wipe. Do it a different way:
+        prev = ItemCount_InBag[bagID]
+        tab = {}
+        ItemCount_InBag[bagID] = tab
       else
-        ItemCount_InBag[bagID] = {}
-        tab = ItemCount_InBag[bagID]
+        tab = {}
+        ItemCount_InBag[bagID] = tab
       end
 
       -- Tally up number of items currently in the bag:
@@ -100,9 +106,10 @@ if (not TjBagWatch or TjBagWatch.Version < THIS_VERSION) then
       -- Compare to number of these items previously in the bag:
       for itemID, num in pairs(tab) do
         total = (ItemCount[itemID] or 0) + num - (prev and prev[itemID] or 0)
+		--if (itemID == 52183) then  print(ItemCount[itemID] or 0, '+', num, '-', prev and prev[itemID] or 0, '=', total);  end
         if (total == 0) then  total = nil;  end
         if (ItemCount[itemID] ~= total) then
-          --print(bagID,select(2,GetItemInfo(itemID)),num,"total:",total)
+          --print(bagID,select(2,GetItemInfo(itemID)) .. ' (' .. itemID .. ')',num,"total:",total) --Note that total here may be off if you're moving things between bags. It should be updated to be accurate later, though. Right?
           if (prev) then  changes[itemID] = (changes[itemID] or 0) + (total or 0) - (ItemCount[itemID] or 0);  end
           ItemCount[itemID] = total
         end
@@ -115,13 +122,14 @@ if (not TjBagWatch or TjBagWatch.Version < THIS_VERSION) then
             if (ItemCount[itemID] == 0) then  ItemCount[itemID] = nil;  end
             changes[itemID] = (changes[itemID] or 0) - num
           end
+          --if (itemID == 52183) then  print("there", changes[itemID], ItemCount[itemID]);  end
         end
       end
     end
 
     function UpdateCount()
-      prevcount = prevcount or {}
-      changes = changes and wipe(changes) or {}
+      --prevcount = prevcount or {}
+      changes = {} --changes and wipe(changes) or {}
       --[[
       if (countAll) then
         getCountFromBag(BACKPACK_CONTAINER)
@@ -139,7 +147,8 @@ if (not TjBagWatch or TjBagWatch.Version < THIS_VERSION) then
       end
       --end
 
-      return changes, (TjBagWatch.regfunc_multiItem_num > 0) and wipe(prevcount)
+      --return changes, (TjBagWatch.regfunc_multiItem_num > 0) and wipe(prevcount)
+      return changes, (TjBagWatch.regfunc_multiItem_num > 0) and {}
     end
   end
 
@@ -207,7 +216,7 @@ if (not TjBagWatch or TjBagWatch.Version < THIS_VERSION) then
 
       NeedRecount[BACKPACK_CONTAINER] = true
       for i=1,NUM_BAG_SLOTS do  NeedRecount[i] = true;  end
-      NeedRecount[KEYRING_CONTAINER] = true
+      --Keyrings are no longer a thing --NeedRecount[KEYRING_CONTAINER] = true
       if (BankFrame:IsVisible()) then
         NeedRecount[BANK_CONTAINER] = true
         for i=NUM_BAG_SLOTS + 1,NUM_BAG_SLOTS + NUM_BANKBAGSLOTS do  NeedRecount[i] = true;  end
