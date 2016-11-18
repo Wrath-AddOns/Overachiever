@@ -1120,10 +1120,12 @@ function Overachiever.OnEvent(self, event, arg1, ...)
     Overachiever.CreateOptions = nil
 
     if (oldver and oldver ~= THIS_VERSION) then
+      oldver = tonumber(oldver)
       Overachiever_Settings.Version = THIS_VERSION
 	  toast = L.OVERACHIEVER_UPDATED_TOAST
 	  msg = L.OVERACHIEVER_UPDATED_MSG:format(THIS_VERSION)
       local def, settings = Overachiever.DefaultSettings, Overachiever_Settings
+
       -- Remove options no longer in this version:
       for k,v in pairs(settings) do
         if (def[k] == nil) then  settings[k] = nil;  end
@@ -1133,7 +1135,7 @@ function Overachiever.OnEvent(self, event, arg1, ...)
         if (settings[k] == nil) then  settings[k] = v;  end
       end
 
-      if (tonumber(oldver) < 0.40 and Overachiever_CharVars_Default) then
+      if (oldver < 0.40 and Overachiever_CharVars_Default) then
         Overachiever_CharVars_Default.Pos_AchievementWatchFrame = nil
       end
 

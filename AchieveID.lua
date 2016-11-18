@@ -1,13 +1,13 @@
 
 OVERACHIEVER_ACHID = {
 	WorldExplorer = 46,		-- "World Explorer"
-	LoveCritters = 1206,		-- "To All The Squirrels I've Loved Before"
-	LoveCritters2 = 2557,		-- "To All The Squirrels Who Shared My Life"
-	LoveCritters3 = 5548,		-- "To All the Squirrels Who Cared for Me"
-	LoveCritters4 = 6350,		-- "To All the Squirrels I Once Caressed?"
+	LoveCritters = 1206,	-- "To All The Squirrels I've Loved Before"
+	LoveCritters2 = 2557,	-- "To All The Squirrels Who Shared My Life"
+	LoveCritters3 = 5548,	-- "To All the Squirrels Who Cared for Me"
+	LoveCritters4 = 6350,	-- "To All the Squirrels I Once Caressed?"
 	PestControl = 2556,		-- "Pest Control"
 	WellRead = 1244,		-- "Well Read"
-	HigherLearning = 1956,		-- "Higher Learning"
+	HigherLearning = 1956,	-- "Higher Learning"
 
 	TastesLikeChicken = 1832,	-- "Takes Like Chicken"
 	HappyHour = 1833,		-- "It's Happy Hour Somewhere"
@@ -17,7 +17,7 @@ OVERACHIEVER_ACHID = {
 	PandarenDelicacies = 7330,	-- "Pandaren Delicacies"
 	DraenorCuisine = 9502,		-- "Draenor Cuisine"
 	BrewfestDiet = 1185,		-- "The Brewfest Diet"
-	DarkmoonFaireFeast = 6026,		-- "Fairegoer's Feast"
+	DarkmoonFaireFeast = 6026,	-- "Fairegoer's Feast"
 
 	RightAsRain = 5779,		-- "You'll Feel Right as Rain"
 
@@ -37,21 +37,21 @@ OVERACHIEVER_ACHID = {
 	GourmetDraenor = 9501,		-- "The Draenor Gourmet"
 	LegionMenu = 10762,			-- "The Legion Menu"
 
-	MediumRare = 1311,		-- "Medium Rare"
-	BloodyRare = 1312,		-- "Bloody Rare"
+	MediumRare = 1311,			-- "Medium Rare"
+	BloodyRare = 1312,			-- "Bloody Rare"
 	NorthernExposure = 2256,	-- "Northern Exposure"
-	Frostbitten = 2257,		-- "Frostbitten"
-	Glorious = 7439,		-- "Glorious!"
+	Frostbitten = 2257,			-- "Frostbitten"
+	Glorious = 7439,			-- "Glorious!"
 
 	StoodInTheFire = 5518,		-- "Stood in the Fire"
 	SurveyingTheDamage = 4827,	-- "Surveying the Damage"
-	WhaleShark = 4975,		-- "From Hell's Heart I Stab at Thee"
+	WhaleShark = 4975,			-- "From Hell's Heart I Stab at Thee"
 
 	LetItSnow = 1687,		-- "Let It Snow"
-	FistfulOfLove = 1699,		-- "Fistful of Love"
+	FistfulOfLove = 1699,	-- "Fistful of Love"
 	BunnyMaker = 2422,		-- "Shake Your Bunny-Maker"
-	CheckYourHead = 291,		-- "Check Your Head"
-	TurkeyLurkey = 3559,		-- "Turkey Lurkey"
+	CheckYourHead = 291,	-- "Check Your Head"
+	TurkeyLurkey = 3559,	-- "Turkey Lurkey"
 
 	-- Statistics:
 	Stat_ConsumeDrinks = 346,	-- "Beverages consumed"

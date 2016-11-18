@@ -117,6 +117,7 @@ v0.99
 -- Suggest "Underbelly Tycoon" in correct zone (Dalaran (Broken Isles)).
 -- Suggest "Securing Draenor" at the player garrison.
 -- Fix failure to show suggestions for subzones of Shadowmoon Valley (Draenor) and Frostfire Ridge other than the garrison.
+- Make TjBagWatch library a little more CPU efficient.
 
 v0.98
 - Updated for WoW patch 7.1.
