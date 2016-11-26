@@ -21,6 +21,8 @@ local RecentReminders = Overachiever.RecentReminders
 local IsAlliance = UnitFactionGroup("player") == "Alliance"
 local suggested = {}
 
+local showHidden, numHidden = false, 0
+
 local ZONE_RENAME = Overachiever.ZONE_RENAME
 
 local ZONE_RENAME_REV = { -- lookup table so localizations can use their own renames
@@ -1305,11 +1307,12 @@ local ACHID_TRADESKILL_BG = { Cooking = 1785 }	-- "Dinner Impossible"
 -- SUGGESTIONS TAB CREATION AND HANDLING
 ----------------------------------------------------
 
-local VARS
+local VARS, VARS_CHAR
 local frame, panel, sortdrop
 local LocationsList, EditZoneOverride, subzdrop, subzdrop_menu, subzdrop_Update = {}
 local diffdrop, raidsizedrop
 local RefreshBtn, ResetBtn, NoSuggestionsLabel, ResultsLabel
+local ShowHiddenCheckbox
 
 --WHAT = LocationsList
 
@@ -1319,8 +1322,9 @@ local function SortDrop_OnSelect(self, value)
   frame:ForceUpdate(true)
 end
 
-local function OnLoad(v)
+local function OnLoad(v, ver, vc)
   VARS = v
+  VARS_CHAR = vc
   sortdrop:SetSelectedValue(VARS.SuggestionsSort or 0)
 end
 
@@ -1355,6 +1359,7 @@ local CurrentSubzone
 
 local function Refresh_Add(...)
   local id, _, complete, nextid
+  local hidden = VARS_CHAR and VARS_CHAR.SuggestionsHidden
   for i=1, select("#", ...) do
     id = select(i, ...)
     if (id) then
@@ -1374,26 +1379,30 @@ local function Refresh_Add(...)
         local crit
         id, crit = strsplit(":", id)
         id, crit = tonumber(id), tonumber(crit)
-        _, _, _, complete = GetAchievementInfo(id)
-        if (complete) then
-          nextid, complete = GetNextAchievement(id)
-          if (nextid) then
-            local name = GetAchievementCriteriaInfo(id, crit)
-            while (complete and GetAchievementCriteriaInfo(nextid, crit) == name) do
-            -- Find first incomplete achievement in the chain that has this criteria:
-              id = nextid
-              nextid, complete = GetNextAchievement(id)
-            end
-            if (nextid and GetAchievementCriteriaInfo(nextid, crit) == name) then
-              id = nextid
+        if (showHidden or not hidden or not hidden[id]) then
+          _, _, _, complete = GetAchievementInfo(id)
+          if (complete) then
+            nextid, complete = GetNextAchievement(id)
+            if (nextid) then
+              local name = GetAchievementCriteriaInfo(id, crit)
+              while (complete and GetAchievementCriteriaInfo(nextid, crit) == name) do
+              -- Find first incomplete achievement in the chain that has this criteria:
+                id = nextid
+                nextid, complete = GetNextAchievement(id)
+              end
+              if (nextid and GetAchievementCriteriaInfo(nextid, crit) == name) then
+                id = nextid
+              end
             end
           end
-        end
-        suggested[id] = crit
+          suggested[id] = crit
         -- Known limitation (of no consequence at this time due to which suggestions actually use this feature):
         -- If an achievement is suggested due to multiple criteria, only one of them is reflected by this.
         -- (A future fix may involve making it a table when there's more than one, though it would need to check
         -- against adding the same criteria number twice.)
+        else
+          numHidden = numHidden + 1
+        end
 
       else
         _, _, _, complete = GetAchievementInfo(id)
@@ -1407,7 +1416,11 @@ local function Refresh_Add(...)
             id = nextid or id
           end
         end
-        suggested[id] = true
+        if (showHidden or not hidden or not hidden[id]) then
+          suggested[id] = true
+        else
+          numHidden = numHidden + 1
+        end
       end
 
     end
@@ -1439,7 +1452,7 @@ local function Refresh(self)
     if (subz ~= 0) then  CurrentSubzone = subz;  end
   else
     zone = GetZoneSpecialOverride() or ZoneLookup(GetRealZoneText(), nil, CurrentSubzone)
-	if (inputtext and inputtext ~= "") then  EditZoneOverride:SetTextColor(0.75, 0.1, 0.1);  end
+    if (inputtext and inputtext ~= "") then  EditZoneOverride:SetTextColor(0.75, 0.1, 0.1);  end
     --Refresh_stoploop = true
     subzdrop:SetMenu(subzdrop_menu)
     --Refresh_stoploop = nil
@@ -1461,6 +1474,8 @@ local function Refresh(self)
     twentyfive = val == 25 and true or false
   end
 
+  numHidden = 0
+
   -- Suggestions based on an open tradeskill window or whether a fishing pole is equipped:
   TradeskillSuggestions = select(2, C_TradeSkillUI.GetTradeSkillLine())
   local tradeskill = LBIR[TradeskillSuggestions]
@@ -1475,6 +1490,13 @@ local function Refresh(self)
     if (instype == "pvp") then  -- If in a battleground:
       Refresh_Add(ACHID_TRADESKILL_BG[tradeskill])
     end
+  elseif (textoverride and zone == L.SUGGESTIONS_HIDDENLOCATION) then
+    if (VARS_CHAR.SuggestionsHidden) then
+      for id in pairs(VARS_CHAR.SuggestionsHidden) do
+        suggested[id] = true
+      end
+    end
+    
   else
     TradeskillSuggestions = nil
 
@@ -1499,10 +1521,10 @@ local function Refresh(self)
         end
       end
 
-	  if (mythicD or mythicR) then
-	    Refresh_Add(ACHID_INSTANCES_MYTHIC[zone], ACHID_INSTANCES_HEROIC_PLUS[zone])
-		-- No need to check twentyfive; that's a legacy classification and the dungeons/raids with mythic-only achievements don't use it.
-	  end
+      if (mythicD or mythicR) then
+        Refresh_Add(ACHID_INSTANCES_MYTHIC[zone], ACHID_INSTANCES_HEROIC_PLUS[zone])
+        -- No need to check twentyfive; that's a legacy classification and the dungeons/raids with mythic-only achievements don't use it.
+      end
 
     else
       Refresh_Add(Overachiever.ExploreZoneIDLookup(zone), ACHID_ZONE_NUMQUESTS[zone], ACHID_ZONE_MISC[zone])
@@ -1542,10 +1564,10 @@ local function Refresh(self)
         Refresh_Add(ACHID_INSTANCES_NORMAL[CurrentSubzone] or ACHID_INSTANCES_NORMAL[zone])
       end
 
-	  if (mythicD or mythicR) then
+      if (mythicD or mythicR) then
 	    Refresh_Add(ACHID_INSTANCES_MYTHIC[CurrentSubzone] or ACHID_INSTANCES_MYTHIC[zone],
 			ACHID_INSTANCES_HEROIC_PLUS[CurrentSubzone] or ACHID_INSTANCES_HEROIC_PLUS[zone])
-	  end
+      end
     end
 
     if (textoverride) then
@@ -1584,21 +1606,30 @@ local function Refresh(self)
 end
 
 function frame.SetNumListed(num)
-  if (num > 0) then
+  if (num > 0 or numHidden > 0) then
     NoSuggestionsLabel:Hide()
     if (TradeskillSuggestions) then
-      ResultsLabel:SetText(L.SUGGESTIONS_RESULTS_TRADESKILL:format(TradeskillSuggestions, num))
+      if (numHidden > 0) then
+        ResultsLabel:SetText(L.SUGGESTIONS_RESULTS_TRADESKILL_HIDDEN:format(TradeskillSuggestions, num, numHidden))
+      else
+        ResultsLabel:SetText(L.SUGGESTIONS_RESULTS_TRADESKILL:format(TradeskillSuggestions, num))
+      end
     else
-      ResultsLabel:SetText(L.SUGGESTIONS_RESULTS:format(num))
+      if (numHidden > 0) then
+        ResultsLabel:SetText(L.SUGGESTIONS_RESULTS_HIDDEN:format(num, numHidden))
+      else
+        ResultsLabel:SetText(L.SUGGESTIONS_RESULTS:format(num))
+      end
     end
-  else
+  end
+  if (num == 0) then
     NoSuggestionsLabel:Show()
     if (TradeskillSuggestions) then
       NoSuggestionsLabel:SetText(L.SUGGESTIONS_EMPTY_TRADESKILL:format(TradeskillSuggestions))
     else
       NoSuggestionsLabel:SetText(L.SUGGESTIONS_EMPTY)
     end
-    ResultsLabel:SetText(" ")
+    if (numHidden < 1) then  ResultsLabel:SetText(" ");  end
   end
 end
 
@@ -1624,6 +1655,36 @@ NoSuggestionsLabel:SetWidth(490)
 frame:RegisterEvent("TRADE_SKILL_SHOW")
 frame:RegisterEvent("TRADE_SKILL_CLOSE")
 frame:SetScript("OnEvent", Refresh)
+
+
+ShowHiddenCheckbox = CreateFrame("CheckButton", "Overachiever_SuggestionsFrameShowHiddenCheckbox", panel, "InterfaceOptionsCheckButtonTemplate")
+--ShowHiddenCheckbox:SetPoint("LEFT", sortdrop, "LEFT", 14, 0); ShowHiddenCheckbox:SetPoint("TOP", BaseLabel, "BOTTOM", 0, -24);
+--ShowHiddenCheckbox:SetPoint("BOTTOMLEFT", panel, "BOTTOMLEFT", 0, 2)
+ShowHiddenCheckbox:SetPoint("LEFT", sortdrop, "LEFT", 14, 0)
+ShowHiddenCheckbox:SetPoint("BOTTOM", panel, "BOTTOM", 0, 0)
+Overachiever_SuggestionsFrameShowHiddenCheckboxText:SetText(L.SUGGESTIONS_SHOWHIDDEN)
+Overachiever_SuggestionsFrameShowHiddenCheckboxText:SetJustifyH("LEFT")
+ShowHiddenCheckbox:SetHitRectInsets(0, -1 * min(Overachiever_SuggestionsFrameShowHiddenCheckboxText:GetWidth() + 8, 155), 0, 0)
+
+ShowHiddenCheckbox:SetScript("OnEnter", function(self)
+  GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+  GameTooltip:SetBackdropColor(TOOLTIP_DEFAULT_BACKGROUND_COLOR.r, TOOLTIP_DEFAULT_BACKGROUND_COLOR.g, TOOLTIP_DEFAULT_BACKGROUND_COLOR.b)
+  GameTooltip:AddLine(L.SUGGESTIONS_SHOWHIDDEN_TIP, nil, nil, nil, 1)
+  GameTooltip:AddLine(L.SUGGESTIONS_SHOWHIDDEN_TIP2, nil, nil, nil, 1)
+  GameTooltip:Show()
+end)
+ShowHiddenCheckbox:SetScript("OnLeave", GameTooltip_Hide)
+ShowHiddenCheckbox:SetScript("OnClick", function(self)
+  if (self:GetChecked()) then
+    PlaySound("igMainMenuOptionCheckBoxOn");
+    showHidden = true
+    Refresh(panel)
+  else
+    PlaySound("igMainMenuOptionCheckBoxOff");
+    showHidden = false
+    Refresh(panel)
+  end
+end)
 
 
 -- SUPPORT FOR OTHER ADDONS
@@ -1700,6 +1761,9 @@ do
   addtolist(suggested, ACHID_HOLIDAY); -- These aren't actual zones but we want the user to be able to look them up by name.
   locallookup = nil
   addtolist = nil
+
+  suggested[L.SUGGESTIONS_HIDDENLOCATION] = true  -- Add another special location, this for Hidden suggestions
+
   -- Arrange into alphabetically-sorted array:
   local count = 0
   for k in pairs(suggested) do
@@ -1939,6 +2003,24 @@ function Overachiever.OpenSuggestionsTab(text)
 	end
 end
 
+function frame.ShouldCrossOut(id)
+	return VARS_CHAR.SuggestionsHidden and VARS_CHAR.SuggestionsHidden[id]
+end
+
+function frame.HandleRightClick(id)
+	if (not IsShiftKeyDown()) then  return;  end
+	if (VARS_CHAR.SuggestionsHidden and VARS_CHAR.SuggestionsHidden[id]) then
+		VARS_CHAR.SuggestionsHidden[id] = nil
+		if (next(VARS_CHAR.SuggestionsHidden) == nil) then -- Is the table empty?
+			VARS_CHAR.SuggestionsHidden = nil
+		end
+	else
+		if (not VARS_CHAR.SuggestionsHidden) then  VARS_CHAR.SuggestionsHidden = {};  end
+		VARS_CHAR.SuggestionsHidden[id] = true
+	end
+	Refresh(panel)
+end
+
 --[[
 local function grabFromCategory(cat, ...)
   wipe(suggested)
@@ -1987,7 +2069,7 @@ end
 -- ULDUAR 25: Results from grabFromCategory(14962, 2958):
 --	{ 2895, 2904, 2906, 2908, 2910, 2912, 2918, 2921, 2926, 2928, 2932, 2935, 2936, 2938, 2942, 2943, 2946, 2948, 2952, 2956, 2958, 2960, 2962, 2965, 2968, 2970, 2972, 2974, 2976, 2978, 2981, 2983, 2984, 2995, 2997, 3002, 3005, 3010, 3011, 3013, 3016, 3017, 3037, 3077, 3098, 3118, 3161, 3185, 3237 }
 
---[[ ]]
+--[[
 -- /run Overachiever.Debug_GetIDsInCat( GetAchievementCategory(GetTrackedAchievements()) )
 function Overachiever.Debug_GetIDsInCat(cat, simple)
   local tab = Overachiever_Settings.Debug_AchIDsInCat
@@ -2010,7 +2092,7 @@ function Overachiever.Debug_GetIDsInCat(cat, simple)
 end
 --]]
 
---[[ --]]
+--[[
 -- /run Overachiever.Debug_GetMissingAch()
 local function getAchIDsFromTab(from, to)
   for k,v in pairs(from) do
