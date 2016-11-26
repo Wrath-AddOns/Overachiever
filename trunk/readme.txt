@@ -109,6 +109,7 @@ Change log
 The change log lists changes of particular note to users, not every change made.
 
 v0.99
+- Suggestions Tab: New feature! You can now hide specific suggestions so they aren't shown to the current character. There is a "Show Hidden" checkbox allowing you to see what you've hidden and "unhide" them, as desired.
 - Overachiever's dropdown menus now respond to clicks anywhere instead of only on the down-arrow button.
 - Made the default UI's "Achievement Filter" dropdown respond to clicks anywhere instead of only on the down-arrow button.
 - Added initial support for "need to kill" achievement reminders that require mob IDs to be entered manually (due to the WoW API not providing them) and began entering IDs for criteria of "Adventurer of Stormheim". WIP.

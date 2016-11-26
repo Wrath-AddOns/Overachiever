@@ -19,11 +19,13 @@ L.SEARCH_RESET = "Reset";
 L.SEARCH_RESULTS = "Found %s |4achievement:achievements;.";
 
 L.SUGGESTIONS_TAB = "Suggestions";
-L.SUGGESTIONS_HELP = "Suggested achievements are listed here based on your current location. Also listed are all \"Recent Reminder\" achievements.";
+L.SUGGESTIONS_HELP = "Suggested achievements are listed here based on your current location. Also listed are all \"Recent Reminder\" achievements.|n|n|cffffffffShift-right-click|r on a suggested achievement to hide it. (This is character-specific and affects all locations.)";
 L.SUGGESTIONS_REFRESH = "Refresh";
 L.SUGGESTIONS_EMPTY = "Overachiever has no suggestions for you at this time.";
 L.SUGGESTIONS_RESULTS = "%d |4suggestion:suggestions; found.";
+L.SUGGESTIONS_RESULTS_HIDDEN = "%d |4suggestion:suggestions; found.|n(%d |4is:are; hidden.)";
 L.SUGGESTIONS_RESULTS_TRADESKILL = "%s: %d |4suggestion:suggestions; found.";
+L.SUGGESTIONS_RESULTS_TRADESKILL_HIDDEN = "%s: %d |4suggestion:suggestions; found.|n(%d |4is:are; hidden.)";
 L.SUGGESTIONS_EMPTY_TRADESKILL = "%s: Overachiever has no suggestions for you at this time.";
 L.SUGGESTIONS_LOCATION = "Location:"
 L.SUGGESTIONS_LOCATION_TIP = "Override Zone/Instance Location"
@@ -39,6 +41,10 @@ L.SUGGESTIONS_RAIDSIZE = "Raid Size:"
 L.SUGGESTIONS_RAIDSIZE_AUTO = "Auto-Detect"
 L.SUGGESTIONS_RAIDSIZE_10 = "10-man"
 L.SUGGESTIONS_RAIDSIZE_25 = "25-man"
+L.SUGGESTIONS_SHOWHIDDEN = "Show Hidden"
+L.SUGGESTIONS_SHOWHIDDEN_TIP = "Check to show hidden suggestions for this location."
+L.SUGGESTIONS_SHOWHIDDEN_TIP2 = "If you want to see all hidden suggestions regardless of location, enter \"hidden\" into the Location field, above.|n|n|cffffffffShift-right-click|r on an achievement to toggle whether it is hidden."
+L.SUGGESTIONS_HIDDENLOCATION = "hidden"
 
 L.SUGGESTIONS_ZONERENAME_DALARAN_NORTHREND = "Dalaran (Northrend)"
 L.SUGGESTIONS_ZONERENAME_DALARAN_BROKENISLES = "Dalaran (Broken Isles)"
