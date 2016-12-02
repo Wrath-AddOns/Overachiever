@@ -109,14 +109,16 @@ Change log
 The change log lists changes of particular note to users, not every change made.
 
 v0.99
-- Suggestions Tab: New feature! You can now hide specific suggestions so they aren't shown to the current character. There is a "Show Hidden" checkbox allowing you to see what you've hidden and "unhide" them, as desired.
+* HIGHLIGHT: New feature! You can now hide specific suggestions so they aren't shown to the current character. Use the "Show Hidden" checkbox or enter "hidden" into the Location field to see what you've hidden and "unhide" it, as needed.
+- Moved key bindings to AddOns category.
 - Overachiever's dropdown menus now respond to clicks anywhere instead of only on the down-arrow button.
 - Made the default UI's "Achievement Filter" dropdown respond to clicks anywhere instead of only on the down-arrow button.
 - Added initial support for "need to kill" achievement reminders that require mob IDs to be entered manually (due to the WoW API not providing them) and began entering IDs for criteria of "Adventurer of Stormheim". WIP.
 - Suggestions Tab:
+-- Ability to hide suggestions, as mentioned above.
 -- Fix issue where the current instance's difficulty could be improperly detected, resulting in missing/wrong suggestions.
 -- Suggest "Underbelly Tycoon" in correct zone (Dalaran (Broken Isles)).
--- Suggest "Securing Draenor" at the player garrison.
+-- Updated player garrison suggestions.
 -- Fix failure to show suggestions for subzones of Shadowmoon Valley (Draenor) and Frostfire Ridge other than the garrison.
 - Make TjBagWatch library a little more CPU efficient.
 
