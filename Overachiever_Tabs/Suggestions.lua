@@ -260,28 +260,43 @@ local achDarkmoonFaire = {
 -- in the list includes it as a criteria) or otherwise not worth suggesting.
 
 local achDraenorGarrison = {
+	IsAlliance and 9564 or 9562, -- Securing Draenor
+
 	IsAlliance and 9100 or 9545, -- More Plots
 	IsAlliance and 9210 or 9132, -- Garrison Buddies
 	IsAlliance and 9928 or 9901, -- Don't Call Me Junior
 	IsAlliance and 9828 or 9897, -- Ten Hit Tunes
 	8933, -- Staying Regular
 	9094, -- Garrison Architect
-	9076, -- Choppin' Some Logs
-	9429, -- Upgrading the Mill
-	9450, -- The Trap Game
-	9468, -- Salvaging Pays Off
-	9495, -- The Bone Collector
-	9497, -- Finding Your Waystones
-	9498, -- Wingman
-	9538, -- Intro to Husbandry
-	9527, -- Terrific Technology
-	9703, -- Stay Awhile and Listen
-	IsAlliance and 9738 or 9508, -- Warlord of Draenor
 
 	9099, -- Time for an Upgrade
-	9405, -- Working Some Orders
 
-	IsAlliance and 9564 or 9562, -- Securing Draenor
+	-- Unlock blueprints:
+	9406, -- Working More Orders (2nd in series; 1st is 9405, "Working Some Orders")
+	9463, -- Draenic Pet Battler
+	9454, -- Draenic Seed Collector
+	9453, -- Draenic Stone Collector
+	9462, -- Draenor Angler
+	9129, -- Filling the Ranks (3rd in series; 1st is 9110, "Following Up")
+	9497, -- Finding Your Waystones
+	9487, -- Got My Mind On My Draenor Money
+	9565, -- Master Trapper (2nd in series; 1st is 9450, "The Trap Game")
+	9526, -- Master of Mounts (2nd in series; 1st is 9538, "Intro to Husbandry")
+	9523, -- Patrolling Draenor (2nd in series; 1st is 9146, "Patrol Mission Specialist")
+	9468, -- Salvaging Pays Off
+	IsAlliance and 9478 or 9477, -- Savage Friends
+	9703, -- Stay Awhile and Listen
+	9527, -- Terrific Technology
+	9495, -- The Bone Collector
+	9429, -- Upgrading the Mill
+
+	-- Other building-specific:
+	9076, -- Choppin' Some Logs
+	9498, -- Wingman
+	IsAlliance and 9738 or 9508, -- Warlord of Draenor
+	IsAlliance and 9539 or 9705, -- Advanced Husbandry
+	IsAlliance and 9540 or 9706, -- The Stable Master
+
 }
 local achDraenorGarrisonShipyard = {
 	10177, -- Set Sail! (series)
