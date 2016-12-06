@@ -113,7 +113,7 @@ v0.99
 - Moved key bindings to AddOns category.
 - Overachiever's dropdown menus now respond to clicks anywhere instead of only on the down-arrow button.
 - Made the default UI's "Achievement Filter" dropdown respond to clicks anywhere instead of only on the down-arrow button.
-- Added initial support for "need to kill" achievement reminders that require mob IDs to be entered manually (due to the WoW API not providing them) and began entering IDs for criteria of "Adventurer of Stormheim". WIP.
+- "Adventurer of Highmountain", "Adventurer of Stormheim", "Adventurer of Suramar": Added "need to kill" reminders for these achievements. (Unlike the other Legion "Adventurer" achievements, they require mob IDs to be entered manually.) At this time, their reminders are only for NPCs that need to be killed; does not show a tooltip for interacting with objects (but if an object spawns an NPC that should be killed, it will show on the NPC).
 - Suggestions Tab:
 -- Ability to hide suggestions, as mentioned above.
 -- Fix issue where the current instance's difficulty could be improperly detected, resulting in missing/wrong suggestions.

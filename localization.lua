@@ -26,6 +26,7 @@ OVERACHIEVER_STRINGS = {
 
 	KILL_INCOMPLETE = "Need to kill";
 	KILL_COMPLETE = "Already killed";
+	--? "Need to defeat" -- for things you need to defeat but not kill
 
 	CRITTER = "Critter";
 	WILDPET = "Wild Pet";
