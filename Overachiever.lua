@@ -1120,7 +1120,6 @@ function Overachiever.OnEvent(self, event, arg1, ...)
     Overachiever.CreateOptions = nil
 
     if (oldver and oldver ~= THIS_VERSION) then
-      oldver = tonumber(oldver)
       Overachiever_Settings.Version = THIS_VERSION
 	  toast = L.OVERACHIEVER_UPDATED_TOAST
 	  msg = L.OVERACHIEVER_UPDATED_MSG:format(THIS_VERSION)
@@ -1135,7 +1134,7 @@ function Overachiever.OnEvent(self, event, arg1, ...)
         if (settings[k] == nil) then  settings[k] = v;  end
       end
 
-      if (oldver < 0.40 and Overachiever_CharVars_Default) then
+      if (oldver < "0.40" and Overachiever_CharVars_Default) then
         Overachiever_CharVars_Default.Pos_AchievementWatchFrame = nil
       end
 
@@ -1148,9 +1147,8 @@ function Overachiever.OnEvent(self, event, arg1, ...)
     end
 
     if (Overachiever_CharVars) then
-      oldver = tonumber(Overachiever_CharVars.Version)
-      if (oldver < 0.40) then  Overachiever_CharVars.Pos_AchievementWatchFrame = nil;  end
-      if (oldver < 0.55) then  Overachiever_CharVars.TrackedAch = nil;  end  -- No longer necessary as between-session objective tracking is now done by WoW itself.
+      if (oldver < "0.40") then  Overachiever_CharVars.Pos_AchievementWatchFrame = nil;  end
+      if (oldver < "0.55") then  Overachiever_CharVars.TrackedAch = nil;  end  -- No longer necessary as between-session objective tracking is now done by WoW itself.
 
      --[[  No longer necessary as this is now done by WoW itself:
       local tracked = Overachiever_CharVars.TrackedAch
