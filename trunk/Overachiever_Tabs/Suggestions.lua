@@ -261,6 +261,7 @@ local achDarkmoonFaire = {
 
 local achDraenorGarrison = {
 	IsAlliance and 9564 or 9562, -- Securing Draenor
+	IsAlliance and 9491 or 9492, -- The Garrison Campaign
 
 	IsAlliance and 9100 or 9545, -- More Plots
 	IsAlliance and 9210 or 9132, -- Garrison Buddies
@@ -843,6 +844,7 @@ local ACHID_INSTANCES = {
 -- Aliases
 ACHID_INSTANCES["Molten Core"] = ACHID_INSTANCES["The Molten Core"]
 ACHID_INSTANCES["Hall of Blackhand"] = ACHID_INSTANCES["Upper Blackrock Spire"]
+ACHID_INSTANCES["Violet Hold"] = ACHID_INSTANCES["Assault on Violet Hold"]
 
 -- Battlegrounds
 ACHID_INSTANCES["The Battle for Gilneas"] = 5258

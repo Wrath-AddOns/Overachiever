@@ -1,5 +1,5 @@
 
-Overachiever v0.99.1
+Overachiever v0.99.2
 ==============================
 
 Author: Tuhljin
@@ -107,6 +107,15 @@ Change log
 ==========
 
 The change log lists changes of particular note to users, not every change made.
+
+v0.99.2
+- There can now be multiple objectives marked as a "Recently spotted objective", each individually tracked for the purposes of the Recent Reminders expiration time.
+- Improved the way tooltip reminders are handled when the moused-over item has multiple associated achievements. Multiple lines should more reliably appear when applicable, and if two lines would be the same, they are consolidated (with extra text indicating the number of achievements that line applies to). (This should be extended to objects and players/NPCs in a future release.)
+- Recent Reminders now expire after 3 minutes, up from 2.
+- Suggestions Tab:
+-- Fix suggestions for Assault on Violet Hold (dungeon) not showing automatically.
+-- Suggest "The Garrison Campaign" at the player garrison.
+- Attempt to prevent unneeded calls to time-consuming statistic-reading related to the consumed item tracking system by only proceeding if we detect a possible statistic change.
 
 v0.99.1
 - "Adventurer of Azsuna", "Adventurer of Val'sharah": Added "need to kill" reminders for the criteria that needed manual entry of mob IDs.
@@ -678,4 +687,3 @@ v0.12
 
 v0.11
 - Initial release.
-

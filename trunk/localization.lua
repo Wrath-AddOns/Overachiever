@@ -24,6 +24,8 @@ OVERACHIEVER_STRINGS = {
 	COMPLETEDATE = "Completed on %2$d/%1$02d/%3$02d";  -- 1 - day 2 - month 3 - year
 	INCOMPLETE = "Incomplete";
 
+	MULTI_NEED = "%s (needed for %s achievements)";
+
 	KILL_INCOMPLETE = "Need to kill";
 	KILL_COMPLETE = "Already killed";
 	--? "Need to defeat" -- for things you need to defeat but not kill
