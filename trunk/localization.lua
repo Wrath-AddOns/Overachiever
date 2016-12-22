@@ -76,6 +76,13 @@ School of %s
 	ACH_TURKEYLURKEY_COMPLETE = "Already feathered";
 
 	HOLIDAY_DARKMOONFAIRE = "Darmoon Faire";
+	HOLIDAY_LUNARFESTIVAL = "Lunar Festival";
+	HOLIDAY_LOVEISINTHEAIR = "Love is in the Air";
+	HOLIDAY_NOBLEGARDEN = "Noblegarden";
+	HOLIDAY_CHILDRENSWEEK = "Children's Week";
+	HOLIDAY_MIDSUMMER = "Midsummer Fire Festival";
+	HOLIDAY_MIDSUMMER_SHORT = "Midsummer";
+	HOLIDAY_PIRATESDAY = "Pirates' Day";
 	HOLIDAY_BREWFEST = "Brewfest";
 	HOLIDAY_HALLOWSEND = "Hallow's End";
 	HOLIDAY_DAYOFTHEDEAD = "Day of the Dead";
