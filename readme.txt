@@ -113,8 +113,10 @@ v0.99.2
 - Improved the way tooltip reminders are handled when the moused-over item has multiple associated achievements. Multiple lines should more reliably appear when applicable, and if two lines would be the same, they are consolidated (with extra text indicating the number of achievements that line applies to). (This should be extended to objects and players/NPCs in a future release.)
 - Recent Reminders now expire after 3 minutes, up from 2.
 - Suggestions Tab:
+-- Added suggestions for these holidays/events: Lunar Festival, Love is in the Air, Noblegarden, Children's Week, Midsummer Fire Festival, Pirates' Day.
 -- Fix suggestions for Assault on Violet Hold (dungeon) not showing automatically.
 -- Suggest "The Garrison Campaign" at the player garrison.
+-- When looking up suggestions while in an instance, try to first use instance name instead of zone name.
 - Attempt to prevent unneeded calls to time-consuming statistic-reading related to the consumed item tracking system by only proceeding if we detect a possible statistic change.
 
 v0.99.1
