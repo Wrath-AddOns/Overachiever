@@ -109,7 +109,7 @@ Change log
 The change log lists changes of particular note to users, not every change made.
 
 v0.99.2
-- There can now be multiple objectives marked as a "Recently spotted objective", each individually tracked for the purposes of the Recent Reminders expiration time.
+- There can now be multiple objectives per achievement marked as a "Recently spotted objective", each individually tracked for the purposes of the Recent Reminders expiration time.
 - Improved the way tooltip reminders are handled when the moused-over item has multiple associated achievements. Multiple lines should more reliably appear when applicable, and if two lines would be the same, they are consolidated (with extra text indicating the number of achievements that line applies to). (This should be extended to objects and players/NPCs in a future release.)
 - Recent Reminders now expire after 3 minutes, up from 2.
 - Suggestions Tab:

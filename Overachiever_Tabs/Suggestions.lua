@@ -1503,11 +1503,12 @@ local function Refresh(self, instanceRetry)
     local subz = subzdrop:GetSelectedValue()
     if (subz ~= 0) then  CurrentSubzone = subz;  end
   else
-    if (not instanceRetry) then
+    if (instanceRetry ~= true) then -- check specifically against true because it could be "LeftButton"
       zone = GetZoneSpecialOverride()
       if (not zone and IsInInstance()) then
 	    instanceTry = true
 	    zone = ZoneLookup(GetInstanceInfo(), nil, CurrentSubzone)
+		--zone = "fake place force retry"
 	  end
 	end
     if (not zone) then
@@ -1520,6 +1521,7 @@ local function Refresh(self, instanceRetry)
     --Refresh_stoploop = nil
     subzdrop:Disable()
   end
+  --print(zone)
 
   local instype, heroicD, mythicD, challenge, twentyfive, heroicR, mythicR = Overachiever.GetDifficulty()
 
