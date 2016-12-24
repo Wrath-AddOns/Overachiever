@@ -779,9 +779,14 @@ end
 
 
 function Overachiever.BuildItemLookupTab(THIS_VERSION)
-	local needRefresh = false
-	local oldver, oldbuild = strsplit("|", Overachiever_CharVars_Consumed.LastBuilt, 2)
-	if (oldver ~= THIS_VERSION) then  needRefresh = true;  end
+	local needRefresh, oldver, oldbuild = false, "0", "0"
+	if (Overachiever_CharVars_Consumed and Overachiever_CharVars_Consumed.LastBuilt) then
+		oldver, oldbuild = strsplit("|", Overachiever_CharVars_Consumed.LastBuilt, 2)
+		if (oldver ~= THIS_VERSION) then  needRefresh = true;  end
+	else
+		Overachiever_CharVars_Consumed = Overachiever_CharVars_Consumed or {}
+		needRefresh = true
+	end
 	--local _, gamebuild = GetBuildInfo()
 	--if (oldver ~= THIS_VERSION or gamebuild ~= oldbuild) then  needRefresh = true;  end
 	local anyRefreshed = false

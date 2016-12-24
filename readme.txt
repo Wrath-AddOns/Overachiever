@@ -1,5 +1,5 @@
 
-Overachiever v0.99.2
+Overachiever v0.99.3
 ==============================
 
 Author: Tuhljin
@@ -107,6 +107,9 @@ Change log
 ==========
 
 The change log lists changes of particular note to users, not every change made.
+
+v0.99.3
+- Fix error on startup for characters Overachiever hasn't seen before.
 
 v0.99.2
 - There can now be multiple objectives per achievement marked as a "Recently spotted objective", each individually tracked for the purposes of the Recent Reminders expiration time.
