@@ -1,5 +1,5 @@
 
-Overachiever v0.99.3
+Overachiever v0.99.4
 ==============================
 
 Author: Tuhljin
@@ -107,6 +107,10 @@ Change log
 ==========
 
 The change log lists changes of particular note to users, not every change made.
+
+v0.99.4
+- WIP
+- "Adventurer of Highmountain": Fixed inadvertent swap of two criteria (related to recently spotted objectives).
 
 v0.99.3
 - Fix error on startup for characters Overachiever hasn't seen before.
