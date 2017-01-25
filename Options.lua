@@ -15,6 +15,7 @@ Overachiever.DefaultSettings = {
   UI_HolidayNotice = true;
   UI_HolidayNotice_SuggestionsTabOnly = false;
   Tracker_AutoTimer = true;
+  Tracker_AutoTimer_BG = true;
   Explore_AutoTrack = false;
   --Explore_AutoTrack_Completed = false;
   CritterTip_loved = true;
@@ -65,6 +66,7 @@ function Overachiever.CreateOptions(THIS_TITLE, BuildCriteriaLookupTab_check, Au
 	
 	{ type = "labelwrap", text = L.OPT_LABEL_TRACKING, topBuffer = 4 },
 	{ variable = "Tracker_AutoTimer", text = L.OPT_AUTOTRACKTIMED, tooltip = L.OPT_AUTOTRACKTIMED_TIP },
+	{ variable = "Tracker_AutoTimer_BG", text = L.OPT_AUTOTRACKTIMED_BG, tooltip = L.OPT_AUTOTRACKTIMED_TIP_BG },
 	{ variable = "Explore_AutoTrack", text = L.OPT_AUTOTRACKEXPLORE,
 	  tooltip = L.OPT_AUTOTRACKEXPLORE_TIP, OnChange = AutoTrackCheck_Explore },
 	--{ variable = "Explore_AutoTrack_Completed", text = L.OPT_AUTOTRACKEXPLORE_COMPLETED,
