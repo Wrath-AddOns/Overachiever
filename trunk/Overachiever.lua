@@ -759,7 +759,7 @@ local function getExplorationAch(zonesOnly, ...)
   end
 end
 
-local AutoTrackedAch_explore
+local AutoTrackedAch_explore, AutoTrackedAch_bg
 
 local function AutoTrackCheck_Explore(noClearing)
 -- noClearing will evaluate to true when called through TjOptions since it passes an object for this first arg.
@@ -1071,19 +1071,30 @@ Overachiever.AchBtnRedisplayTooltip = achBtnRedisplay
 -- TOASTS
 -----------
 
-local fakeToastBaseID
-local fakeToastName
+local fakeToastBaseID, fakeToastName, fakeToastDelay
 
 local function achievementToasted(frame, achievementID, alreadyEarned)
   if (achievementID == fakeToastBaseID) then
     frame.Name:SetText(fakeToastName)
+    if (fakeToastDelay) then
+	  if (fakeToastDelay <= 0) then
+	    C_Timer.After(0, function()  AlertFrame_StopOutAnimation(frame);  end)
+	  else
+	    local delay = fakeToastDelay
+	    C_Timer.After(0, function()
+          frame.waitAndAnimOut.animOut:SetStartDelay(delay)
+		end)
+
+	  end
+    end
     fakeToastBaseID = nil
-	fakeToastName = nil
+    fakeToastName = nil
+    fakeToastDelay = nil
   end
 end
 
 local hookedAchToast = false
-function Overachiever.ToastFakeAchievement(name, baseID, playSound, chatMessage)
+function Overachiever.ToastFakeAchievement(name, baseID, playSound, chatMessage, delay)
   if (IsKioskModeEnabled()) then
     return;
   end
@@ -1096,9 +1107,10 @@ function Overachiever.ToastFakeAchievement(name, baseID, playSound, chatMessage)
 	hookedAchToast = true
   end
 
-  if (not baseID) then  baseID = 5208;  end -- 5208 is "Twin Peaking", chosen because of its thumbs-up art.
+  if (not baseID) then  baseID = 5208;  end -- 5208 is "Twin Peaking", chosen because of its thumbs-up texture.
   fakeToastName = name
   fakeToastBaseID = baseID
+  fakeToastDelay = delay
   --AchievementAlertSystem:AddAlert(baseID)
   AchievementAlertSystem:AddAlert(baseID, true) -- Flagging it as already earned gives more space for the text to display since there's no shield+points icon
   if (playSound) then  PlaySound("UI_Alert_AchievementGained");  end
@@ -1220,21 +1232,52 @@ function Overachiever.OnEvent(self, event, arg1, ...)
 
   elseif (event == "ZONE_CHANGED_NEW_AREA") then
     AutoTrackCheck_Explore()
+    if (AutoTrackedAch_bg and IsTrackedAchievement(AutoTrackedAch_bg)) then
+      -- If we automatically tracked a timed battleground achievement, untrack it upon leaving the instance:
+      local isInstance, instanceType = IsInInstance()
+      if (not isInstance or instanceType ~= "pvp") then
+        RemoveTrackedAchievement(AutoTrackedAch_bg)
+        AutoTrackedAch_bg = nil
+      end
+    end
 
   elseif (event == "TRACKED_ACHIEVEMENT_UPDATE") then
+    --print("*****", event, arg1, select(2, GetAchievementInfo(arg1)), "*****")
     if (arg1 and arg1 > 0) then  -- Attempt to work around an apparent WoW bug. May prevent errors but if the given ID is 0, we have no way of knowing what the achievement really was so we can't track it (unless there's another call with the correct data).
       local criteriaID, elapsed, duration = ...
+	  --print("criteriaID, elapsed, duration",criteriaID, elapsed, duration)
       if (elapsed and duration and elapsed < duration) then
-        Overachiever.FlagReminder(arg1)
-        if (Overachiever_Settings.Tracker_AutoTimer and
-            not setTracking(arg1) and AutoTrackedAch_explore and IsTrackedAchievement(AutoTrackedAch_explore)) then
-          -- If failed to track this, remove an exploration achievement that was auto-tracked and try again:
-          RemoveTrackedAchievement(AutoTrackedAch_explore)
-          if (not setTracking(arg1)) then
-            -- If still didn't successfully track new achievement, track previous achievement again:
-            AddTrackedAchievement(AutoTrackedAch_explore)
+	    local canTrack
+	    if (OVERACHIEVER_BGTIMERID[arg1]) then -- If this is one of the battleground timers, then we have to treat it a special way because there is a Blizzard bug that makes this event trigger for achievements for OTHER battlegrounds:
+		  local _, instanceType, _, _, _, _, _, instanceMapID = GetInstanceInfo()
+		  --print("instanceMapID",instanceMapID)
+		  if (instanceType == "pvp" and instanceMapID and (instanceMapID == OVERACHIEVER_BGTIMERID[arg1] or instanceMapID == OVERACHIEVER_BGTIMERID_RATED[arg1])) then
+		    Overachiever.FlagReminder(arg1)
+			canTrack = Overachiever_Settings.Tracker_AutoTimer_BG
+			if (canTrack) then
+			  AutoTrackedAch_bg = arg1  -- Yes, this variable is set even if setTracking() below fails to actually track the achievement; that's okay for our purposes here.
+			end
+		  else
+		    canTrack = false
+		  end
+		else
+		  Overachiever.FlagReminder(arg1)
+		  canTrack = Overachiever_Settings.Tracker_AutoTimer
+		end
+		--print("canTrack",canTrack)
+
+		if (canTrack) then
+		  local tracked = setTracking(arg1)
+          if (not tracked and AutoTrackedAch_explore and IsTrackedAchievement(AutoTrackedAch_explore)) then
+            -- If failed to track this, remove an exploration achievement that was auto-tracked and try again:
+            RemoveTrackedAchievement(AutoTrackedAch_explore)
+            if (not setTracking(arg1)) then
+              -- If still didn't successfully track new achievement, track previous achievement again:
+              AddTrackedAchievement(AutoTrackedAch_explore)
+            end
           end
-        end
+		end
+
       end
 	end
 

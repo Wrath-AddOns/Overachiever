@@ -109,7 +109,11 @@ Change log
 The change log lists changes of particular note to users, not every change made.
 
 v0.99.4
-- WIP
+- Separated battleground-win achievements from the option for auto-tracking timed achievements. The new option ("Auto-track timed battleground achievements") will also automatically untrack achievements it tracked upon leaving the battleground. The new implementation should fix an issue where the wrong achievements were automatically tracked in battlegrounds.
+- Suggestions Tab:
+-- Added suggestions for Brawler's Guild.
+-- Fixed suggestion for Temple of Ahn'Qiraj not appearing in the instance.
+-- Fixed criteria-specific suggestions for "Savage Hero".
 - "Adventurer of Highmountain": Fixed inadvertent swap of two criteria (related to recently spotted objectives).
 
 v0.99.3

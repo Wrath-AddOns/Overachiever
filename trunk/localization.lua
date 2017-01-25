@@ -119,8 +119,10 @@ School of %s
 	OPT_SHOWID = "Show achievement IDs";
 
 	OPT_LABEL_TRACKING = "Achievement Tracking";
-	OPT_AUTOTRACKTIMED = "Auto-track timed achievements";
-	OPT_AUTOTRACKTIMED_TIP = "Automatically track achievements with timed criteria when the timer starts. If you are already tracking the maximum number of achievements, it will attempt to take the place of an auto-tracked exploration achievement; otherwise, it won't be tracked.";
+	OPT_AUTOTRACKTIMED = "Auto-track timed achievements (non-battleground)";
+	OPT_AUTOTRACKTIMED_TIP = "Automatically track achievements with timed criteria when the timer starts. If you are already tracking the maximum number of achievements, it will attempt to take the place of an auto-tracked exploration achievement; otherwise, it won't be tracked.|n|nExcludes achievements that require a battleground win.";
+	OPT_AUTOTRACKTIMED_BG = "Auto-track timed battleground achievements";
+	OPT_AUTOTRACKTIMED_TIP_BG = "When a battleground match starts, automatically track the achievement for winning it in a set amount of time (if it is incomplete).|n|nThe achievement is untracked upon leaving the battleground.";
 	OPT_AUTOTRACKEXPLORE = "Auto-track exploration achievements as you travel";
 	OPT_AUTOTRACKEXPLORE_TIP = "When you enter a zone, automatically track its exploration achievement. If already tracking an exploration achievement, this will replace the previous automatically-tracked one if there is one or another exploration achievement otherwise.";
 	OPT_AUTOTRACKEXPLORE_COMPLETED = "Including completed achievements";
