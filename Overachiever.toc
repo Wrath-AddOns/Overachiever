@@ -23,6 +23,7 @@ libs\TjBagWatch.lua
 libs\TjCalendar.lua
 
 localization.lua
+Templates.xml
 Overachiever.lua
 AchieveID.lua
 AchieveTip.lua

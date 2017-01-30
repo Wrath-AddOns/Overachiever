@@ -46,6 +46,11 @@ Overachiever.DefaultSettings = {
   ProgressToast_AutoTrack = false;
   ProgressToast_ChatLog = true;
   ProgressToast_Suggest = true;
+  ToastCalendar_holiday = true;
+  ToastCalendar_microholiday = false;
+  ToastCalendar_bonusevent = false;
+  ToastCalendar_dungeonevent = false;
+  ToastCalendar_onlyclickfade = true;
   Version = THIS_VERSION;
 };
 
@@ -87,6 +92,13 @@ function Overachiever.CreateOptions(THIS_TITLE, BuildCriteriaLookupTab_check, Au
 	{ variable = "UI_HolidayNotice_SuggestionsTabOnly", xOffset = 15, text = L.OPT_UI_HOLIDAYNOTICE_SUGGESTIONSTABONLY, OnChange = holidayNoticeChange },
 	{ variable = "Draggable_AchFrame", xOffset = 0, text = L.OPT_DRAGGABLE, OnChange = CheckDraggable_AchFrame },
 	{ variable = "DragSave_AchFrame", text = L.OPT_DRAGSAVE, xOffset = 15, OnChange = CheckDraggable_AchFrame },
+
+	{ type = "labelwrap", text = L.OPT_LABEL_STARTTOAST, topBuffer = 4, xOffset = 0 },
+	{ variable = "ToastCalendar_holiday", text = L.OPT_STARTTOAST_HOLIDAY, tooltip = L.OPT_STARTTOAST_HOLIDAY_TIP },
+	{ variable = "ToastCalendar_microholiday", text = L.OPT_STARTTOAST_MICROHOLIDAY, tooltip = L.OPT_STARTTOAST_MICROHOLIDAY_TIP },
+	{ variable = "ToastCalendar_bonusevent", text = L.OPT_STARTTOAST_BONUS, tooltip = L.OPT_STARTTOAST_BONUS_TIP },
+	{ variable = "ToastCalendar_dungeonevent", text = L.OPT_STARTTOAST_DUNGEON, tooltip = L.OPT_STARTTOAST_DUNGEON_TIP },
+	{ variable = "ToastCalendar_onlyclickfade", text = L.OPT_STARTTOAST_ONLYCLICKFADE, tooltip = L.OPT_STARTTOAST_ONLYCLICKFADE_TIP },
 
 	{ type = "labelwrap", text = L.OPT_LABEL_TRADESKILLUI, topBuffer = 4, xOffset = 0 },
 	{ variable = "Tradeskill_ShowCompletedAch_Cooking", text = L.OPT_TRADESKILL_SHOWCOMPLETEDACH_COOKING, tooltip = L.OPT_TRADESKILL_SHOWCOMPLETEDACH_COOKING_TIP },

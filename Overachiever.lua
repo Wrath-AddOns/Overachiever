@@ -18,8 +18,11 @@ local L = OVERACHIEVER_STRINGS
 
 local CATEGORIES_INDIV_ALL, CATEGORIES_GUILD_ALL, CATEGORIES_ALL
 local CATEGORY_EXPLOREROOT, CATEGORIES_EXPLOREZONES
-local OptionsPanel
+local OptionsPanel, openOptions
 local MadeDraggable_AchFrame, MadeDragSave_AchFrame
+
+local TexAlert = "Interface\\AddOns\\Overachiever\\AlertGreenLine"
+local TexAlertBorders = "Interface\\AddOns\\Overachiever\\AlertBordersGreen"
 
 
 -- Overcome problem where GetAchievementInfo throws an error if the achievement ID is invalid:
@@ -1071,7 +1074,11 @@ Overachiever.AchBtnRedisplayTooltip = achBtnRedisplay
 -- TOASTS
 -----------
 
+-- /run Overachiever.ToastFakeAchievement("test")
+
+--[[
 local fakeToastBaseID, fakeToastName, fakeToastDelay
+local hookedAchToast = false
 
 local function achievementToasted(frame, achievementID, alreadyEarned)
   if (achievementID == fakeToastBaseID) then
@@ -1084,7 +1091,6 @@ local function achievementToasted(frame, achievementID, alreadyEarned)
 	    C_Timer.After(0, function()
           frame.waitAndAnimOut.animOut:SetStartDelay(delay)
 		end)
-
 	  end
     end
     fakeToastBaseID = nil
@@ -1092,9 +1098,63 @@ local function achievementToasted(frame, achievementID, alreadyEarned)
     fakeToastDelay = nil
   end
 end
+--]]
 
-local hookedAchToast = false
-function Overachiever.ToastFakeAchievement(name, baseID, playSound, chatMessage, delay)
+--local function alertOnClick(self, ...)
+function OverachieverAlertFrame_OnClick(self, ...)
+	if (self.delay == -1) then
+		self:SetScript("OnLeave", AlertFrame_ResumeOutAnimation)
+		self.delay = 0
+	end
+	if (self.onClick) then
+		if (AlertFrame_OnClick(self, ...)) then  return;  end -- Handle right-clicking to hide the frame.
+		self.onClick(self, ...)
+	elseif (self.onClick == false) then
+		AlertFrame_OnClick(self, ...)
+	else
+		AchievementAlertFrame_OnClick(self, ...)
+	end
+end
+
+local function OverachieverAlertFrame_SetUp(frame, achievementID, alreadyEarned, name, delay, toptext, onClick, icon)
+	-- An alert flagged as alreadyEarned has more space for the text to display since there's no shield+points icon.
+	local ret = AchievementAlertFrame_SetUp(frame, achievementID, alreadyEarned)
+	frame.Name:SetText(name)
+	frame.Unlocked:SetText(toptext or (toptext == false and THIS_TITLE) or ACHIEVEMENT_UNLOCKED)
+	frame.onClick = onClick
+	frame.delay = delay
+	--frame:SetScript("OnClick", alertOnClick) -- made this part of the template
+	if (delay) then
+		if (delay <= 0) then
+			C_Timer.After(0, function()  AlertFrame_StopOutAnimation(frame);  end)
+		else
+			C_Timer.After(0, function()
+				frame.waitAndAnimOut.animOut:SetStartDelay(delay)
+			end)
+		end
+	end
+	if (delay == -1) then
+		frame:SetScript("OnLeave", nil)
+	else
+		frame:SetScript("OnLeave", AlertFrame_ResumeOutAnimation)
+	end
+	if (icon) then
+		--HEY = HEY or { frame.Icon.Texture:GetTexCoord() }
+		frame.Icon.Texture:SetTexture(icon)
+		frame.Icon.Texture:SetTexCoord(0.0, 0.7109375, 0.0, 0.7109375)
+		frame.Background:SetTexture(TexAlert)
+		frame.OldAchievement:SetTexture(TexAlertBorders)
+	else
+		frame.Icon.Texture:SetTexCoord(0, 0, 0, 1, 1, 0, 1, 1)
+		frame.Background:SetTexture("Interface\\AchievementFrame\\UI-Achievement-Alert-Background")
+		frame.OldAchievement:SetTexture("Interface\\AchievementFrame\\UI-Achievement-Borders")
+	end
+end
+-- /run Overachiever.ToastFakeAchievement("test")
+-- /run Overachiever.ToastForEvents(true, true, true, true)
+-- /run Overachiever.ToastFakeAchievement("test", nil, nil, nil, -1, "okay")
+
+function Overachiever.ToastFakeAchievement(name, baseID, playSound, chatMessage, delay, toptext, onClick, icon, newEarn)
   if (IsKioskModeEnabled()) then
     return;
   end
@@ -1102,17 +1162,31 @@ function Overachiever.ToastFakeAchievement(name, baseID, playSound, chatMessage,
     AchievementFrame_LoadUI();
   end
 
+  --[[
   if (not hookedAchToast) then
 	hooksecurefunc(AchievementAlertSystem, "setUpFunction", achievementToasted)
 	hookedAchToast = true
+  --]]
+
+  if (not Overachiever.AlertSystem) then
+	--Overachiever.AlertSystem = AlertFrame:AddQueuedAlertFrameSubSystem("AchievementAlertFrameTemplate", AchievementAlertFrame_SetUp, 4, math.huge)
+	--hooksecurefunc(Overachiever.AlertSystem, "setUpFunction", achievementToasted)
+	Overachiever.AlertSystem = AlertFrame:AddQueuedAlertFrameSubSystem("OverachieverAlertFrameTemplate", OverachieverAlertFrame_SetUp, 4, math.huge)
   end
 
   if (not baseID) then  baseID = 5208;  end -- 5208 is "Twin Peaking", chosen because of its thumbs-up texture.
+  Overachiever.AlertSystem:AddAlert(baseID, not newEarn, name, delay, toptext, onClick, icon)
+
+  --[[
   fakeToastName = name
   fakeToastBaseID = baseID
   fakeToastDelay = delay
-  --AchievementAlertSystem:AddAlert(baseID)
-  AchievementAlertSystem:AddAlert(baseID, true) -- Flagging it as already earned gives more space for the text to display since there's no shield+points icon
+  AchievementAlertSystem:AddAlert(baseID, true)
+  --CriteriaAlertSystem:AddAlert(baseID, true)
+  --for alertFrame in AchievementAlertSystem.alertFramePool:EnumerateActive() do
+  --end
+  --]]
+
   if (playSound) then  PlaySound("UI_Alert_AchievementGained");  end
   if (chatMessage) then  chatprint("", chatMessage);  end
 end
@@ -1222,8 +1296,14 @@ function Overachiever.OnEvent(self, event, arg1, ...)
     end
 
 	if (toast) then
-	  C_Timer.After(8, function() -- 8 might not be a long enough delay. It might depend on loading time. Tried to find an event that told me when loading was REALLY done; couldn't find one. (Although it seems pretty reliable as is, for me at least, so long as the player is actually entering the game world and not just reloading the UI.)
-	    Overachiever.ToastFakeAchievement(toast, nil, false, msg)
+	  C_Timer.After(7.5, function() -- 7.5 might not be a long enough delay. It might depend on loading time. Tried to find an event that told me when loading was REALLY done; couldn't find one. (Although it seems pretty reliable as is, for me at least, so long as the player is actually entering the game world and not just reloading the UI.)
+	    Overachiever.ToastFakeAchievement(toast, nil, false, msg, 15, nil, function()  openOptions();  end)
+	  end)
+	end
+
+	if (Overachiever_Settings.ToastCalendar_holiday or Overachiever_Settings.ToastCalendar_microholiday or Overachiever_Settings.ToastCalendar_bonusevent or Overachiever_Settings.ToastCalendar_dungeonevent) then
+	  C_Timer.After(8, function()
+	    Overachiever.ToastForEvents(Overachiever_Settings.ToastCalendar_holiday, Overachiever_Settings.ToastCalendar_microholiday, Overachiever_Settings.ToastCalendar_bonusevent, Overachiever_Settings.ToastCalendar_dungeonevent)
 	  end)
 	end
 
@@ -1500,7 +1580,7 @@ local function slashHandler(msg, self, silent, func_nomsg)
   end
 end
 
-local function openOptions(panel)
+function openOptions(panel) -- function name defined as local above
   panel = panel or OptionsPanel
   InterfaceOptionsFrame_OpenToCategory(panel)
   -- Working around a Blizzard bug by calling this twice:
