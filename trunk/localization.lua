@@ -14,6 +14,8 @@ OVERACHIEVER_STRINGS = {
 	OVERACHIEVER_UPDATED_TOAST = "OVERACHIEVER UPDATED!";
 	OVERACHIEVER_UPDATED_MSG = "|cff7eff00Overachiever|r was updated to v%s.";
 
+	STARTTOAST_EVENT = "Happening Today";
+
 	SERIESTIP = "Part of a series:";
 	REQUIREDFORMETATIP = "Required for:";
 	PROGRESSIFOTHERCOMPLETED = "%s's Progress:";
@@ -188,6 +190,18 @@ School of %s
 	OPT_LABEL_TRADESKILLUI = "Professions UI Modifications";
 	OPT_TRADESKILL_SHOWCOMPLETEDACH_COOKING = "Indicate uncooked recipes for complete achievements";
 	OPT_TRADESKILL_SHOWCOMPLETEDACH_COOKING_TIP = "If Overachiever's Trade module is enabled, then an achievement icon appears next to recipes that you need to cook in order to earn certain achievements. If this option is checked, then these icons will appear next to uncooked recipes even if the associated achievement is complete.";
+
+	OPT_LABEL_STARTTOAST = "Holiday/Event Toasts";
+	OPT_STARTTOAST_HOLIDAY = "Show today's holidays";
+	OPT_STARTTOAST_HOLIDAY_TIP = "Show today's holidays in toast notifications upon entering the game world.";
+	OPT_STARTTOAST_MICROHOLIDAY = "Show today's micro-holidays";
+	OPT_STARTTOAST_MICROHOLIDAY_TIP = "Show today's micro-holidays in toast notifications upon entering the game world.";
+	OPT_STARTTOAST_BONUS = "Show today's bonus events";
+	OPT_STARTTOAST_BONUS_TIP = "Show today's bonus events in toast notifications upon entering the game world.";
+	OPT_STARTTOAST_DUNGEON = "Show today's dungeon events";
+	OPT_STARTTOAST_DUNGEON_TIP = "Show today's dungeon events in toast notifications upon entering the game world.";
+	OPT_STARTTOAST_ONLYCLICKFADE = "Require click to hide";
+	OPT_STARTTOAST_ONLYCLICKFADE_TIP = "These toast notifications will not fade unless left- or right-clicked. (If unchecked, they will also fade if the mouse goes over them and then moves away.)";
 
 	OPT_SELECTSOUND = "Incomplete Achievement Reminder Sound";
 	OPT_SELECTSOUND_TIP = "Play the selected sound when an incomplete achievement reminder is added to the tooltip.";
