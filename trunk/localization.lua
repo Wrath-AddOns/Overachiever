@@ -200,8 +200,10 @@ School of %s
 	OPT_STARTTOAST_BONUS_TIP = "Show today's bonus events in toast notifications upon entering the game world.";
 	OPT_STARTTOAST_DUNGEON = "Show today's dungeon events";
 	OPT_STARTTOAST_DUNGEON_TIP = "Show today's dungeon events in toast notifications upon entering the game world.";
+	OPT_STARTTOAST_TIMEFADE = "Do not automatically hide";
+	OPT_STARTTOAST_TIMEFADE_TIP = "Prevent toast notifications you don't interact with from fading after a few seconds.";
 	OPT_STARTTOAST_ONLYCLICKFADE = "Require click to hide";
-	OPT_STARTTOAST_ONLYCLICKFADE_TIP = "These toast notifications will not fade unless left- or right-clicked. (If unchecked, they will also fade if the mouse goes over them and then moves away.)";
+	OPT_STARTTOAST_ONLYCLICKFADE_TIP = "Prevent toast notifications from fading unless left- or right-clicked. (If unchecked, they will also fade if the cursor goes over them and then moves away.)";
 
 	OPT_SELECTSOUND = "Incomplete Achievement Reminder Sound";
 	OPT_SELECTSOUND_TIP = "Play the selected sound when an incomplete achievement reminder is added to the tooltip.";
