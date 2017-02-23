@@ -108,7 +108,7 @@ function Overachiever.GetHolidayEvents(year, month, day, hourOverride, cachekey,
 				--texture = getCalendarTextureFile(texture, calendarType, sequenceType, eventType)
 				if (not result[title]) then  result[title] = {};  end
 				if (not result[title]["texture"] or result[title]["texture"] == "") then
-					result[title]["texture"] = getCalendarTextureFile(texture, calendarType, "START", eventType)
+					result[title]["texture"] = getCalendarTextureFile(texture, calendarType, sequenceType == "" and "" or "START", eventType)
 					result[title]["texture_unpathed"] = texture
 				end
 				if (not result[title]["desc"]) then
@@ -196,7 +196,7 @@ local EVENT_TEXTURE_LOOKUP = {
 	["calendar_weekendpetbattles"] = "bonus",				-- Pet Battle Bonus Event
 	["calendar_glowcapfestival"] = "micro",					-- Glowcap Festival
 	["Calendar_HallowsEnd"] = "holiday",					-- Hallow's End
-	["calendar_weekendlegion"] = "dungeon",				-- Legion Dungeon Event
+	["calendar_weekendlegion"] = "dungeon",					-- Legion Dungeon Event
 	["calendar_weekendpvpskirmish"] = "bonus",				-- Arena Skirmish Bonus Event
 	["calendar_hatchingofthehippogryphs"] = "micro",		-- Hatching of the Hippogryphs
 	["calendar_ungoromadness"] = "micro",					-- Un'Goro Madness
