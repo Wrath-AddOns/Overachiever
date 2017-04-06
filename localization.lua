@@ -77,7 +77,7 @@ School of %s
 	ACH_TURKEYLURKEY_INCOMPLETE = "Needs feathers";
 	ACH_TURKEYLURKEY_COMPLETE = "Already feathered";
 
-	HOLIDAY_DARKMOONFAIRE = "Darmoon Faire";
+	HOLIDAY_DARKMOONFAIRE = "Darkmoon Faire";
 	HOLIDAY_LUNARFESTIVAL = "Lunar Festival";
 	HOLIDAY_LOVEISINTHEAIR = "Love is in the Air";
 	HOLIDAY_NOBLEGARDEN = "Noblegarden";
@@ -200,6 +200,8 @@ School of %s
 	OPT_STARTTOAST_BONUS_TIP = "Show today's bonus events in toast notifications upon entering the game world.";
 	OPT_STARTTOAST_DUNGEON = "Show today's dungeon events";
 	OPT_STARTTOAST_DUNGEON_TIP = "Show today's dungeon events in toast notifications upon entering the game world.";
+	OPT_STARTTOAST_PVPBRAWL = "Show today's PvP brawl";
+	OPT_STARTTOAST_PVPBRAWL_TIP = "Show today's PvP brawl in toast notifications upon entering the game world.";
 	OPT_STARTTOAST_TIMEFADE = "Do not automatically hide";
 	OPT_STARTTOAST_TIMEFADE_TIP = "Prevent toast notifications you don't interact with from fading after a few seconds.";
 	OPT_STARTTOAST_ONLYCLICKFADE = "Require click to hide";
