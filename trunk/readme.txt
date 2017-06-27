@@ -1,5 +1,5 @@
 
-Overachiever v0.99.8
+Overachiever v0.99.9
 ==============================
 
 Author: Tuhljin
@@ -107,6 +107,11 @@ Change log
 ==========
 
 The change log lists changes of particular note to users, not every change made.
+
+v0.99.9
+- Holiday/Event Toasts: Added option to control the appearance of Miscellaneous toasts (such as raid release days). Disabled by default.
+- Attempt to alleviate lag at startup for some users by stretching out the background work so it is less demanding each tick.
+- Prevent potential temporary freeze that could occur if the kill-criteria background task is still running and the tooltip for a killable NPC is requested. Previously, the task was forced to completion in that event to ensure the tooltip would accurately display whether the NPC needs to be killed for an achievement. Now, only the data compiled so far is considered when updating the tooltip. (This means tooltips presented may be incomplete for up to several seconds after startup, depending on the achievement, particularly for players on slower machines, but this seemed preferable to the freeze since it happened regardless of whether the NPC's tooltip ultimately needed an update.)
 
 v0.99.8
 - Updated for WoW patch 7.2.5. (Correct a problem with holiday/event toasts.)
