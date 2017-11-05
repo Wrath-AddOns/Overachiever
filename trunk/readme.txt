@@ -1,5 +1,5 @@
 
-Overachiever v0.99.9
+Overachiever v0.99.10
 ==============================
 
 Author: Tuhljin
@@ -107,6 +107,9 @@ Change log
 ==========
 
 The change log lists changes of particular note to users, not every change made.
+
+v0.99.10
+- Change the way consumed item tracking works in an attempt to improve performance when bag contents change.
 
 v0.99.9
 - Updated for WoW patch 7.3. (Updated TOC and fixed common errors.)
