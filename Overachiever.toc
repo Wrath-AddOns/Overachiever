@@ -12,9 +12,9 @@
 
 #@no-lib-strip@
 libs\LibStub\LibStub.lua
+libs\LibBabble-SubZone-3.0\lib.xml
 libs\LibBabble-Inventory-3.0\lib.xml
 #@end-no-lib-strip@
-libs\LibBabble-SubZone-3.0\lib.xml
 
 libs\TjOptions.lua
 libs\TjSharedMediaDropDown\lib.xml
