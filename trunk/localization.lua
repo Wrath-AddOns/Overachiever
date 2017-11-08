@@ -1,4 +1,4 @@
-﻿
+
 -- Thank you to all of the translators that have helped localize Overachiever. In addition to those mentioned
 -- below in their respective sections, recognition is due to all who have used the localization system provided
 -- for Overachiever by Curse Forge. See a list of them here:
@@ -217,6 +217,10 @@ School of %s
 	OPT_SELECTSOUND_ANGLERCHECKPOLE_TIP = "Don't play reminder sound from fishing nodes if your fishing pole is equipped.";
 	OPT_SELECTSOUND_CHECKCOMBAT = "Exclude kill reminders if in combat with creature";
 	OPT_SELECTSOUND_CHECKCOMBAT_TIP = "Don't play reminder sound from needing to kill a creature while you are in combat with it.";
+
+	OPT_LABEL_MISC = "Miscellaneous";
+	OPT_THROTTLE_ACHLOOKUP = "Startup: Throttle achievement lookup";
+	OPT_THROTTLE_ACHLOOKUP_TIP = "Overachiever looks up certain data on startup. If this is unchecked, lookup happens all at once while the UI is first loading. If checked, data is gathered over time after the player enters the world.|n|nThe advantage to throttled lookup is a faster initial loading time, but, for some users and on some characters, this can temporarily impact performance.";
 
 	SOUND_BELL_ALLIANCE = "Bell - Alliance";
 	SOUND_BELL_HORDE = "Bell - Horde";
