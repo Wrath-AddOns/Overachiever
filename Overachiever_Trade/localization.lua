@@ -1,4 +1,4 @@
-﻿
+
 local L, locale = OVERACHIEVER_STRINGS, GetLocale()
 
 L.TRADE_SKILLET_ACHSORT = "By Achievement";
