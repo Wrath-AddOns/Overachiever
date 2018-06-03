@@ -1,5 +1,5 @@
 
-Overachiever v0.99.10
+Overachiever v0.99.11
 ==============================
 
 Author: Tuhljin
@@ -107,6 +107,11 @@ Change log
 ==========
 
 The change log lists changes of particular note to users, not every change made.
+
+v0.99.11
+- Added achievements for Argus zones to exploration auto-tracking.
+- Suggestions Tab: Added suggestions for Argus zones, the Seat of the Triumvirate, and Antorus, the Burning Throne.
+- Tabs module: Added text overlay to indicate when the achievement completion filter (earned or incomplete) has caused an achievement to be omitted from the Search results or a Watch list.
 
 v0.99.10
 - Change the way consumed item tracking works in an attempt to improve performance when bag contents change.

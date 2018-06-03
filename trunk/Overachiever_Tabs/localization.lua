@@ -1,4 +1,4 @@
-﻿
+
 local L, locale = OVERACHIEVER_STRINGS, GetLocale()
 
 L.SEARCH_TAB = "Search";
@@ -17,6 +17,7 @@ L.SEARCH_TYPE_ALL = "All";
 L.SEARCH_SUBMIT = "Search";
 L.SEARCH_RESET = "Reset";
 L.SEARCH_RESULTS = "Found %s |4achievement:achievements;.";
+L.SEARCH_FILTERED_OUT = "%s |4achievement was:achievements were; omitted by the filter.";
 
 L.SUGGESTIONS_TAB = "Suggestions";
 L.SUGGESTIONS_HELP = "Suggested achievements are listed here based on your current location. Also listed are all \"Recent Reminder\" achievements.|n|n|cffffffffShift-right-click|r on a suggested achievement to hide it. (This is character-specific and affects all locations.)";
@@ -73,6 +74,7 @@ L.WATCH_POPUP_NEWLIST = "Enter the name of your new achievement watch list:";
 L.WATCH_POPUP_DELETELIST = "Are you sure you want to permanently delete the current achievement watch list?";
 L.WATCH_POPUP_CLEARLIST = "Are you sure you want to clear the contents of the current achievement watch list?";
 L.WATCH_ERR_INVALIDID = 'Removed "%s" from Watch List: An achievement with that ID could not be found.';
+L.WATCH_FILTERED_OUT = "%s |4achievement was:achievements were; omitted by the filter.";
 
 L.RELATED_TAB = "Related";
 L.RELATED_HELP = "This tab shows achievements that are related to one another. One achievement was chosen as the base. The rest are in the same series as the base, are one of the criteria of the base or of another in its series, or have as one of their own criteria either the base or an achievement in its series.";
