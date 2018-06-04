@@ -173,6 +173,8 @@ School of %s
 	OPT_KILLCREATURETIPS_TIP = "Add a line to the tooltips of creatures (excluding critters) that need to be killed to meet the criteria of an incomplete achievement indicating whether you still need to kill them.";
 	OPT_KILLCREATURETIPS_TIP2 = "Note: At startup (or when this is option is enabled), every achievement is scanned to find unit IDs. Not all achievements provide such IDs. Most do, but the tooltips of creatures which are the criteria of those that don't won't be altered by this option.";
 
+	OPT_KILLCREATURETIPS_EXCLUDE_GUILD = "Exclude guild achievements";
+
 	OPT_LABEL_MAINUI = "Main Achievement UI Modifications";
 	OPT_UI_SERIESTIP = "Tooltip for achievements that are part of a series";
 	OPT_UI_SERIESTIP_TIP = "When the cursor is over an achievement that is part of a series, display the names of others in the series and its relation to them.";
