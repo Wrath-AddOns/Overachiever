@@ -145,8 +145,13 @@ end
 
 if (locale == "deDE") then  -- German
 --@localization(locale="deDE", format="lua_additive_table", namespace="Tabs", handle-subnamespaces="none")@
---@localization(locale="deDE", format="lua_additive_table", namespace="SUBZONES", handle-subnamespaces="none", table-name="L.SUBZONES")@
+--@localization(locale="deDE", format="lua_additive_table", namespace="Tabs/SUBZONES", handle-subnamespaces="none", table-name="L.SUBZONES")@
+--@localization(locale="deDE", format="lua_additive_table", namespace="Tabs - SUBZONES", handle-subnamespaces="none", table-name="L.SUBZONES")@
+--@localization(locale="deDE", format="lua_additive_table", namespace="Tabs-SUBZONES", handle-subnamespaces="none", table-name="L.SUBZONES")@
 
+--??
+
+--@localization(locale="deDE", format="lua_additive_table", namespace="Tabs,SUBZONES", handle-subnamespaces="none", table-name="L.SUBZONES")@
 
 elseif (locale == "frFR") then  -- French
 --@localization(locale="frFR", format="lua_additive_table", namespace="Tabs", handle-subnamespaces="none")@
