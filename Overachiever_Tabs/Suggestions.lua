@@ -2231,6 +2231,7 @@ end)
 ----------------------------------------------------
 
 function Overachiever.OpenSuggestionsTab(text)
+	if (not AchievementFrame:IsShown()) then  ToggleAchievementFrame();  end
 	EditZoneOverride:SetText(text)
 	if (Overachiever.GetSelectedTab() == frame) then
 		Overachiever.OpenTab_frame(frame)

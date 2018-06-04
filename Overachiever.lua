@@ -704,9 +704,12 @@ end
 -- ACHIEVEMENT HYPERLINK HOOK
 -------------------------------
 
---local orig_SetItemRef = SetItemRef
-local orig_ChatFrame_OnHyperlinkShow = ChatFrame_OnHyperlinkShow
-ChatFrame_OnHyperlinkShow = function(self, link, text, button, ...)
+----local orig_SetItemRef = SetItemRef
+--local orig_ChatFrame_OnHyperlinkShow = ChatFrame_OnHyperlinkShow
+--ChatFrame_OnHyperlinkShow = function(self, link, text, button, ...)
+hooksecurefunc("ChatFrame_OnHyperlinkShow", function(self, link, text, button)
+  -- IIRC, hooksecurefunc wasn't good enough before (I believe we needed to be able to prevent original processing because Control and Alt clicking the links had
+  -- some sort of reaction), but something has changed. It's fine, now, so we'll use it since it's safe and simple.
   if (strsub(link, 1, 11) == "achievement") then
     if (IsControlKeyDown()) then
       local id = strsplit(":", strsub(link, 13));
@@ -752,8 +755,10 @@ ChatFrame_OnHyperlinkShow = function(self, link, text, button, ...)
       end
     end
   end
-  return orig_ChatFrame_OnHyperlinkShow(self, link, text, button, ...)
-end
+  --return orig_ChatFrame_OnHyperlinkShow(self, link, text, button, ...)
+end)
+
+
 
 -- ACHIEVEMENT TRACKER CHANGES AND PROGRESS TRACKING
 ------------------------------------------------------
