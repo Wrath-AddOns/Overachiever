@@ -106,6 +106,35 @@ L.EVENTNOTICE_TIP = "Hold |cffffffffShift|r for more details.";
 L.EVENTNOTICE_HELP = "|cffffffffClick|r to see related achievements.|n|cffffffffCtrl-click|r to open the calendar.|n|cffffffffShift-right-click|r to temporarily hide this notice."; --|n|cffffffffRight-click|r for more options.";
 
 
+L.SUBZONES = {
+-- Ulduar:
+	["Formation Grounds"] = "Formation Grounds",
+	["Razorscale's Aerie"] = "Razorscale's Aerie",
+	["The Assembly of Iron"] = "The Assembly of Iron",
+	["The Celestial Planetarium"] = "The Celestial Planetarium",
+	["The Clash of Thunder"] = "The Clash of Thunder",
+	["The Colossal Forge"] = "The Colossal Forge",
+	["The Conservatory of Life"] = "The Conservatory of Life",
+	["The Descent into Madness"] = "The Descent into Madness",
+	["The Halls of Winter"] = "The Halls of Winter",
+	["The Observation Ring"] = "The Observation Ring",
+	["The Prison of Yogg-Saron"] = "The Prison of Yogg-Saron",
+	["The Scrapyard"] = "The Scrapyard",
+	["The Shattered Walkway"] = "The Shattered Walkway",
+	["The Spark of Imagination"] = "The Spark of Imagination",
+-- Icecrown:
+	["Argent Tournament Grounds"] = "Argent Tournament Grounds",
+	["The Ring of Champions"] = "The Ring of Champions",
+	["Argent Pavilion"] = "Argent Pavilion",
+	["The Argent Valiants' Ring"] = "The Argent Valiants' Ring",
+	["The Aspirants' Ring"] = "The Aspirants' Ring",
+	["The Alliance Valiants' Ring"] = "The Alliance Valiants' Ring",
+	["Silver Covenant Pavilion"] = "Silver Covenant Pavilion",
+	["Sunreaver Pavilion"] = "Sunreaver Pavilion",
+	["The Horde Valiants' Ring"] = "The Horde Valiants' Ring",
+}
+
+
 --if (locale == "enGB") then  -- English (EU)
 -- Unfortunately, GetLocale() returns "enUS" even when "enGB" would be more appropriate, and the SHORTDATE
 -- global string is defined incorrectly for enGB clients (it's set as it is for enUS), so we have to do things
@@ -115,102 +144,53 @@ if (ACHIEVEMENT_TOOLTIP_COMPLETE == "Achievement earned by %1$s on %3$d/%2$d/20%
 end
 
 if (locale == "deDE") then  -- German
---@localization(locale="deDE", format="lua_additive_table", namespace="Tabs", handle-subnamespaces="subtable")@
-
+--@localization(locale="deDE", format="lua_additive_table", namespace="Tabs", handle-subnamespaces="none")@
+--@localization(locale="deDE", format="lua_additive_table", namespace="SUBZONES", handle-subnamespaces="none", table-name="L.SUBZONES")@
 
 
 elseif (locale == "frFR") then  -- French
---@localization(locale="frFR", format="lua_additive_table", namespace="Tabs", handle-subnamespaces="subtable")@
+--@localization(locale="frFR", format="lua_additive_table", namespace="Tabs", handle-subnamespaces="none")@
+--@localization(locale="frFR", format="lua_additive_table", namespace="SUBZONES", handle-subnamespaces="none", table-name="L.SUBZONES")@
 
 
 elseif (locale == "zhTW") then  -- Traditional Chinese
---@localization(locale="zhTW", format="lua_additive_table", namespace="Tabs", handle-subnamespaces="subtable")@
+--@localization(locale="zhTW", format="lua_additive_table", namespace="Tabs", handle-subnamespaces="none")@
+--@localization(locale="zhTW", format="lua_additive_table", namespace="SUBZONES", handle-subnamespaces="none", table-name="L.SUBZONES")@
 
 
 elseif (locale == "zhCN") then  -- Simplified Chinese
---@localization(locale="zhCN", format="lua_additive_table", namespace="Tabs", handle-subnamespaces="subtable")@
+--@localization(locale="zhCN", format="lua_additive_table", namespace="Tabs", handle-subnamespaces="none")@
+--@localization(locale="zhCN", format="lua_additive_table", namespace="SUBZONES", handle-subnamespaces="none", table-name="L.SUBZONES")@
 
 
 elseif (locale == "ruRU") then  -- Russian
---@localization(locale="ruRU", format="lua_additive_table", namespace="Tabs", handle-subnamespaces="subtable")@
+--@localization(locale="ruRU", format="lua_additive_table", namespace="Tabs", handle-subnamespaces="none")@
+--@localization(locale="ruRU", format="lua_additive_table", namespace="SUBZONES", handle-subnamespaces="none", table-name="L.SUBZONES")@
 
 
 elseif (locale == "koKR") then  -- Korean
---@localization(locale="koKR", format="lua_additive_table", namespace="Tabs", handle-subnamespaces="subtable")@
+--@localization(locale="koKR", format="lua_additive_table", namespace="Tabs", handle-subnamespaces="none")@
+--@localization(locale="koKR", format="lua_additive_table", namespace="SUBZONES", handle-subnamespaces="none", table-name="L.SUBZONES")@
 
 
 elseif (locale == "esES" or locale == "esMX") then  -- Spanish
---@localization(locale="esES", format="lua_additive_table", namespace="Tabs", handle-subnamespaces="subtable")@
+--@localization(locale="esES", format="lua_additive_table", namespace="Tabs", handle-subnamespaces="none")@
+--@localization(locale="esES", format="lua_additive_table", namespace="SUBZONES", handle-subnamespaces="none", table-name="L.SUBZONES")@
 
 
 	if (locale == "esMX") then  -- Spanish (Mexican)
---@localization(locale="esMX", format="lua_additive_table", namespace="Tabs", handle-subnamespaces="concat")@
+--@localization(locale="esMX", format="lua_additive_table", namespace="Tabs", handle-subnamespaces="none")@
+--@localization(locale="esMX", format="lua_additive_table", namespace="SUBZONES", handle-subnamespaces="none", table-name="L.SUBZONES")@
 
-	-- We had to use "concat" instead of "subtable" for Curse's handle-subnamespaces substitution scheme so
-	-- esMX's L.SUBZONES doesn't entirely overwrite esES's. This puts them in the format "SUBZONES/<key>";
-	-- we'll iterate over the table to find those and put the values in the proper place:
-		local tab = L.SUBZONES
-		for k,v in pairs(L) do
-			if (strsub(k, 1, 9) == "SUBZONES/") then
-				tab[strsub(k, 10)] = v
-				L[k] = nil
-			end
-		end
-	end
+
 elseif (locale == "ptBR") then  -- Brazilian Portuguese
---@localization(locale="ptBR", format="lua_additive_table", namespace="Tabs", handle-subnamespaces="subtable")@
-
+--@localization(locale="ptBR", format="lua_additive_table", namespace="Tabs", handle-subnamespaces="none")@
+--@localization(locale="ptBR", format="lua_additive_table", namespace="SUBZONES", handle-subnamespaces="none", table-name="L.SUBZONES")@
 
 
 elseif (locale == "itIT") then  -- Italian
---@localization(locale="itIT", format="lua_additive_table", namespace="Tabs", handle-subnamespaces="subtable")@
+--@localization(locale="itIT", format="lua_additive_table", namespace="Tabs", handle-subnamespaces="none")@
+--@localization(locale="itIT", format="lua_additive_table", namespace="SUBZONES", handle-subnamespaces="none", table-name="L.SUBZONES")@
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-end
-
-if (not L.SUBZONES) then
-	L.SUBZONES = {
-	-- Ulduar:
-		["Formation Grounds"] = "Formation Grounds",
-		["Razorscale's Aerie"] = "Razorscale's Aerie",
-		["The Assembly of Iron"] = "The Assembly of Iron",
-		["The Celestial Planetarium"] = "The Celestial Planetarium",
-		["The Clash of Thunder"] = "The Clash of Thunder",
-		["The Colossal Forge"] = "The Colossal Forge",
-		["The Conservatory of Life"] = "The Conservatory of Life",
-		["The Descent into Madness"] = "The Descent into Madness",
-		["The Halls of Winter"] = "The Halls of Winter",
-		["The Observation Ring"] = "The Observation Ring",
-		["The Prison of Yogg-Saron"] = "The Prison of Yogg-Saron",
-		["The Scrapyard"] = "The Scrapyard",
-		["The Shattered Walkway"] = "The Shattered Walkway",
-		["The Spark of Imagination"] = "The Spark of Imagination",
-	-- Icecrown:
-		["Argent Tournament Grounds"] = "Argent Tournament Grounds",
-		["The Ring of Champions"] = "The Ring of Champions",
-		["Argent Pavilion"] = "Argent Pavilion",
-		["The Argent Valiants' Ring"] = "The Argent Valiants' Ring",
-		["The Aspirants' Ring"] = "The Aspirants' Ring",
-		["The Alliance Valiants' Ring"] = "The Alliance Valiants' Ring",
-		["Silver Covenant Pavilion"] = "Silver Covenant Pavilion",
-		["Sunreaver Pavilion"] = "Sunreaver Pavilion",
-		["The Horde Valiants' Ring"] = "The Horde Valiants' Ring",
-	}
 end
