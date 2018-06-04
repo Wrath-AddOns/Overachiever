@@ -146,56 +146,51 @@ end
 if (locale == "deDE") then  -- German
 --@localization(locale="deDE", format="lua_additive_table", namespace="Tabs", handle-subnamespaces="none")@
 --@localization(locale="deDE", format="lua_additive_table", namespace="Tabs/SUBZONES", handle-subnamespaces="none", table-name="L.SUBZONES")@
---@localization(locale="deDE", format="lua_additive_table", namespace="Tabs - SUBZONES", handle-subnamespaces="none", table-name="L.SUBZONES")@
---@localization(locale="deDE", format="lua_additive_table", namespace="Tabs-SUBZONES", handle-subnamespaces="none", table-name="L.SUBZONES")@
 
---??
-
---@localization(locale="deDE", format="lua_additive_table", namespace="Tabs,SUBZONES", handle-subnamespaces="none", table-name="L.SUBZONES")@
 
 elseif (locale == "frFR") then  -- French
 --@localization(locale="frFR", format="lua_additive_table", namespace="Tabs", handle-subnamespaces="none")@
---@localization(locale="frFR", format="lua_additive_table", namespace="SUBZONES", handle-subnamespaces="none", table-name="L.SUBZONES")@
+--@localization(locale="frFR", format="lua_additive_table", namespace="Tabs/SUBZONES", handle-subnamespaces="none", table-name="L.SUBZONES")@
 
 
 elseif (locale == "zhTW") then  -- Traditional Chinese
 --@localization(locale="zhTW", format="lua_additive_table", namespace="Tabs", handle-subnamespaces="none")@
---@localization(locale="zhTW", format="lua_additive_table", namespace="SUBZONES", handle-subnamespaces="none", table-name="L.SUBZONES")@
+--@localization(locale="zhTW", format="lua_additive_table", namespace="Tabs/SUBZONES", handle-subnamespaces="none", table-name="L.SUBZONES")@
 
 
 elseif (locale == "zhCN") then  -- Simplified Chinese
 --@localization(locale="zhCN", format="lua_additive_table", namespace="Tabs", handle-subnamespaces="none")@
---@localization(locale="zhCN", format="lua_additive_table", namespace="SUBZONES", handle-subnamespaces="none", table-name="L.SUBZONES")@
+--@localization(locale="zhCN", format="lua_additive_table", namespace="Tabs/SUBZONES", handle-subnamespaces="none", table-name="L.SUBZONES")@
 
 
 elseif (locale == "ruRU") then  -- Russian
 --@localization(locale="ruRU", format="lua_additive_table", namespace="Tabs", handle-subnamespaces="none")@
---@localization(locale="ruRU", format="lua_additive_table", namespace="SUBZONES", handle-subnamespaces="none", table-name="L.SUBZONES")@
+--@localization(locale="ruRU", format="lua_additive_table", namespace="Tabs/SUBZONES", handle-subnamespaces="none", table-name="L.SUBZONES")@
 
 
 elseif (locale == "koKR") then  -- Korean
 --@localization(locale="koKR", format="lua_additive_table", namespace="Tabs", handle-subnamespaces="none")@
---@localization(locale="koKR", format="lua_additive_table", namespace="SUBZONES", handle-subnamespaces="none", table-name="L.SUBZONES")@
+--@localization(locale="koKR", format="lua_additive_table", namespace="Tabs/SUBZONES", handle-subnamespaces="none", table-name="L.SUBZONES")@
 
 
 elseif (locale == "esES" or locale == "esMX") then  -- Spanish
 --@localization(locale="esES", format="lua_additive_table", namespace="Tabs", handle-subnamespaces="none")@
---@localization(locale="esES", format="lua_additive_table", namespace="SUBZONES", handle-subnamespaces="none", table-name="L.SUBZONES")@
+--@localization(locale="esES", format="lua_additive_table", namespace="Tabs/SUBZONES", handle-subnamespaces="none", table-name="L.SUBZONES")@
 
 
 	if (locale == "esMX") then  -- Spanish (Mexican)
 --@localization(locale="esMX", format="lua_additive_table", namespace="Tabs", handle-subnamespaces="none")@
---@localization(locale="esMX", format="lua_additive_table", namespace="SUBZONES", handle-subnamespaces="none", table-name="L.SUBZONES")@
+--@localization(locale="esMX", format="lua_additive_table", namespace="Tabs/SUBZONES", handle-subnamespaces="none", table-name="L.SUBZONES")@
 
 
 elseif (locale == "ptBR") then  -- Brazilian Portuguese
 --@localization(locale="ptBR", format="lua_additive_table", namespace="Tabs", handle-subnamespaces="none")@
---@localization(locale="ptBR", format="lua_additive_table", namespace="SUBZONES", handle-subnamespaces="none", table-name="L.SUBZONES")@
+--@localization(locale="ptBR", format="lua_additive_table", namespace="Tabs/SUBZONES", handle-subnamespaces="none", table-name="L.SUBZONES")@
 
 
 elseif (locale == "itIT") then  -- Italian
 --@localization(locale="itIT", format="lua_additive_table", namespace="Tabs", handle-subnamespaces="none")@
---@localization(locale="itIT", format="lua_additive_table", namespace="SUBZONES", handle-subnamespaces="none", table-name="L.SUBZONES")@
+--@localization(locale="itIT", format="lua_additive_table", namespace="Tabs/SUBZONES", handle-subnamespaces="none", table-name="L.SUBZONES")@
 
 
 end
