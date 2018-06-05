@@ -112,7 +112,9 @@ v0.99.11
 - New option added to exclude guild achievements from "need to kill" reminders.
 - Added achievements for Argus zones to exploration auto-tracking.
 - Fixed an issue where taint could be introduced when clicking a hyperlink.
-- Suggestions Tab: Added suggestions for Argus zones, the Seat of the Triumvirate, and Antorus, the Burning Throne.
+- Suggestions Tab:
+-- Added suggestions for Argus zones, the Seat of the Triumvirate, and Antorus, the Burning Throne.
+-- Updated suggestions for Ulduar to account for 10- and 25-man achievements being replaced by new any-raid-size achievements.
 - Tabs module: Added text overlay to indicate when the achievement completion filter (earned or incomplete) has caused an achievement to be omitted from the Search results or a Watch list.
 - Fixed an error that can occur if the Tabs module is disabled and a holiday toast is clicked.
 
