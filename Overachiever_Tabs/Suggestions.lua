@@ -826,7 +826,35 @@ local ACHID_INSTANCES = {
 	--["Naxxramas"] = 11744, -- Drop Dead, Gorgeous (feat of strength - for old Naxxramas, not WotLK, though gear obtainable from black market AH)
 	["Naxxramas"] = 11750, -- Undying Aesthetic
 	["Icecrown Citadel"] = 11753, -- Winter Catalog
-	["Ulduar"] = 11751, -- Mogg-Saron
+	["Ulduar"] = {
+		11751, -- Mogg-Saron
+		12401, -- Glory of the Ulduar Raider
+		12311, -- Secrets of Ulduar
+		SUBZONES = {
+			--["*Formation Grounds*The Colossal Forge*Razorscale's Aerie*The Scrapyard*"] = 12297, -- Siege
+			["Formation Grounds"] = { 12312, 12313, 12314, 12315, 12316, 12317 },
+			["Razorscale's Aerie"] = { 12321, 12322 },
+			["The Colossal Forge"] = { 12323, 12324, 12325 },
+			["The Scrapyard"] = { 12326, 12327, 12328, 12329, 12330 },
+
+			--["*The Assembly of Iron*The Shattered Walkway*The Observation Ring*"] = 12302, -- Antechamber
+			["The Assembly of Iron"] = { 12332, 12333, 12334, 12335, 12336 },
+			["The Shattered Walkway"] = { 12337, 12338, 12339, 12340 },
+			["The Observation Ring"] = { 12341, 12342 },
+
+			--["*The Spark of Imagination*The Conservatory of Life*The Clash of Thunder*The Halls of Winter*"] = 12309, -- Keepers
+			["The Halls of Winter"] = { 12343, 12344, 12345, 12347, 12346 },
+			["The Clash of Thunder"] = { 12348, 12349, 12350, 12351 },
+			["The Conservatory of Life"] = { 12360, 12361, 12362, 12363, 12364 },
+			["The Spark of Imagination"] = { 12367, 12368, 12369 },
+
+			--["*The Descent into Madness*The Prison of Yogg-Saron*"] = 12310, -- Descent
+			["The Descent into Madness"] = { 12372, 12373 },
+			["The Prison of Yogg-Saron"] = { 12384, 12385, 12395, 12396, 12397, 12398 },
+
+			["The Celestial Planetarium"] = { 12399, 12400 }, -- Alganon
+		},
+	},
 
 -- Cataclysm Dungeons
 	-- Heroic only, but these dungeons are heroic only so it may as well always show up if suggesting for the zone:
@@ -1142,6 +1170,7 @@ local ACHID_INSTANCES_10 = {
 	["Onyxia's Lair"] = { 4396, 4402, 4403, 4404 },
 	["The Eye of Eternity"] = { 622, 1874, 2148, 1869 },
 	["The Obsidian Sanctum"] = { 1876, 2047, 2049, 2050, 2051, 624 },
+	--[[ As of WoW 7.3.5, the 10-man and 25-man version of Ulduar achievements are unobtainable. A single new achievement exists for each, instead.
 	["Ulduar"] = { 2957, 2894, -- 2903 "Champion of Ulduar" is now a Feat of Strength
 		SUBZONES = {
 			--["*Formation Grounds*The Colossal Forge*Razorscale's Aerie*The Scrapyard*"] = 2886, -- Siege
@@ -1169,6 +1198,7 @@ local ACHID_INSTANCES_10 = {
 			  -- 3004 "He Feeds On Your Tears (10 player)" and 3316 "Herald of the Titans" are now Feats of Strength
 		},
 	},
+	--]]
 	["Vault of Archavon"] = { 1722, 3136, 3836, 4016 },
 	["Trial of the Crusader"] = { 3917, 3936, 3798, 3799, 3800, 3996, 3797 },
 	["Icecrown Citadel"] = { 4580, 4601, 4534, 4538, 4577, 4535, 4536, 4537, 4578, 4581, 4539, 4579, 4582 },
@@ -1183,6 +1213,7 @@ local ACHID_INSTANCES_25 = {
 	["Onyxia's Lair"] = { 4397, 4405, 4406, 4407 },
 	["The Eye of Eternity"] = { 623, 1875, 1870, 2149 },
 	["The Obsidian Sanctum"] = { 625, 2048, 2052, 2053, 2054, 1877 },
+	--[[ As of WoW 7.3.5, the 10-man and 25-man version of Ulduar achievements are unobtainable. A single new achievement exists for each, instead.
 	["Ulduar"] = { 2958, 2895, -- 2904 "Conqueror of Ulduar" is now a Feat of Strength
 		SUBZONES = {
 			--["*Formation Grounds*The Colossal Forge*Razorscale's Aerie*The Scrapyard*"] = 2887, -- Siege
@@ -1210,6 +1241,7 @@ local ACHID_INSTANCES_25 = {
 			  -- 3005 "He Feeds On Your Tears (25 player)" is now a Feat of Strength
 		},
 	},
+	--]]
 	["Vault of Archavon"] = { 1721, 3137, 3837, 4017 },
 	["Trial of the Crusader"] = { 3916, 3937, 3815, 3816, 3997, 3813 }, -- removed 3814
 	["Icecrown Citadel"] = { 4620, 4621, 4610, 4614, 4615, 4611, 4612, 4613, 4616, 4622, 4618, 4619, 4617 },
@@ -1669,7 +1701,9 @@ local function Refresh(self, instanceRetry)
     EditZoneOverride:SetTextColor(1, 1, 1)
     if (self ~= subzdrop) then  subzdrop_Update(zone);  end
     local subz = subzdrop:GetSelectedValue()
-    if (subz ~= 0) then  CurrentSubzone = subz;  end
+    if (subz ~= 0) then
+	  CurrentSubzone = SUBZONES_REV[subz] or subz
+	end
   else
     if (instanceRetry ~= true) then -- check specifically against true because it could be "LeftButton"
       zone = GetZoneSpecialOverride()
