@@ -1,5 +1,5 @@
 
-Overachiever v0.99.11
+Overachiever v1.0.0
 ==============================
 
 Author: Tuhljin
@@ -107,6 +107,18 @@ Change log
 ==========
 
 The change log lists changes of particular note to users, not every change made.
+
+v1.0.0
+- Updated for Battle for Azeroth beta and pre-patch, WoW patch 8.0.x. Updated TOC and made many required changes.
+- This release is backward compatible with Legion. (This may not be the case for future releases.)
+- Reworked the achievement search system. Searches should generally take less time and they now allow other activity to continue during a search.
+- Search Tab: Added an option to direct searches started by slash commands (like "/ach") to the Search tab.
+- When not directed to the Search tab, slash commands that searched for achievements will now also search through unlisted achievements. Excludes the "silent" slash commands such as "/achs". (When directed to the tab, whether they include unlisted achievements is determined by the relevant checkbox found there.)
+- Suggestions Tab:
+-- Added suggestions for Seething Shore.
+-- "Personal" type split into "Personal" and "Other." The latter are achievements that do not have a category which belongs in the base UI. (Since all of them are unlisted achievements, selecting the "Other" type causes the search to include unlisted achievements even when the box to do so is unchecked.)
+- Tabs module: Added text overlay to indicate when the achievement completion filter (earned or incomplete) has caused an achievement to be omitted from the Suggestions or Related tabs.
+- Improved ability to toggle tracking an achievement by ctrl+clicking on its link. Overachiever will now attempt to toggle tracking when the selected achievement is part of a series to which the linked achievement belongs (rather than requiring the linked achievement itself to be selected).
 
 v0.99.11
 - New option added to exclude guild achievements from "need to kill" reminders.

@@ -13,11 +13,13 @@ L.SEARCH_FULLLIST_TIP = "Include in the search achievements that aren't normally
 L.SEARCH_TYPE = "Type:";
 L.SEARCH_TYPE_INDIV = "Personal";
 L.SEARCH_TYPE_GUILD = "Guild";
+L.SEARCH_TYPE_OTHER = "Other";
 L.SEARCH_TYPE_ALL = "All";
 L.SEARCH_SUBMIT = "Search";
 L.SEARCH_RESET = "Reset";
 L.SEARCH_RESULTS = "Found %s |4achievement:achievements;.";
 L.SEARCH_FILTERED_OUT = "%s |4achievement was:achievements were; omitted by the filter.";
+L.SEARCH_SEARCHING = "Searching..."
 
 L.SUGGESTIONS_TAB = "Suggestions";
 L.SUGGESTIONS_HELP = "Suggested achievements are listed here based on your current location. Also listed are all \"Recent Reminder\" achievements.|n|n|cffffffffShift-right-click|r on a suggested achievement to hide it. (This is character-specific and affects all locations.)";
@@ -46,6 +48,8 @@ L.SUGGESTIONS_SHOWHIDDEN = "Show Hidden"
 L.SUGGESTIONS_SHOWHIDDEN_TIP = "Check to show hidden suggestions for this location."
 L.SUGGESTIONS_SHOWHIDDEN_TIP2 = "If you want to see all hidden suggestions regardless of location, enter \"hidden\" into the Location field, above.|n|n|cffffffffShift-right-click|r on an achievement to toggle whether it is hidden."
 L.SUGGESTIONS_HIDDENLOCATION = "hidden"
+L.SUGGESTIONS_FILTERED_OUT_INCOMPLETE = "Showing COMPLETED achievements. %s |4achievement was:achievements were; filtered out.";
+L.SUGGESTIONS_FILTERED_OUT_EARNED = "%s |4achievement was:achievements were; already earned.";
 
 L.SUGGESTIONS_ZONERENAME_DALARAN_NORTHREND = "Dalaran (Northrend)"
 L.SUGGESTIONS_ZONERENAME_DALARAN_BROKENISLES = "Dalaran (Broken Isles)"
@@ -83,6 +87,7 @@ L.RELATED_BASE = "Base Achievement:";
 L.RELATED_CLOSE = "Close";
 L.RELATED_RECURSIVE = "Extended";
 L.RELATED_RECURSIVE_TIP = "Do a recursive search so all achievements that are indirectly related to the base achievement are also included.";
+L.RELATED_FILTERED_OUT = "%s |4achievement was:achievements were; omitted by the filter.";
 
 L.TAB_SORT = "Sort by:";
 L.TAB_SORT_NAME = "Name";

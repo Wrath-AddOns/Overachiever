@@ -4,7 +4,6 @@ local OVERACHIEVER_ACHID = OVERACHIEVER_ACHID
 local GetStatistic = GetStatistic
 
 local Overachiever = Overachiever
-local GetAchievementInfo = Overachiever.GetAchievementInfo
 local GetAchievementCriteriaInfo = Overachiever.GetAchievementCriteriaInfo
 local chatprint = Overachiever.chatprint
 

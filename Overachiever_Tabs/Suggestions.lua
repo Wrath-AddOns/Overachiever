@@ -8,8 +8,11 @@
 --
 
 local L = OVERACHIEVER_STRINGS
-local GetAchievementInfo = Overachiever.GetAchievementInfo
+local GetAchievementInfo = GetAchievementInfo
 local GetAchievementCriteriaInfo = Overachiever.GetAchievementCriteriaInfo
+
+-- BFA
+local WOW_BFA = select(4, GetBuildInfo()) >= 80000
 
 local LBZ = LibStub("LibBabble-SubZone-3.0"):GetUnstrictLookupTable()
 local LBZR = LibStub("LibBabble-SubZone-3.0"):GetReverseLookupTable()
@@ -22,8 +25,6 @@ local IsAlliance = UnitFactionGroup("player") == "Alliance"
 local suggested = {}
 
 local showHidden, numHidden = false, 0
-
-local ZONE_RENAME = Overachiever.ZONE_RENAME
 
 local ZONE_RENAME_REV = { -- lookup table so localizations can use their own renames
 --	["What we're calling this zone (localized)"] = "The key we're using for this zone",
@@ -1017,6 +1018,7 @@ ACHID_INSTANCES["Wildhammer Stronghold"] = 5223  -- Also part of Twin Peaks
 ACHID_INSTANCES["Dragonmaw Stronghold"] = 5223  -- Also part of Twin Peaks
 ACHID_INSTANCES["Temple of Kotmogu"] = 6981 -- "Master of Temple of Kotmogu"
 ACHID_INSTANCES["Deepwind Gorge"] = 8360 -- "Master of Deepwind Gorge"
+ACHID_INSTANCES["Seething Shore"] = 12412  -- "Master of Seething Shore"
 if (IsAlliance) then
 	ACHID_INSTANCES["Alterac Valley"] = { 1167, 907, 226 }
 	ACHID_INSTANCES["Arathi Basin"] = { 1169, 907 }
@@ -1483,15 +1485,6 @@ local function ZoneLookup(zoneName, isSub, subz)
   local trimz = strtrim(zoneName)
   local result = isSub and SUBZONES_REV[trimz] or LBZR[trimz] or LBZR[zoneName] or trimz
   if (not isSub) then  result = Overachiever.GetZoneKey(result);  end
-  --[[
-  if (not isSub and ZONE_RENAME[result]) then
-    local mapID = Overachiever.GetCurrentMapID()
-	if (mapID and ZONE_RENAME[result][mapID]) then
-      --Overachiever.chatprint(result .. " got renamed to " .. ZONE_RENAME[result][mapID])
-      return ZONE_RENAME[result][mapID]
-	end
-  end
-  --]]
   return result
 end
 
@@ -1902,6 +1895,22 @@ function frame.SetNumListed(num)
     end
     if (numHidden < 1) then  ResultsLabel:SetText(" ");  end
   end
+  
+  local c = #frame.AchList
+  local msg
+  if (num < c) then
+    if (ACHIEVEMENTUI_SELECTEDFILTER == AchievementFrame_GetCategoryNumAchievements_Complete) then
+      msg = L.SUGGESTIONS_FILTERED_OUT_INCOMPLETE
+    elseif (ACHIEVEMENTUI_SELECTEDFILTER == AchievementFrame_GetCategoryNumAchievements_Incomplete) then
+	  msg = L.SUGGESTIONS_FILTERED_OUT_EARNED
+	end
+  end
+  if (msg) then
+    frame.frameWarning.label:SetText(msg:format(c - num))
+    frame.frameWarning:Show()
+  else
+    frame.frameWarning:Hide()
+  end
 end
 
 RefreshBtn = CreateFrame("Button", nil, panel, "UIPanelButtonTemplate")
@@ -1999,18 +2008,26 @@ do
   label:SetText(L.SUGGESTIONS_LOCATION)
 
   -- CREATE LIST OF VALID LOCATIONS:
-  -- Add all zones to the list:
-  local zonetab = {}
-  for i=1,select("#",Overachiever.GetMapContinents_names()) do  zonetab[i] = { Overachiever.GetMapZones_names(i) };  end
-  for i,tab in ipairs(zonetab) do
-    for n,z in ipairs(tab) do
-	  if (not ZONE_RENAME[LBZR[z] or z]) then  -- Omit zones that we use a different name for so we don't create a confusing autocomplete (e.g. people type "Dalaran" but get no suggestions because we put them somewhere else).
-	    suggested[z] = true -- Already localized so no need for LBZ here.
-	  --else  Overachiever.chatprint("omitting "..z)
-	  end
+
+  local places = {}
+
+  local function extractNames(list)
+    local ZONE_RENAME = Overachiever.ZONE_RENAME
+    local INSTANCE_RENAME = Overachiever.INSTANCE_RENAME
+	for i,v in ipairs(list) do
+		local z = WOW_BFA and v.name or v
+		local lz = LBZR[z] or z
+		if (not ZONE_RENAME[lz] and not INSTANCE_RENAME[lz]) then  -- Omit zones that we use a different name for so we don't create a confusing autocomplete (e.g. people type "Dalaran" but get no suggestions because we put them somewhere else).
+			places[z] = true -- Already localized so no need for LBZ here.
+		--else	Overachiever.chatprint("omitting "..z)
+		end
 	end
   end
-  zonetab = nil
+
+  -- Add all zones to the list:
+  extractNames(Overachiever.GetZones())
+  --extractNames(Overachiever.GetDungeons())
+
   -- Add instances for which we have suggestions:
   local locallookup = nil
   local function addtolist(list, ...)
@@ -2024,25 +2041,25 @@ do
 	  end
     end
   end
-  addtolist(suggested, ACHID_INSTANCES, ACHID_INSTANCES_NORMAL, ACHID_INSTANCES_HEROIC, ACHID_INSTANCES_HEROIC_PLUS,
+  addtolist(places, ACHID_INSTANCES, ACHID_INSTANCES_NORMAL, ACHID_INSTANCES_HEROIC, ACHID_INSTANCES_HEROIC_PLUS,
             ACHID_INSTANCES_10, ACHID_INSTANCES_25, ACHID_INSTANCES_10_NORMAL, ACHID_INSTANCES_25_NORMAL,
             ACHID_INSTANCES_10_HEROIC, ACHID_INSTANCES_25_HEROIC, ACHID_INSTANCES_MYTHIC)
-  addtolist(suggested, ACHID_ZONE_MISC); -- Required for "unlisted" zones like Molten Front (doesn't appear in GetMapContinents/GetMapZones scan)
+  addtolist(places, ACHID_ZONE_MISC); -- Required for "unlisted" zones like Molten Front (doesn't appear in GetMapContinents/GetMapZones scan)
   locallookup = Overachiever.HOLIDAY_REV
-  addtolist(suggested, ACHID_HOLIDAY); -- These aren't actual zones but we want the user to be able to look them up by name.
+  addtolist(places, ACHID_HOLIDAY); -- These aren't actual zones but we want the user to be able to look them up by name.
   locallookup = nil
   addtolist = nil
 
-  suggested[L.SUGGESTIONS_HIDDENLOCATION] = true  -- Add another special location, this for Hidden suggestions
+  places[L.SUGGESTIONS_HIDDENLOCATION] = true  -- Add another special location, this for Hidden suggestions
 
   -- Arrange into alphabetically-sorted array:
   local count = 0
-  for k in pairs(suggested) do
+  for k in pairs(places) do
     count = count + 1
     LocationsList[count] = k
 	--print("adding "..k)
   end
-  wipe(suggested)
+  places = nil
   sort(LocationsList)
   -- Cross-reference by lowercase key to place in the array:
   for i,v in ipairs(LocationsList) do  LocationsList[strlower(v)] = i;  end
@@ -2268,8 +2285,9 @@ function Overachiever.OpenSuggestionsTab(text)
 	if (not AchievementFrame:IsShown()) then  ToggleAchievementFrame();  end
 	EditZoneOverride:SetText(text)
 	if (Overachiever.GetSelectedTab() == frame) then
-		Overachiever.OpenTab_frame(frame)
-		PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON)
+		--Overachiever.OpenTab_frame(frame)
+		--PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON)
+		Refresh(RefreshBtn)
 	else
 		Overachiever.OpenTab_frame(frame, true)
 	end
