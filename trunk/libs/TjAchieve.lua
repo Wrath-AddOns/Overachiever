@@ -187,7 +187,7 @@ TjAchieve.CRITTYPE_KILL		The asset type for kill criteria.
 --]]
 
 
-local THIS_VERSION = "0.07"
+local THIS_VERSION = "0.08"
 
 if (TjAchieve and TjAchieve.Version >= THIS_VERSION) then  return;  end  -- Lua's pretty good at this. It even knows that "1.0.10" > "1.0.9". However, be aware that it thinks "1.0" < "1.0b" so putting a "b" on the end for Beta, nothing for release, doesn't work.
 
@@ -204,6 +204,9 @@ TjAchieve.ANY_NON_BLANK = "~any_non_blank~" -- Special wildcard for searches. (M
 -- Can also/instead change INTERVAL in libs/TjThreads.lua to try to reduce drops in frame rate (theoretically).
 local BUILD_CRIT_STEPS = 20  --50 --15 --50
 local BUILD_CRITCOUNT_STEPS = 100
+
+local BUILD_ID_CAT_STEPS = 5
+
 local SEARCH_CRIT_CAT_STEPS = 100
 local SEARCH_CRIT_IDS_STEPS = 750
 
@@ -622,9 +625,9 @@ do
 			cats = TjAchieve.GetAllCategories()
 			size = #cats
 			prevcat = 0
-			lastcat = 5
+			lastcat = BUILD_ID_CAT_STEPS
 		else
-			lastcat = prevcat + 5
+			lastcat = prevcat + BUILD_ID_CAT_STEPS
 		end
 		if (lastcat > size) then  lastcat = size;  end
 		for iCat = prevcat + 1, lastcat do

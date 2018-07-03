@@ -1267,7 +1267,9 @@ end
 function Overachiever.OnEvent(self, event, arg1, ...)
   --print("[Oa]", event, arg1, ...)
   if (event == "CRITERIA_UPDATE") then
-    Overachiever.Criteria_Updated = true  -- used by GameTip.lua
+    -- Both of these are used by GameTip.lua
+    Overachiever.Criteria_Updated = true
+	Overachiever.Last_Tooltip_Check = 0
 
   elseif (event == "PLAYER_ENTERING_WORLD") then
     Overachiever.MainFrame:UnregisterEvent("PLAYER_ENTERING_WORLD")
@@ -1299,6 +1301,10 @@ function Overachiever.OnEvent(self, event, arg1, ...)
       if (oldver < "0.40" and Overachiever_CharVars_Default) then
         Overachiever_CharVars_Default.Pos_AchievementWatchFrame = nil
       end
+
+	  if (oldver < "1.0.0") then
+	    Overachiever_Settings.Throttle_AchLookup = false
+	  end
 
 	elseif (oldver == false) then -- Must be false, not nil; false indicates we created the variables table (fresh install) whereas nil would mean there was no change
 	  toast = L.OVERACHIEVER_INSTALLED_TOAST

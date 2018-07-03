@@ -227,7 +227,8 @@ School of %s
 	OPT_THROTTLE_ACHLOOKUP = "Startup: Throttle achievement lookup";
 	OPT_THROTTLE_ACHLOOKUP_TIP = "Overachiever looks up certain data on startup. If this is unchecked, lookup happens all at once while the UI is first loading. If checked, data is gathered over time after the player enters the world.|n|nThe advantage to throttled lookup is a faster initial loading time, but, for some users and on some characters, this can temporarily impact performance.";
 	OPT_SLASHSEARCH_TAB = "Slash commands use Search tab";
-	OPT_SLASHSEARCH_TAB_TIP = "Slash commands like \"/ach food\" open the Search tab to display results. If this is unchecked, results are output to the chat log instead (unless a silent output command like|n\"/achs\" is used).";
+	OPT_SLASHSEARCH_TAB_TIP = "Use the Search tab to show search results from slash commands like \"/ach food\". If this is unchecked, results are output to the chat log instead (unless a silent output command like \"/achs\" is used).";
+	OPT_SLASHSEARCH_TIP2 = "|cffffffffTabs module with Search tab is required.|r";
 
 	SOUND_BELL_ALLIANCE = "Bell - Alliance";
 	SOUND_BELL_HORDE = "Bell - Horde";
