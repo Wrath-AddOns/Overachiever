@@ -3,6 +3,8 @@
 local ANY_NON_BLANK = "~"
 local ENFORCE_ID_SEARCH_IN_LIST = false
 
+local THROTTLE = true
+
 
 local ACHINFO_NAME = 2
 
@@ -138,12 +140,19 @@ local function handleSubthread(func, ...)
 	end
 	func(unpack(args))
 	local task = TjThreads.GetLatestTask()
-	coroutine.yield(TjThreads.QUICKYIELD)
-	while (results == WAITING) do
-		if (not TjThreads.IsTaskActive(task)) then
+	if (THROTTLE) then
+		coroutine.yield(TjThreads.QUICKYIELD)
+		while (results == WAITING) do
+			if (not TjThreads.IsTaskActive(task)) then
+				error("Subthread has terminated without yielding expected results. Check previous error in log.")
+			end
+			coroutine.yield(TjThreads.QUICKYIELD)
+		end
+	else
+		TjThreads.RushTask(task)
+		if (results == WAITING) then
 			error("Subthread has terminated without yielding expected results. Check previous error in log.")
 		end
-		coroutine.yield(TjThreads.QUICKYIELD)
 	end
 	return results
 end
@@ -158,7 +167,7 @@ local function createMultiSearchFunc(list, query, strictCase, listener)
 			if (argnum == ACHINFO_NAME) then
 				results = Overachiever.AchSearchNameOrIDFromList(list, query, strictCase)
 			elseif (argnum == "crit") then
-				coroutine.yield()
+				if (THROTTLE) then  coroutine.yield();  end
 				local q = query
 				if (query == ANY_NON_BLANK) then  q = TjAchieve.ANY_NON_BLANK;  end
 				results = handleSubthread(TjAchieve.StartSearchCriteriaByID, q, list)
@@ -194,16 +203,16 @@ local function createFullSearchFunc(list, strictCase, nameOrID, desc, criteria, 
 		if (nameOrID ~= "") then
 			-- Check name first since it may be a numeric ID (which eliminates all other achievements)
 			list = Overachiever.AchSearchNameOrIDFromList(list, nameOrID, strictCase)
-			coroutine.yield()
+			if (THROTTLE) then  coroutine.yield();  end
 		end
 		if (reward ~= "") then
 			-- Rewards next since there are relatively few of these so it may narrow the list quickly
 			list = Overachiever.AchSearchFromList(list, 11, reward, strictCase)
-			coroutine.yield()
+			if (THROTTLE) then  coroutine.yield();  end
 		end
 		if (desc ~= "") then
 			list = Overachiever.AchSearchFromList(list, 8, desc, strictCase)
-			coroutine.yield()
+			if (THROTTLE) then  coroutine.yield();  end
 		end
 		if (#list > 0 and criteria ~= "") then
 			if (criteria == ANY_NON_BLANK) then  criteria = TjAchieve.ANY_NON_BLANK;  end
