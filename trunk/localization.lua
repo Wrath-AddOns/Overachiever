@@ -225,7 +225,8 @@ School of %s
 
 	OPT_LABEL_MISC = "Miscellaneous";
 	OPT_THROTTLE_ACHLOOKUP = "Startup: Throttle achievement lookup";
-	OPT_THROTTLE_ACHLOOKUP_TIP = "Overachiever looks up certain data on startup. If this is unchecked, lookup happens all at once while the UI is first loading. If checked, data is gathered over time after the player enters the world.|n|nThe advantage to throttled lookup is a faster initial loading time, but, for some users and on some characters, this can temporarily impact performance.";
+	OPT_THROTTLE_ACHLOOKUP_TIP = "Overachiever looks up certain data on startup. If this is unchecked, lookup happens while the UI is first loading. If checked, data is gathered over time after the player enters the world.";
+	OPT_THROTTLE_ACHLOOKUP_TIP2 = "|nThe advantage to throttled lookup is a faster initial loading time, but, for some users and on some characters, this can noticeably impact performance for several seconds at the start of a session.|n|nThe reduction in loading time is largely redundant if the |cffffffffCache module|r is enabled (since that provides much of the needed data) unless the cache needs to be rebuilt. The cache is rebuilt after each new WoW build is released.";
 	OPT_SLASHSEARCH_TAB = "Slash commands use Search tab";
 	OPT_SLASHSEARCH_TAB_TIP = "Use the Search tab to show search results from slash commands like \"/ach food\". If this is unchecked, results are output to the chat log instead (unless a silent output command like \"/achs\" is used).";
 	OPT_SLASHSEARCH_TIP2 = "|cffffffffTabs module with Search tab is required.|r";
