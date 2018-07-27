@@ -176,6 +176,11 @@ TjAchieve.AddBuildCritAssetCacheListener( assetType, func )
 called almost immediately (on the next tick). The function is passed the assetType (to allow you to use a single function to listen for
 multiple criteria asset ID caches' completions).
 
+TjAchieve.PopulateCritAssetCache( assetType, data )
+  Populate the criteria asset cache using previously-saved data. Must be the COMPLETE data for all achievements and must be in the same format
+used by TjAchieve normally or unexpected results may occur when the cache is called upon.
+
+
 Constants
 ---------
 
@@ -187,7 +192,7 @@ TjAchieve.CRITTYPE_KILL		The asset type for kill criteria.
 --]]
 
 
-local THIS_VERSION = "0.08"
+local THIS_VERSION = "0.09"
 
 if (TjAchieve and TjAchieve.Version >= THIS_VERSION) then  return;  end  -- Lua's pretty good at this. It even knows that "1.0.10" > "1.0.9". However, be aware that it thinks "1.0" < "1.0b" so putting a "b" on the end for Beta, nothing for release, doesn't work.
 
@@ -742,6 +747,32 @@ function TjAchieve.AddBuildIDCacheListener(func)
 end
 
 
+local function flagTaskComplete(assetType)
+	if (not TjAchieve.status_CA) then  TjAchieve.status_CA = {};  end
+	TjAchieve.status_CA[assetType] = true
+	if (TjAchieve.listeners_CACache and TjAchieve.listeners_CACache[assetType]) then
+		for i,func in ipairs(TjAchieve.listeners_CACache[assetType]) do
+			local noerrors, ret2 = pcall(func, assetType)
+			if (not noerrors) then
+				C_Timer.After(0, function()  -- Use a timer so as to not interrupt what we're doing.
+					error("TjAchieve encountered an error while updating a criteria asset cache listener. Check the listening function for problems. The original error message follows:|n" .. ret2)
+				end)
+			end
+		end
+		TjAchieve.listeners_CACache[assetType] = nil
+		if (next(TjAchieve.listeners_CACache) == nil) then -- Is the table empty?
+			TjAchieve.listeners_CACache = nil
+		end
+	end
+	if (TjAchieve.CritAssetTasks) then
+		TjAchieve.CritAssetTasks[assetType] = nil
+		if (next(TjAchieve.CritAssetTasks) == nil) then -- Is the table empty?
+			TjAchieve.CritAssetTasks = nil
+		end
+	end
+	--print("task complete",assetType)
+end
+
 local function createAssetLookupFunc(assetType, saveIndex)
 	saveIndex = not not saveIndex
 	ASSETS[assetType] = { ["saveIndex"] = saveIndex } -- Important that this happens before the function is ever called.
@@ -789,26 +820,7 @@ local function createAssetLookupFunc(assetType, saveIndex)
 		end
 
 		-- We're done!
-		TjAchieve.status_CA[assetType] = true
-		if (TjAchieve.listeners_CACache and TjAchieve.listeners_CACache[assetType]) then
-			for i,func in ipairs(TjAchieve.listeners_CACache[assetType]) do
-				local noerrors, ret2 = pcall(func, assetType)
-				if (not noerrors) then
-					C_Timer.After(0, function()  -- Use a timer so as to not interrupt what we're doing.
-						error("TjAchieve encountered an error while updating a criteria asset cache listener. Check the listening function for problems. The original error message follows:|n" .. ret2)
-					end)
-				end
-			end
-			TjAchieve.listeners_CACache[assetType] = nil
-			if (next(TjAchieve.listeners_CACache) == nil) then -- Is the table empty?
-				TjAchieve.listeners_CACache = nil
-			end
-		end
-		TjAchieve.CritAssetTasks[assetType] = nil
-		if (next(TjAchieve.CritAssetTasks) == nil) then -- Is the table empty?
-			TjAchieve.CritAssetTasks = nil
-		end
-		--print("task complete",assetType)
+		flagTaskComplete(assetType)
 	end
 end
 
@@ -833,6 +845,20 @@ function TjAchieve.BuildCritAssetCache(assetType, saveIndex)
 		return "started"
 	end
 	return TjAchieve.status_CA[assetType] and "complete" or "ongoing"
+end
+
+function TjAchieve.PopulateCritAssetCache(assetType, data)
+	assert(type(assetType) == "number" and type(data) == "table", "Usage: TjAchieve.PopulateCritAssetCache(assetType[, saveIndex])")
+	if (TjAchieve.status_CA and TjAchieve.status_CA[assetType] == false) then
+		-- Retrieval already in progress. Stop it:
+		TjAchieve.status_CA[assetType] = nil
+		if (TjAchieve.CritAssetTasks and TjAchieve.CritAssetTasks[assetType]) then
+			TjThreads.RemoveTask(TjAchieve.CritAssetTasks[assetType])
+			TjAchieve.CritAssetTasks[assetType] = nil
+		end
+	end
+	ASSETS[assetType] = data
+	flagTaskComplete(assetType)
 end
 
 function TjAchieve.IsCritAssetCacheReady(assetType)

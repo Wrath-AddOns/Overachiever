@@ -1,5 +1,5 @@
 
-Overachiever v1.0.0
+Overachiever v1.0.1
 ==============================
 
 Author: Tuhljin
@@ -110,16 +110,19 @@ Change log
 
 The change log lists changes of particular note to users, not every change made.
 
+v1.0.1
+- A new module has been added, Overachiever_Cache. When enabled (which it is by default), it should reduce load times once its cache is populated. The cache is rebuilt whenever Overachiever runs after a new build of WoW was released.
+
 v1.0.0
 - Updated for Battle for Azeroth beta and pre-patch, WoW patch 8.0.x. Updated TOC and made many required changes.
 - This release is backward compatible with Legion. (This may not be the case for future releases.)
 - Reworked the achievement search system. Searches should generally take less time and they now allow other activity to continue during a search.
-- Search Tab: Added an option to direct searches started by slash commands (like "/ach") to the Search tab.
+- Search Tab:
+-- "Personal" type split into "Personal" and "Other." The latter are achievements that do not have a category which belongs in the base UI. (Since all of them are unlisted achievements, selecting the "Other" type causes the search to include unlisted achievements even when the box to do so is unchecked.)
+-- Added an option to direct searches started by slash commands (like "/ach") to the Search tab.
 - When not directed to the Search tab, slash commands that searched for achievements will now also search through unlisted achievements. Excludes the "silent" slash commands such as "/achs". (When directed to the tab, whether they include unlisted achievements is determined by the relevant checkbox found there.)
 - Minimap tooltips are now properly supported by the tooltip reminders feature. Up/down arrows (indicating a node's relative vertical position) do not prevent the reminder from showing and multiple nodes showing in the tooltip at once are now handled.
-- Suggestions Tab:
--- Added suggestions for Seething Shore.
--- "Personal" type split into "Personal" and "Other." The latter are achievements that do not have a category which belongs in the base UI. (Since all of them are unlisted achievements, selecting the "Other" type causes the search to include unlisted achievements even when the box to do so is unchecked.)
+- Suggestions Tab: Added suggestions for Seething Shore.
 - Tabs module: Added text overlay to indicate when the achievement completion filter (earned or incomplete) has caused an achievement to be omitted from the Suggestions or Related tabs.
 - Improved ability to toggle tracking an achievement by ctrl+clicking on its link. Overachiever will now attempt to toggle tracking when the selected achievement is part of a series to which the linked achievement belongs (rather than requiring the linked achievement itself to be selected).
 - Option "Startup: Throttle achievement lookup" is now disabled by default and it is automatically disabled for users upgrading from a pre-1.0 version of Overachiever.
