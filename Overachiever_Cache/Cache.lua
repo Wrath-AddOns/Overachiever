@@ -1,6 +1,4 @@
 
-local Overachiever_Debug = true --asdf - remove this line; use global instead
-
 function Overachiever.SaveCache()
 	Overachiever_Cache_CritAssets = Overachiever_Cache_CritAssets or {}
 	local ver = GetAddOnMetadata("Overachiever", "Version")
