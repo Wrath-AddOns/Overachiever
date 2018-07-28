@@ -111,7 +111,9 @@ Change log
 The change log lists changes of particular note to users, not every change made.
 
 v1.0.1
-- A new module has been added, Overachiever_Cache. When enabled (which it is by default), it should reduce load times once its cache is populated. The cache is rebuilt whenever Overachiever runs after a new build of WoW was released.
+- A new module has been added, Overachiever_Cache. When enabled (which it is by default), it should reduce load times once its cache is populated. The cache is rebuilt whenever Overachiever runs after a new build of WoW was released. (If the option "Startup: Throttle achievement lookup" is enabled, then this may improve performance instead of load time.)
+- Suggestions Tab: Added numerous suggestions for Battle for Azeroth zones.
+- Added achievements for Battle for Azeroth zones to exploration auto-tracking.
 
 v1.0.0
 - Updated for Battle for Azeroth beta and pre-patch, WoW patch 8.0.x. Updated TOC and made many required changes.

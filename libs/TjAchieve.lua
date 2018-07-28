@@ -32,7 +32,8 @@ TjAchieve.GetAchievementCriteriaInfo( achievementID, criteriaIndex )
   Call this instead of the normal GetAchievementCriteriaInfo function to prevent an error from being thrown when an invalid achievement or
 criteria index is used. Returns nil if there would have been an error. You must still use numbers as arguments or an error IS thrown.
   NOTE: This is only intended for use with two arguments, as indicated (achievementID, criteriaIndex). It won't work with the one-argument
-signature option of the normal GetAchievementCriteriaInfo function (statisticID).
+signature option of the normal GetAchievementCriteriaInfo function (statisticID). The underlying GetAchievementCriteriaInfo function is
+an expensive call so, despite this being in the "Quick" section, it may take a while if called, say, hundreds of times at once.
 
 list = TjAchieve.GetAllCategories()
   Returns a list (numerically indexed table) of all category IDs, a combination of WoW's GetCategoryList() and GetGuildCategoryList().
@@ -69,7 +70,7 @@ These functions don't use a cache but the results can take a while to process, s
 you pass to them which will be called with your results when they're ready.
 
 TjAchieve.StartSearchCriteriaByCategory( query, [categoriesList,] listenerFunc )
-  Gathers a list of achievement IDs that criteria which matches the given query and which are within one of the given categories.
+  Gathers a list of achievement IDs that have criteria which match the given query and which are within one of the given categories.
   Arguments:
     query (string)			The text to look for. You can pass TjAchieve.ANY_NON_BLANK in to include all achievements that have defined criteria.
     categoriesList (table)	A numerically indexed table containing achievement category IDs. You can omit this argument or pass false to include
@@ -192,7 +193,7 @@ TjAchieve.CRITTYPE_KILL		The asset type for kill criteria.
 --]]
 
 
-local THIS_VERSION = "0.09"
+local THIS_VERSION = "0.10"
 
 if (TjAchieve and TjAchieve.Version >= THIS_VERSION) then  return;  end  -- Lua's pretty good at this. It even knows that "1.0.10" > "1.0.9". However, be aware that it thinks "1.0" < "1.0b" so putting a "b" on the end for Beta, nothing for release, doesn't work.
 
@@ -870,9 +871,11 @@ end
 
 function TjAchieve.RushBuildCritAssetCache(assetType, saveIndex)
 	assert(type(assetType) == "number", "Usage: TjAchieve.RushBuildCritAssetCache(assetType[, saveIndex])")
+	--print("TjAchieve.RushBuildCritAssetCache", assetType, saveIndex)
 	TjAchieve.BuildCritAssetCache(assetType, saveIndex)
-	assert(TjAchieve.CritAssetTasks[assetType])
-	TjThreads.RushTask(TjAchieve.CritAssetTasks[assetType])
+	if (TjAchieve.CritAssetTasks and TjAchieve.CritAssetTasks[assetType]) then
+		TjThreads.RushTask(TjAchieve.CritAssetTasks[assetType])
+	end
 end
 
 function TjAchieve.AddBuildCritAssetCacheListener(assetType, func)

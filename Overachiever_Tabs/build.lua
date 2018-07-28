@@ -1250,9 +1250,9 @@ function Overachiever.Debug_DumpTab(unfiltered, simple)
 			else
 				for i,id in ipairs(tab) do
 					local _, name = GetAchievementInfo(id)
-					if (name) then  tab[i] = id .. "    -- " .. name;  end
+					if (name) then  tab[i] = id .. ", -- " .. name;  end
 				end
-				s = "{\n    "..strjoin(",\n    ", unpack(tab)).."\n}"
+				s = "{\n    "..strjoin("\n    ", unpack(tab)).."\n}"
 			end
 			print(s)
 			chatprint("Outputting as error message to allow copying.")
