@@ -363,6 +363,13 @@ OVERACHIEVER_EXPLOREZONEID = {
 	["Krokuun"] = 12069,
 	["Mac'Aree"] = 12069,
 	["Antoran Wastes"] = 12069,
+-- Battle for Azeroth
+	["Drustvar"] = 12557,
+	["Nazmir"] = 12561,
+	["Stormsong Valley"] = 12558,
+	["Tiragarde Sound"] = 12556,
+	["Vol'dun"] = 12560,
+	["Zuldazar"] = 12559,
 };
 OVERACHIEVER_EXPLOREZONEID["Thunder Totem"] = OVERACHIEVER_EXPLOREZONEID["Highmountain"]
 -- "Explore Cataclysm": 4868
