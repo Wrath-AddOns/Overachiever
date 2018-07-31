@@ -278,8 +278,26 @@ local achDraenorGarrison = {
 	IsAlliance and 9828 or 9897, -- Ten Hit Tunes
 	8933, -- Staying Regular
 	9094, -- Garrison Architect
-
 	9099, -- Time for an Upgrade
+
+	9141, -- A Rare Mission
+	9145, -- Treasure Mission Specialist
+	9150, -- Exploration Mission Specialist
+
+	-- Invasions:
+	9152, -- It's an Invasion!
+	9244, -- Invasions Are Better with Friends
+	9162, -- Bronze Defender
+	9209, -- Master Defender
+	9858, -- Master and Commander
+
+	-- Unlock decorations (banners, monuments):
+	IsAlliance and 9630 or 9248, -- Defender of Draenor
+	IsAlliance and 9631 or 9255, -- Mythic Draenor Raider
+	9264, -- Draenor Pet Brawler
+	9246, -- Master Draenor Crafter
+	9265, -- Master of Apexis
+	9388, -- Guild Draenor Dungeon Hero
 
 	-- Unlock blueprints:
 	9406, -- Working More Orders (2nd in series; 1st is 9405, "Working Some Orders")
@@ -301,7 +319,8 @@ local achDraenorGarrison = {
 	9429, -- Upgrading the Mill
 
 	-- Other building-specific:
-	9076, -- Choppin' Some Logs
+	IsAlliance and 9077	-- Choppin' Some Logs
+	  or 9080,			-- Choppin' Even More Logs  !! 9077 is both factions but next-in-series is broken Horde-side; it shows the Alliance one. Using 9080 instead is a workaround. Last checked: WoW 8.0.1, build 27178.
 	9498, -- Wingman
 	IsAlliance and 9738 or 9508, -- Warlord of Draenor
 	IsAlliance and 9539 or 9705, -- Advanced Husbandry
@@ -390,7 +409,13 @@ local ACHID_ZONE_MISC = {
 	["Zangarmarsh"] = 893,		-- "Cenarion War Hippogryph"
 -- Northrend
 	["Borean Tundra"] = 561,	-- "D.E.H.T.A's Little P.I.T.A."
-	["Dragonblight"] = { 1277, 547 },	-- "Rapid Defense", "Veteran of the Wrathgate"
+	["Dragonblight"] = {
+		1277, -- Rapid Defense
+		547, -- Veteran of the Wrathgate
+		SUBZONES = {
+			["Wyrmrest Temple"] = 11941 -- Chromie Homie (for "The Deaths of Chromie" scenario)
+		}
+	},
 	["Dalaran (Northrend)"] = { 2096, 1956, 1958, 545, 1998, IsAlliance and 1782 or 1783, 3217 }, -- RENAMED ZONE
 	["Grizzly Hills"] = { "1596:1" },	-- "Guru of Drakuru"
 	["Icecrown"] = { SUBZONES = {
@@ -1105,7 +1130,7 @@ local ACHID_INSTANCES = {
 	},
 
 -- Legion Scenarios
-	["The Deaths of Chromie"] = 11941,
+	["The Deaths of Chromie"] = 11941 -- Chromie Homie
 }
 -- Aliases
 ACHID_INSTANCES["Molten Core"] = ACHID_INSTANCES["The Molten Core"]

@@ -112,7 +112,12 @@ The change log lists changes of particular note to users, not every change made.
 
 v1.0.1
 - A new module has been added, Overachiever_Cache. When enabled (which it is by default), it should reduce load times once its cache is populated. The cache is rebuilt whenever Overachiever runs after a new build of WoW was released. (If the option "Startup: Throttle achievement lookup" is enabled, then this may improve performance instead of load time.)
-- Suggestions Tab: Added numerous suggestions for Battle for Azeroth zones.
+- Trade module: Fix achievement information not showing in Cooking window.
+- Suggestions Tab:
+-- Added numerous suggestions for Battle for Azeroth zones.
+-- Add more suggestions to the Draenor garrison.
+-- Suggest "Choppin' Even More Logs" to Horde characters in their garrison instead of "Choppin' Some Logs" since the wrong faction's version was showing if the series progressed. (WoW API gives Alliance version as part of the series regardless of your faction.)
+-- Suggest "Chromie Homie" at Wyrmrest Temple in Dragonblight (instead of only when actually inside The Deaths of Chromie scenario).
 - Added achievements for Battle for Azeroth zones to exploration auto-tracking.
 
 v1.0.0
