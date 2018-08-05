@@ -1,5 +1,5 @@
 
-Overachiever v1.0.1
+Overachiever v1.0.2
 ==============================
 
 Author: Tuhljin
@@ -109,6 +109,9 @@ Change log
 ==========
 
 The change log lists changes of particular note to users, not every change made.
+
+v1.0.2
+- Correct an issue that prevents the cache module from being loaded.
 
 v1.0.1
 - A new module has been added, Overachiever_Cache. When enabled (which it is by default), it should reduce load times once its cache is populated. The cache is rebuilt whenever Overachiever runs after a new build of WoW was released. (If the option "Startup: Throttle achievement lookup" is enabled, then this may improve performance instead of load time.)
