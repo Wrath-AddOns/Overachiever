@@ -389,7 +389,7 @@ end
 
 
 local function BuildCriteriaLookupTab_check()
-	if (Overachiever_Settings.UI_RequiredForMetaTooltip) then
+	if (Overachiever_Settings.UI_RequiredForMetaTooltip and not TjAchieve.IsCritAssetCacheReady(TjAchieve.CRITTYPE_META)) then
 		local data
 		if (Overachiever.GetCache) then  data = Overachiever.GetCache("meta");  end
 		if (data) then
@@ -402,16 +402,25 @@ local function BuildCriteriaLookupTab_check()
 				if (not Overachiever_Settings.Throttle_AchLookup) then
 					TjAchieve.RushBuildCritAssetCache(TjAchieve.CRITTYPE_META)
 					if (Overachiever_Debug) then  chatprint("BuildCriteriaLookupTab_check: meta caching rushed");  end
-				elseif (Overachiever_Debug) then
-					chatprint("BuildCriteriaLookupTab_check: meta caching started")
-					TjAchieve.AddBuildCritAssetCacheListener(TjAchieve.CRITTYPE_META, function()
-						chatprint("BuildCriteriaLookupTab_check: meta caching complete")
-					end)
+					if (Overachiever.SaveCache) then  Overachiever.SaveCache("meta");  end
+				else
+					if (Overachiever_Debug) then
+						chatprint("BuildCriteriaLookupTab_check: meta caching started")
+						TjAchieve.AddBuildCritAssetCacheListener(TjAchieve.CRITTYPE_META, function()
+							chatprint("BuildCriteriaLookupTab_check: meta caching complete")
+						end)
+					end
+					if (Overachiever.SaveCache) then
+						if (Overachiever_Debug) then  chatprint("BuildCriteriaLookupTab_check: Create listener to save meta cache");  end
+						TjAchieve.AddBuildCritAssetCacheListener(TjAchieve.CRITTYPE_META, function()
+							Overachiever.SaveCache("meta")
+						end)
+					end
 				end
 			end
 		end
 	end
-	if (Overachiever_Settings.CreatureTip_killed) then
+	if (Overachiever_Settings.CreatureTip_killed and not TjAchieve.IsCritAssetCacheReady(TjAchieve.CRITTYPE_KILL)) then
 		local data
 		if (Overachiever.GetCache) then  data = Overachiever.GetCache("kill");  end
 		if (data) then
@@ -424,43 +433,47 @@ local function BuildCriteriaLookupTab_check()
 				if (not Overachiever_Settings.Throttle_AchLookup) then
 					TjAchieve.RushBuildCritAssetCache(TjAchieve.CRITTYPE_KILL, true)
 					if (Overachiever_Debug) then  chatprint("BuildCriteriaLookupTab_check: kill caching rushed");  end
-				elseif (Overachiever_Debug) then
-					chatprint("BuildCriteriaLookupTab_check: kill caching started")
-					TjAchieve.AddBuildCritAssetCacheListener(TjAchieve.CRITTYPE_KILL, function()
-						chatprint("BuildCriteriaLookupTab_check: kill caching complete")
-					end)
+					if (Overachiever.SaveCache) then  Overachiever.SaveCache("kill");  end
+				else
+					if (Overachiever_Debug) then
+						chatprint("BuildCriteriaLookupTab_check: kill caching started")
+						TjAchieve.AddBuildCritAssetCacheListener(TjAchieve.CRITTYPE_KILL, function()
+							chatprint("BuildCriteriaLookupTab_check: kill caching complete")
+						end)
+					end
+					if (Overachiever.SaveCache) then
+						if (Overachiever_Debug) then  chatprint("BuildCriteriaLookupTab_check: Create listener to save kill cache");  end
+						TjAchieve.AddBuildCritAssetCacheListener(TjAchieve.CRITTYPE_KILL, function()
+							Overachiever.SaveCache("kill")
+						end)
+					end
 				end
 			end
 		end
 	end
-	Overachiever.GetCache = nil
+	--Overachiever.GetCache = nil
 end
 
-local AchLookup_metaach, AchLookup_kill
-
 function Overachiever.GetMetaCriteriaLookup(doNotRush)
-	if (AchLookup_metaach) then  return AchLookup_metaach;  end
 	if (not TjAchieve.IsCritAssetCacheReady(TjAchieve.CRITTYPE_META)) then
 		if (doNotRush) then
 			return TjAchieve.ASSETS[TjAchieve.CRITTYPE_META], true
 		end
 		TjAchieve.RushBuildCritAssetCache(TjAchieve.CRITTYPE_META)
 	end
-	AchLookup_metaach = TjAchieve.ASSETS[TjAchieve.CRITTYPE_META]
-	return AchLookup_metaach
+	return TjAchieve.ASSETS[TjAchieve.CRITTYPE_META]
 end
 
 function Overachiever.GetKillCriteriaLookup(doNotRush)
-	if (AchLookup_kill) then  return AchLookup_kill;  end
 	if (not TjAchieve.IsCritAssetCacheReady(TjAchieve.CRITTYPE_KILL)) then
 		if (doNotRush) then
 			return TjAchieve.ASSETS[TjAchieve.CRITTYPE_KILL], true
 		end
 		TjAchieve.RushBuildCritAssetCache(TjAchieve.CRITTYPE_KILL, true)
 	end
-	AchLookup_kill = TjAchieve.ASSETS[TjAchieve.CRITTYPE_KILL]
 	if (OVERACHIEVER_MOB_CRIT) then
 		-- Add hardcoded contents to the cache:
+		local AchLookup_kill = TjAchieve.ASSETS[TjAchieve.CRITTYPE_KILL]
 
 		local function containsSet(tab, val1, val2, maxIndex)
 			for i = 1, maxIndex or #tab, 2 do
@@ -506,7 +519,7 @@ function Overachiever.GetKillCriteriaLookup(doNotRush)
 		if (Overachiever_Debug) then  chatprint('GetKillCriteriaLookup: Copied '..numCopy..' entries from OVERACHIEVER_MOB_CRIT.');  end
 		OVERACHIEVER_MOB_CRIT = nil
 	end
-	return AchLookup_kill
+	return TjAchieve.ASSETS[TjAchieve.CRITTYPE_KILL]
 end
 
 --[===[
@@ -1497,10 +1510,11 @@ function Overachiever.OnEvent(self, event, arg1, ...)
 	  --print("criteriaID, elapsed, duration",criteriaID, elapsed, duration)
       if (elapsed and duration and elapsed < duration) then
 	    local canTrack
-	    if (OVERACHIEVER_BGTIMERID[arg1]) then -- If this is one of the battleground timers, then we have to treat it a special way because there is a Blizzard bug that makes this event trigger for achievements for OTHER battlegrounds:
+		local pvpMap = OVERACHIEVER_BGTIMERID[arg1]
+	    if (pvpMap or OVERACHIEVER_BGTIMERID_RATED[arg1]) then -- If this is one of the battleground timers, then we have to treat it a special way because there is a Blizzard bug that makes this event trigger for achievements for OTHER battlegrounds:
 		  local _, instanceType, _, _, _, _, _, instanceMapID = GetInstanceInfo()
 		  --print("instanceMapID",instanceMapID)
-		  if (instanceType == "pvp" and instanceMapID and (instanceMapID == OVERACHIEVER_BGTIMERID[arg1] or instanceMapID == OVERACHIEVER_BGTIMERID_RATED[arg1])) then
+		  if (instanceType == "pvp" and (pvpMap == true or (instanceMapID and (instanceMapID == pvpMap or instanceMapID == OVERACHIEVER_BGTIMERID_RATED[arg1])))) then
 		    Overachiever.FlagReminder(arg1)
 			canTrack = Overachiever_Settings.Tracker_AutoTimer_BG
 			if (canTrack) then
@@ -1509,6 +1523,8 @@ function Overachiever.OnEvent(self, event, arg1, ...)
 		  else
 		    canTrack = false
 		  end
+		elseif (pvpMap == false) then
+		  canTrack = false
 		else
 		  Overachiever.FlagReminder(arg1)
 		  canTrack = Overachiever_Settings.Tracker_AutoTimer
@@ -1572,7 +1588,6 @@ function Overachiever.OnEvent(self, event, arg1, ...)
       Overachiever_CharVars_Default = Overachiever_CharVars_Default or {}
       Overachiever_CharVars_Default.Pos_AchievementFrame = Overachiever_CharVars.Pos_AchievementFrame
     end
-	if (Overachiever.SaveCache) then  Overachiever.SaveCache();  end
 
    --[[  No longer necessary as this is now done by WoW itself:
     -- Remember tracked achievements:
