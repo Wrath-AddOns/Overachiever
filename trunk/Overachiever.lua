@@ -28,6 +28,13 @@ local COSMIC_MAP_ID = 946
 local TexAlert = "Interface\\AddOns\\Overachiever\\AlertGreenLine"
 local TexAlertBorders = "Interface\\AddOns\\Overachiever\\AlertBordersGreen"
 
+-- Possible return values from getEmbeddedFactionIcon() in FrameXML\MapBar.lua:
+local IconAlliance = "|TInterface\\TargetingFrame\\UI-PVP-ALLIANCE:19:16:0:0:64:64:0:32:0:38|t"
+local IconHorde = "|TInterface\\TargetingFrame\\UI-PVP-HORDE:18:19:0:0:64:64:0:38:0:36|t"
+
+--local IconNotReadyX = "|TInterface\\RaidFrame\\ReadyCheck-NotReady:14:14:0:0|t"
+
+
 --[[ This is no longer used. Instead, use the "Startup: Throttle achievement lookup" setting in Overachiever options.
 -- Set this to true to make the achievement criteria lookup builder run in a background task after entering the world instead of
 -- during startup. Also see the variable BUILD_CRIT_STEPS in libs/TjAchieve.lua.
@@ -411,7 +418,6 @@ local function BuildCriteriaLookupTab_check()
 						end)
 					end
 					if (Overachiever.SaveCache) then
-						if (Overachiever_Debug) then  chatprint("BuildCriteriaLookupTab_check: Create listener to save meta cache");  end
 						TjAchieve.AddBuildCritAssetCacheListener(TjAchieve.CRITTYPE_META, function()
 							Overachiever.SaveCache("meta")
 						end)
@@ -442,7 +448,6 @@ local function BuildCriteriaLookupTab_check()
 						end)
 					end
 					if (Overachiever.SaveCache) then
-						if (Overachiever_Debug) then  chatprint("BuildCriteriaLookupTab_check: Create listener to save kill cache");  end
 						TjAchieve.AddBuildCritAssetCacheListener(TjAchieve.CRITTYPE_KILL, function()
 							Overachiever.SaveCache("kill")
 						end)
@@ -983,10 +988,11 @@ do
   local r_inc, g_inc, b_inc = 0.6, 0.6, 0.6
   local temptab
 
-  function AddAchListToTooltip(tooltip, list)
+  function AddAchListToTooltip(tooltip, list, hoverAchID)
     if (type(list) == "table") then
       local _, name, completed, anycomplete
       temptab = temptab or {}
+	  --local notInUI
       for i,ach in ipairs(list) do
         _, name, _, completed = GetAchievementInfo(ach)
         if (completed) then
@@ -994,11 +1000,36 @@ do
         else
           completed = false  -- nil becomes false for use in temptab.
         end
+
+		--local alteredName
+		if (Overachiever.GetCachedFactionForData) then
+			local faction = Overachiever.GetCachedFactionForData("meta", hoverAchID, ach)
+			--local currentFaction = UnitFactionGroup("player")
+			--if (faction ~= currentFaction) then
+				if (faction == "Alliance") then
+					name = IconAlliance .. "  " ..name
+					--alteredName = true
+				elseif (faction == "Horde") then
+					name = IconHorde .. "  " ..name
+					--alteredName = true
+				end
+			--end
+		end
+		--[[
+		if (temptab[name] == nil and not alteredName and not isAchievementInUI(ach, true)) then
+			notInUI = notInUI or {}
+			notInUI[name] = true
+		elseif (notInUI and notInUI[name] and isAchievementInUI(ach, true)) then
+			notInUI[name] = false
+		end
+		--]]
+
         temptab[name] = temptab[name] or completed
         -- It being complete takes precedence, since if the name was already used, but this time it's complete,
         -- the previous one must've been for the other faction.
       end
       for name,completed in pairs(temptab) do
+	    --if (notInUI and notInUI[name]) then  name = IconNotReadyX .. " " .. name;  end
         if (completed) then
           tooltip:AddLine(name, r_com, g_com, b_com)
           tooltip:AddTexture("Interface\\RAIDFRAME\\ReadyCheck-Ready");
@@ -1010,8 +1041,30 @@ do
         end
       end
       wipe(temptab)
+
     else
-      local _, name, _, completed = GetAchievementInfo(list)
+	  local ach = list
+      local _, name, _, completed = GetAchievementInfo(ach)
+
+	  --local alteredName
+	  if (Overachiever.GetCachedFactionForData) then
+		local faction = Overachiever.GetCachedFactionForData("meta", hoverAchID, ach)
+		--local currentFaction = UnitFactionGroup("player")
+		--if (faction ~= currentFaction) then
+			if (faction == "Alliance") then
+			  name = IconAlliance .. " " ..name
+			  --alteredName = true
+			elseif (faction == "Horde") then
+			  name = IconHorde .. " " ..name
+			  --alteredName = true
+			end
+		--end
+	  end
+	  --[[
+	  if (not alteredName and not isAchievementInUI(ach, true)) then
+		name = IconNotReadyX .. " " .. name
+	  end
+	  --]]
       if (completed) then
         tooltip:AddLine(name, r_com, g_com, b_com)
         tooltip:AddTexture("Interface\\RAIDFRAME\\ReadyCheck-Ready");
@@ -1098,7 +1151,7 @@ do
       tipset = 2 --tipset + 1
       GameTooltip:AddLine(L.REQUIREDFORMETATIP)
       GameTooltip:AddLine(" ")
-      AddAchListToTooltip(GameTooltip, TjAchieve.GetAchievementByAsset(TjAchieve.CRITTYPE_META, id, true))
+      AddAchListToTooltip(GameTooltip, TjAchieve.GetAchievementByAsset(TjAchieve.CRITTYPE_META, id, true), id)
       GameTooltip:AddLine(" ")
     end
 
