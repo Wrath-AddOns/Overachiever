@@ -7,4 +7,5 @@
 ## SavedVariables: Overachiever_Cache_CritAssets
 ## X-Child-Of: Overachiever
 
+TjSetList.lua
 Cache.lua

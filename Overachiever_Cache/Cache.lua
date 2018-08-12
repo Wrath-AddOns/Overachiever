@@ -1,24 +1,103 @@
 
+local function tCopy(from, to)
+	to = to or {}
+	for k,v in pairs(from) do
+		if (type(v) == "table") then
+			to[k] = tCopy(v)
+		else
+			to[k] = v
+		end
+	end
+	return to
+end
+
+local function createSetList(tab)
+	if (type(tab) ~= "table") then  tab = { tab };  end
+	return TjSetList(tab, tab.saveIndex and 2 or 1)
+end
+
 local function mergeCache(t1, t2)
-	for k,v in pairs(t2) do
-		if (t1[k]) then
-			if (type(v) == "table") then
-				if (type(t1[k]) ~= "table") then
-					t1[k] = { t1[k] }
-				end
-				t1[k] = mergeCache(t1[k], v)
-			elseif (type(t1[k]) == "table") then
-				t1[k] = mergeCache(t1[k], { v })
+	--[[ Expected format of t1 and t2:
+	{
+		[Criteria ID 1] = <list>,
+		[Criteria ID 2] = <list>,
+		...
+		["saveIndex"] = <true or false>,
+	}
+	<list> is either a single integer or a table in one of these formats, depending on saveIndex:
+	{
+		<Achievement ID 1>,
+		<Achievement ID 2>,
+		...
+	}
+	Or:
+	{
+		<Achievement ID 1>,
+		<Achievement ID 1's criteria index>,
+		<Achievement ID 2>,
+		<Achievement ID 2's criteria index>,
+		...
+	}
+	--]]
+
+	for k,list2 in pairs(t2) do
+		if (type(k) == "number") then
+			local list1 = t1[k]
+			if (list1) then
+				local setList1 = createSetList(list1)
+				local setList2 = createSetList(list2)
+				setList1:addAllUnique(setList2)
+				t1[k] = setList1:squish(true)
+			elseif (type(list2) == "table") then
+				t1[k] = tCopy(list2)
 			else
-				if (t1[k] ~= v) then  -- Prevent duplicates
-					t1[k] = { t1[k], v }
-				end
+				t1[k] = list2
 			end
 		else
-			t1[k] = v
+			if (list2 ~= t1[k]) then  error("Could not merge cache. Mismatched values detected at key \"" .. k .. "\".");  end
 		end
 	end
 	return t1
+
+	--[[
+	for k,list2 in pairs(t2) do
+		local list1 = t1[k]
+		if (list1) then
+			if (type(list1) ~= "table") then  list1 = { list1 };  end
+			if (type(list2) == "table") then
+				for i,id in ipairs(list2) do
+					if (not tContains(list1, id)) then
+						tinsert(list1, id)
+					end
+				end
+			else
+				if (not tContains(list1, list2)) then
+					tinsert(list1, list2)
+				end
+			end
+			t1[k] = list1
+		elseif (type(list2) == "table") then
+			t1[k] = tCopy(list2)
+		else
+			t1[k] = list2
+		end
+	end
+	return t1
+	--]]
+end
+
+local function splitCacheList(list, compList)
+	-- Returns three lists: only in first list, only in compList, in both -- AKA current faction, other faction, both
+	if (not compList) then
+		local onlyFirst = (type(list) == "table") and tCopy(list) or list
+		return onlyFirst, nil, nil
+	end
+	local setList = createSetList(list)
+	local compSetList = createSetList(compList)
+	local bothSetList = compSetList:getSharedSets(setList)
+	setList:remAllFrom(bothSetList)
+	compSetList:remAllFrom(bothSetList)
+	return setList:squish(true), compSetList:squish(true), bothSetList:squish(true)
 end
 
 local function isCacheCompatible(thisVer, cacheVer, thisBuild, cacheBuild)
@@ -27,119 +106,191 @@ local function isCacheCompatible(thisVer, cacheVer, thisBuild, cacheBuild)
 	return thisVer >= cacheVer -- Discard cache if it claims to be "from the future"
 end
 
-local function saveCacheSection(name, data, ver, build, faction, populateID)
-	local vername = name .. "_version"
-	local oldVersionData = Overachiever_Cache_CritAssets[vername]
-
-	if (Overachiever_Cache_CritAssets[name] and oldVersionData and isCacheCompatible(ver, oldVersionData.ver, build, oldVersionData.build)) then
-		if ((faction == "Alliance" and oldVersionData.faction == "Horde") or (faction == "Horde" and oldVersionData.faction == "Alliance")) then
-			if (Overachiever_Debug) then  Overachiever.chatprint("Merging faction-specific caches for \"" .. name .. "\".");  end
-			faction = "both"
-			-- Merge new cache data with old:
-			Overachiever_Cache_CritAssets[name] = mergeCache(Overachiever_Cache_CritAssets[name], data)
-			if (populateID) then
-				TjAchieve.PopulateCritAssetCache(populateID, Overachiever_Cache_CritAssets[name])
-				if (Overachiever_Debug) then  Overachiever.chatprint("- Populated TjAchieve cache for asset " .. populateID .. ".");  end
+local function getCachePart(name, subname, ver, build)
+	local tab = Overachiever_Cache_CritAssets and Overachiever_Cache_CritAssets[name]
+	if (tab) then
+		local data, versionData = tab[subname], tab[subname .. "_version"]
+		if (data and versionData) then
+			if (not ver or isCacheCompatible(ver, versionData.ver, build, versionData.build)) then
+				--local vertype = versionData.type
+				--if (vertype == "found" or vertype == "known") then
+					return data, versionData
+				--end
+			elseif (Overachiever_Debug) then
+				Overachiever.chatprint("Cache for \"" .. name .. "\":\"" .. subname .. "\" is incompatible.")
 			end
-		else
-			if (oldVersionData.faction == "both") then
-				-- If merge was already done in a previous session:
-				if (Overachiever_Debug) then  Overachiever.chatprint("Cache for \"" .. name .. "\" is already for both factions.");  end
-				faction = "both"
-			end
-			Overachiever_Cache_CritAssets[name] = data
+		elseif (Overachiever_Debug) then
+			Overachiever.chatprint("Cache part not found for \"" .. name .. "\":\"" .. subname .. "\".")
 		end
-	else
-		Overachiever_Cache_CritAssets[name] = data
+	elseif (Overachiever_Debug) then
+		Overachiever.chatprint("Cache container not found for \"" .. name .. "\":\"" .. subname .. "\".")
 	end
-
-	Overachiever_Cache_CritAssets[vername] = { ver = ver, build = build, faction = faction }
-
-	--[[ No longer needed (causes problems, even) since cache is saved at a different time now:
-	if (oldVersionData and oldVersionData.build == "0") then
-		-- Force rebuild next session. Doesn't just keep build at "0" (which would also force a rebuild) since the check above would be true every time,
-		-- thus forcing a rebuild EVERY future session.
-		Overachiever_Cache_CritAssets[vername] = nil
-	else
-		Overachiever_Cache_CritAssets[vername] = { ver = ver, build = build, faction = faction }
-	end
-	--]]
+	return nil, nil
 end
 
 
 function Overachiever.SaveCache(name, skipPopulate)
-	-- Careful: Don't call this function multiple times in a session unless you've properly populated the cache (TjAchieve) first. Otherwise, you could overwrite
-	-- the merged faction-specific cache data using one-faction-only data while leaving the "both factions" indicator, meaning the cache will be missing one
-	-- faction's data. (If skipPopulate wasn't true/"truthy" when the merge happened, it should be safe.)
+	-- Careful: Don't call this unless TjAchieve's cache was gathered this session and not possibly populated with data from the opposing faction.
+	-- (This function will populate such data in some cases, so it's safest to not call it twice in a session. Also don't call it if GetCache was used for that.)
 
-	if (Overachiever_Debug) then  Overachiever.chatprint("SaveCache called for \"" .. name .. "\".");  end
+	if (Overachiever_Debug) then  Overachiever.chatprint("|cffffffffSaveCache|r called for \"" .. name .. "\".");  end
 
-	Overachiever_Cache_CritAssets = Overachiever_Cache_CritAssets or {}
-	local ver = GetAddOnMetadata("Overachiever", "Version")
-	local build = select(2, GetBuildInfo())
-	local faction
-	if (UnitFactionGroup("player") == "Alliance") then
-		faction = "Alliance"
-	else
-		faction = "Horde"
-	end
-
+	local lookup, lookupIncomplete, critType
 	if (name == "meta") then
-		local lookupMeta, lookupMetaIncomplete = Overachiever.GetMetaCriteriaLookup(true)
-		if (not lookupMetaIncomplete) then  -- Don't save data to cache if lookup wasn't complete
-			saveCacheSection("meta", lookupMeta, ver, build, faction, not skipPopulate and TjAchieve.CRITTYPE_META or false)
-		end
+		lookup, lookupIncomplete = Overachiever.GetMetaCriteriaLookup(true)
+		critType = TjAchieve.CRITTYPE_META
 	elseif (name == "kill") then
-		local lookupKill, lookupKillIncomplete = Overachiever.GetKillCriteriaLookup(true)
-		if (not lookupMetaIncomplete) then  -- Don't save data to cache if lookup wasn't complete
-			saveCacheSection("kill", lookupKill, ver, build, faction, not skipPopulate and TjAchieve.CRITTYPE_KILL or false)
-		end
+		lookup, lookupIncomplete = Overachiever.GetKillCriteriaLookup(true)
+		critType = TjAchieve.CRITTYPE_KILL
 	else
 		error("Invalid call to Overachiever.SaveCache. Cache name \"" .. name .. "\" not recognized.")
 	end
-end
+	if (lookupIncomplete)  then return;  end  -- Don't save data to cache if lookup wasn't completed.
 
-function Overachiever.GetCache(name)
-	if (Overachiever_Cache_CritAssets) then
-		local tab = Overachiever_Cache_CritAssets[name]
-		if (tab) then
-			local ver = GetAddOnMetadata("Overachiever", "Version")
-			local build = select(2, GetBuildInfo())
-			local tabVersionData = Overachiever_Cache_CritAssets[name .. "_version"]
-			if (tabVersionData and isCacheCompatible(ver, tabVersionData.ver, build, tabVersionData.build)) then
-			--if (tabVersionData and tabVersionData.build == build) then
-				local factionOK = false
-				if (tabVersionData.faction == "both") then
-					factionOK = true
-				elseif (UnitFactionGroup("player") == "Alliance") then
-					factionOK = (tabVersionData.faction == "Alliance")
-				else
-					factionOK = (tabVersionData.faction == "Horde")
-				end
-				if (factionOK) then
-					return tab
-				elseif (Overachiever_Debug) then
-					Overachiever.chatprint("Ignoring "..name.." cache with data for opposing faction.")
-				end
-			elseif (Overachiever_Debug and tabVersionData) then
-				Overachiever.chatprint("Ignoring "..name.." cache with old build. (WoW build: "..build..". Cache build: "..(tabVersionData.build or type(tabVersionData.build))..")")
+	local ver = GetAddOnMetadata("Overachiever", "Version")
+	local build = select(2, GetBuildInfo())
+	local faction, otherFaction
+	if (UnitFactionGroup("player") == "Alliance") then
+		faction = "Alliance"
+		otherFaction = "Horde"
+	else
+		faction = "Horde"
+		otherFaction = "Alliance"
+	end
+	local faction_ver = faction .. "_version"
+
+	Overachiever_Cache_CritAssets = Overachiever_Cache_CritAssets or {}
+
+	local cache = Overachiever_Cache_CritAssets[name]
+	if (not cache) then
+		cache = {}
+		Overachiever_Cache_CritAssets[name] = cache
+	end
+
+	cache[faction] = {}  -- Clear old data for current faction. We'll be replacing it.
+
+	local otherFactionData, otherFactionVersionData = getCachePart(name, otherFaction)
+	--if (otherFactionVersionData) then
+	--	otherFactionVersionData.type = "found"
+	--end
+
+	if (not otherFactionData or not isCacheCompatible(ver, otherFactionVersionData.ver, build, otherFactionVersionData.build)) then
+		-- If we have no compatible saved data from the opposing faction:
+		-- 1. Copy down what we get from TjAchieve cache into "found" for this faction (overwriting what was there before if anything).
+		-- 2. Set version data for this faction's table.
+		-- 3. Remove "both" data.
+		-- Note that we don't remove the other faction's data (if it exists) since it's generally okay for GetCache to return some old data from the
+		-- opposing faction since, much of the time, the old data will still be useful (it'd be incomplete rather than just wrong).
+
+		tCopy(lookup, cache[faction])
+		cache[faction_ver] = { ver = ver, build = build, --[[ type = "found" --]] }
+		cache.both, cache.both_version = nil, nil
+
+		if (Overachiever_Debug) then  Overachiever.chatprint("- Saved current faction's data.");  end
+
+	else
+		-- If we have the opposing faction's data saved already and it's a compatible version:
+		-- 1. Copy the contents of gathered TjAchieve cache, splitting it into two new tables: current faction's "known" data and the "both" table.
+		-- 2. Set version data for all three tables.
+		-- 3. Flag this faction, other faction, and "both" as "known". (Never mind: Type flag seems to be unnecessary, so it was removed.)
+		-- 4. Push new data back into TjAchieve's cache, if called for.
+
+		cache.both = {}
+		-- Things not found in lookup that were in the other cache's data are left there. (This is why we can't do "cache[otherFaction] = {}" here.)
+
+		for k,list in pairs(lookup) do
+			if (type(k) == "number") then
+				cache[faction][k], cache[otherFaction][k], cache.both[k] = splitCacheList(list, otherFactionData[k])
+			else
+				cache[faction][k], cache[otherFaction][k], cache.both[k] = list, list, list
+			end
+		end
+
+		local verData = { ver = ver, build = build, --[[ type = "known" --]] }
+		cache[faction_ver], cache.both_version = verData, verData
+		--cache[otherFaction .. "_version"].type = "known"
+
+		if (Overachiever_Debug) then  Overachiever.chatprint("- Saved data for all factions.");  end
+
+		if (not skipPopulate) then
+			local data = Overachiever.GetCache(name)
+			if (data) then
+				TjAchieve.PopulateCritAssetCache(critType, data)
+				if (Overachiever_Debug) then  Overachiever.chatprint("- Populated TjAchieve cache for asset " .. critType .. ".");  end
 			end
 		end
 	end
-	return false
+
+end
+
+function Overachiever.GetCache(name)
+
+	if (Overachiever_Debug) then  Overachiever.chatprint("|cffffffffGetCache|r called for \"" .. name .. "\".");  end
+
+	-- Detect obsolete structure:
+	if (Overachiever_Cache_CritAssets and Overachiever_Cache_CritAssets[name .. "_version"]) then
+		Overachiever_Cache_CritAssets = {}
+		if (Overachiever_Debug) then  Overachiever.chatprint("Discarded cache using obsolete structure.");  end
+		return false
+	end
+
+	local ver = GetAddOnMetadata("Overachiever", "Version")
+	local build = select(2, GetBuildInfo())
+	local faction, otherFaction
+	if (UnitFactionGroup("player") == "Alliance") then
+		faction = "Alliance"
+		otherFaction = "Horde"
+	else
+		faction = "Horde"
+		otherFaction = "Alliance"
+	end
+
+	local factionData = getCachePart(name, faction, ver, build)
+	if (not factionData) then  return false;  end  -- Need to rebuild cache if we don't have a part we can use for this faction, regardless of other parts. (Even if all the achievement IDs are in "both" somehow, this should at least be an empty table.)
+
+	local anyFactionData = getCachePart(name, "both", ver, build)
+	local otherFactionData = getCachePart(name, otherFaction, ver, build)
+
+	local data = tCopy(factionData)
+	if (anyFactionData) then  data = mergeCache(data, anyFactionData);  end
+	if (otherFactionData) then
+		data = mergeCache(data, otherFactionData)
+	end
+
+	return data
+end
+
+function Overachiever.GetCachedFactionForData(name, key, ...)
+	if (not getCachePart(name, "both")) then  return nil;  end  -- If we don't have "both" data, then we won't know for sure if this is faction-specific.
+	local set
+	local allianceData = getCachePart(name, "Alliance")
+	if (allianceData and allianceData[key]) then
+		set = TjSetList:CreateSet(...)
+		local setList = createSetList(allianceData[key])
+		if (setList:contains(set)) then  return "Alliance";  end
+	end
+	local hordeData = getCachePart(name, "Horde")
+	if (hordeData and hordeData[key]) then
+		set = set or TjSetList:CreateSet(...)
+		local setList = createSetList(hordeData[key])
+		if (setList:contains(set)) then  return "Horde";  end
+	end
+	return nil
 end
 
 
 if (Overachiever_Debug) then
-	function Overachiever.InvalidateCache(name)
-		if (Overachiever_Cache_CritAssets) then
-			local tabVersionData = Overachiever_Cache_CritAssets[name .. "_version"]
-			if (not tabVersionData) then
-				Overachiever.chatprint("Cache for \"" .. name .. "\" not found.")
+	function Overachiever.InvalidateCache(name, subname)
+		if (not name or not subname) then
+			Overachiever.chatprint("Invalid arguments.")
+		elseif (Overachiever_Cache_CritAssets and Overachiever_Cache_CritAssets[name]) then
+			local versionData = Overachiever_Cache_CritAssets[name][subname .. "_version"]
+			if (not versionData) then
+				Overachiever.chatprint("Cache for \"" .. name .. "\":\"" .. subname .. "\" not found.")
 				return;
 			end
-			tabVersionData.build = "0"
-			Overachiever.chatprint("Invalidated cache for \"" .. name .. "\".")
+			versionData.build = "0"
+			Overachiever.chatprint("Invalidated cache for \"" .. name .. "\":\"" .. subname .. "\".")
 		else
 			Overachiever.chatprint("Cache not found.")
 		end
@@ -147,6 +298,18 @@ if (Overachiever_Debug) then
 end
 
 --[[
-/run Overachiever.InvalidateCache("meta")
-/run Overachiever.InvalidateCache("kill")
+/run Overachiever.InvalidateCache("meta", "Alliance")
+/run Overachiever.InvalidateCache("meta", "Horde")
+/run Overachiever.InvalidateCache("kill", "Alliance")
+/run Overachiever.InvalidateCache("kill", "Horde")
+
+/run Overachiever_Cache_CritAssets = {}
+
+/ach ready for war
+/ach quick cap
+
+-- req by two of same name:
+/ach #3850
+
+/dump Overachiever_Cache_CritAssets.meta.Horde[3850]
 --]]
