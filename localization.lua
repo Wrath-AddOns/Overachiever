@@ -66,6 +66,10 @@ School of %s
 	ACH_CONSUME_91_INCOMPLETE = "I dare you to eat 91 all at once!";
 	ACH_CONSUME_91_COMPLETE = "Gluttony already proven"; --"1000% Satisfied";
 
+	ACH_PURCHASE_INCOMPLETE = "Need to purchase";
+	ACH_PURCHASE_COMPLETE = "Already purchased";
+	ACH_PURCHASE_INCOMPLETE_EXTRA = "Haven't purchased";
+
 	ACH_LETITSNOW_INCOMPLETE = "Need to use Handful of Snowflakes";
 	ACH_LETITSNOW_COMPLETE = "Already used Handful of Snowflakes";
 	ACH_FISTFULOFLOVE_INCOMPLETE = "Need to use Handful of Rose Petals";
@@ -171,10 +175,13 @@ School of %s
 	OPT_SATISFIEDTIPS = "1000% Satisfied?";
 	OPT_SATISFIEDTIPS_TIP = "Add a line to the tooltips of items that are part the achievement's criteria to indicate whether you need to consume them.";
 
+	OPT_PURCHASEDTIPS = "Item Purchased?";
+	OPT_PURCHASEDTIPS_TIP = "Add a line to the tooltips of items to indicate whether you need to purchase them as part of an achievement's criteria.";
+
 	OPT_LABEL_NEEDTOKILL = 'Kill Creature Achievements ("%s," "%s," etc.)';
 	OPT_KILLCREATURETIPS = "Creature killed?";
-	OPT_KILLCREATURETIPS_TIP = "Add a line to the tooltips of creatures (excluding critters) that need to be killed to meet the criteria of an incomplete achievement indicating whether you still need to kill them.";
-	OPT_KILLCREATURETIPS_TIP2 = "Note: At startup (or when this is option is enabled), every achievement is scanned to find unit IDs. Not all achievements provide such IDs. Most do, but the tooltips of creatures which are the criteria of those that don't won't be altered by this option.";
+	OPT_KILLCREATURETIPS_TIP = "Add a line to the tooltips of creatures (excluding critters) indicating whether you need to kill them for an incomplete achievement.";
+	OPT_KILLCREATURETIPS_TIP2 = "|nNote: This relies on achievements providing mob IDs. Many kill-achievements do, but not all. Creatures needed for those that don't will not have updated tooltips, with a few exceptions where the data has been manually entered into Overachiever.";
 
 	OPT_KILLCREATURETIPS_EXCLUDE_GUILD = "Exclude guild achievements";
 

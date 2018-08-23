@@ -834,6 +834,9 @@ local ConsumeItemAch = {
   DraenorCuisine = { "Item_consumed", L.ACH_CONSUME_COMPLETE, L.ACH_CONSUME_INCOMPLETE, L.ACH_CONSUME_INCOMPLETE_EXTRA, {} },
   BrewfestDiet = { "Brewfest_consumed", L.ACH_CONSUME_COMPLETE, L.ACH_CONSUME_INCOMPLETE, L.ACH_CONSUME_INCOMPLETE_EXTRA, {} },
   DarkmoonFaireFeast = { "Darkmoon_consumed", L.ACH_CONSUME_COMPLETE, L.ACH_CONSUME_INCOMPLETE, L.ACH_CONSUME_INCOMPLETE_EXTRA, {} },
+
+  -- Item-related achievements that aren't actually about consuming items, but the system should work for them fine:
+  ThreeSheetsToTheWind = { "Item_purchased", L.ACH_PURCHASE_COMPLETE, L.ACH_PURCHASE_INCOMPLETE, L.ACH_PURCHASE_INCOMPLETE_EXTRA, {} },
 };
 
 local MiscItemAch = {
@@ -1098,11 +1101,13 @@ function Overachiever.ExamineItem(tooltip)
 	local itemMinLevel
 
 	for key,tab in pairs(ConsumeItemAch) do
-		local id, text, complete, achcomplete = ItemConsumedCheck(key, tab, itemID)
-		if (text) then
-			if (itemMinLevel == nil) then  itemMinLevel = select(5, GetItemInfo(link)) or 0;  end
-			--print("itemMinLevel",itemMinLevel,id,name,UnitLevel("player"))
-			storeTooltip(tooltip, id, text, complete, name, (achcomplete or itemMinLevel > UnitLevel("player")))
+		if (Overachiever_Settings[ tab[1] ]) then
+			local id, text, complete, achcomplete = ItemConsumedCheck(key, tab, itemID)
+			if (text) then
+				if (itemMinLevel == nil) then  itemMinLevel = select(5, GetItemInfo(link)) or 0;  end
+				--print("itemMinLevel",itemMinLevel,id,name,UnitLevel("player"))
+				storeTooltip(tooltip, id, text, complete, name, (achcomplete or itemMinLevel > UnitLevel("player")))
+			end
 		end
 	end
 

@@ -43,11 +43,14 @@ OVERACHIEVER_ACHID = {
 	LegionMenu = 10762,			-- "The Legion Menu"
 	BattleMenu = IsAlliance and 12744 or 12746,		-- "The Kul Tiran Menu" / "The Zandalari Menu"
 
+	ThreeSheetsToTheWind = 13061,	-- "Three Sheets to the Wind"
+
 	MediumRare = 1311,			-- "Medium Rare"
 	BloodyRare = 1312,			-- "Bloody Rare"
 	NorthernExposure = 2256,	-- "Northern Exposure"
 	Frostbitten = 2257,			-- "Frostbitten"
 	Glorious = 7439,			-- "Glorious!"
+	BattleMonsters = 12587,		-- "Unbound Monstrosities"
 
 	StoodInTheFire = 5518,		-- "Stood in the Fire"
 	SurveyingTheDamage = 4827,	-- "Surveying the Damage"
