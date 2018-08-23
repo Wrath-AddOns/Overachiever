@@ -239,7 +239,7 @@ local achClassHall = {
 	10747, -- Fighting with Style: Upgraded
 	10748, -- Fighting with Style: Valorous
 	10749, -- Fighting with Style: War-torn
-	11612, -- Fighting with Style: Challenging
+	--11612, -- Fighting with Style: Challenging - now a Feat of Strength
 	10852, -- Artifact or Artifiction
 	11171, -- Arsenal of Power
 	11609, -- Power Unbound
@@ -1130,7 +1130,10 @@ local ACHID_INSTANCES = {
 	},
 
 -- Legion Scenarios
-	["The Deaths of Chromie"] = 11941 -- Chromie Homie
+	["The Deaths of Chromie"] = 11941, -- Chromie Homie
+
+-- Battle for Azeroth Dungeons
+	["Tol Dagor"] = 12840, -- Tol Dagor (series: normal -> heroic -> mythic)
 }
 -- Aliases
 ACHID_INSTANCES["Molten Core"] = ACHID_INSTANCES["The Molten Core"]
@@ -1494,7 +1497,7 @@ local ACHID_INSTANCES_MYTHIC = {
 		11397, -- Mythic: Guarm
 		11398, -- Mythic: Helya
 		11396, -- Mythic: Odyn
-		11387, -- The Chosen
+		--11387, -- The Chosen - now a Feat of Strength
 		11337, -- You Runed Everything!
 	},
 	["Tomb of Sargeras"] = {
@@ -1518,6 +1521,12 @@ local ACHID_INSTANCES_MYTHIC = {
 		11995, -- Mythic: Portal Keeper Hasabel
 		12000, -- Mythic: The Coven of Shivarra
 		11999, -- Mythic: Varimathras
+	},
+
+-- Battle for Azeroth Dungeons
+	["Tol Dagor"] = {
+		12457, -- Remix to Ignition
+		12462, -- Shot Through the Heart
 	},
 }
 
@@ -2540,67 +2549,90 @@ end
 --]]
 
 --[[
+do
+	local okayFoS = {
+		-- Achievements marked as Feat of Strength that we're okay with still being suggested (because they're still achievable or we think they might be).
+		-- Periodically revisit these!
+		[11869] = true, -- Done during Black Temple timewalking. Pretty sure that will happen again later so it's achievable.
+		-- Ashran might come back later and, until then, no real harm suggesting these for that zone:
+		[9256] = true,
+		[9257] = true,
+	}
 -- /run Overachiever.Debug_GetMissingAch()
-local function getAchIDsFromTab(from, to)
-  for k,v in pairs(from) do
-    if (type(v) == "table") then
-      getAchIDsFromTab(v, to)
-    else
-      if (type(v) == "string") then
-        local id, crit = strsplit(":", v)
-        id, crit = tonumber(id) or id, tonumber(crit) or crit
-        to[id] = to[id] or {}
-        to[id][crit] = true
-      else
-        to[v] = to[v] or false
-      end
-    end
-  end
-end
---local isAchievementInUI = Overachiever.IsAchievementInUI
---local function isPreviousAchievementInUI(id)
---  id = GetPreviousAchievement(id)
---  if (id) then
---    if (isAchievementInUI(id)) then  return true;  end
---    return isPreviousAchievementInUI(id)
---  end
---end
-local FEAT_OF_STRENGTH_ID = 81;
-local GUILD_FEAT_OF_STRENGTH_ID = 15093;
+	local function getAchIDsFromTab(from, to)
+	  for k,v in pairs(from) do
+		if (type(v) == "table") then
+		  getAchIDsFromTab(v, to)
+		else
+		  if (type(v) == "string") then
+			local id, crit = strsplit(":", v)
+			id, crit = tonumber(id) or id, tonumber(crit) or crit
+			to[id] = to[id] or {}
+			to[id][crit] = true
+		  else
+			to[v] = to[v] or false
+		  end
+		end
+	  end
+	end
+	--local isAchievementInUI = Overachiever.IsAchievementInUI
+	--local function isPreviousAchievementInUI(id)
+	--  id = GetPreviousAchievement(id)
+	--  if (id) then
+	--    if (isAchievementInUI(id)) then  return true;  end
+	--    return isPreviousAchievementInUI(id)
+	--  end
+	--end
+	local FEAT_OF_STRENGTH_ID = 81
+	local GUILD_FEAT_OF_STRENGTH_ID = 15093
+	local function isInFeatOfStrengthCategory(id)
+		local cat = GetAchievementCategory(id)
+		local isFOS = false
+		if (cat == FEAT_OF_STRENGTH_ID or cat == GUILD_FEAT_OF_STRENGTH_ID) then
+			isFOS = true
+		else
+			local _, catParent = GetCategoryInfo(cat)
+			if (catParent == FEAT_OF_STRENGTH_ID or catParent == GUILD_FEAT_OF_STRENGTH_ID) then
+				isFOS = true
+			end
+		end
+		return isFOS
+	end
 
-function Overachiever.Debug_GetMissingAch()
-  wipe(suggested)
-  getAchIDsFromTab(Overachiever.SUGGESTIONS, suggested)
-  getAchIDsFromTab(OVERACHIEVER_ACHID, suggested)
-  getAchIDsFromTab(OVERACHIEVER_EXPLOREZONEID, suggested)
-  local count = 0
-  for id, crit in pairs(suggested) do
-    if (type(id) ~= "number") then
-      print("Invalid ID type:",id,type(id))
-      count = count + 1
-    elseif (GetAchievementInfo(id)) then
-      --if (not isAchievementInUI(id, true) and not isPreviousAchievementInUI(id)) then
-      --  print(GetAchievementLink(id),"is not found in the UI for this character.")
-      --  count = count + 1
-      local cat = GetAchievementCategory(id)
-      if (cat == FEAT_OF_STRENGTH_ID or cat == GUILD_FEAT_OF_STRENGTH_ID) then
-        print(GetAchievementLink(id)," ("..id..") is a Feat of Strength.")
-        count = count + 1
-      elseif (crit) then
-        local num = GetAchievementNumCriteria(id)
-        for c in pairs(crit) do
-          if (c > num) then
-            print(GetAchievementLink(id),"is missing criteria #"..(tostring(c) or "<?>"))
-            count = count + 1
-          end
-        end
-      end
-    else
-      print("Missing ID:",id..(crit and " (with criteria)" or ""))
-      count = count + 1
-    end
-  end
-  print("Overachiever.Debug_GetMissingAch():",count,"problems found.")
+	function Overachiever.Debug_GetMissingAch()
+	  wipe(suggested)
+	  getAchIDsFromTab(Overachiever.SUGGESTIONS, suggested)
+	  getAchIDsFromTab(OVERACHIEVER_ACHID, suggested)
+	  getAchIDsFromTab(OVERACHIEVER_EXPLOREZONEID, suggested)
+	  local count = 0
+	  for id, crit in pairs(suggested) do
+		if (type(id) ~= "number") then
+		  print("Invalid ID type:",id,type(id))
+		  count = count + 1
+		elseif (GetAchievementInfo(id)) then
+		  ----if (not isAchievementInUI(id, true) and not isPreviousAchievementInUI(id)) then
+		  --if (not Overachiever.IsAchievementInUI(id, true)) then
+		  --  print(GetAchievementLink(id),"is not found in the UI for this character.")
+		  --  count = count + 1
+		  if (not okayFoS[id] and isInFeatOfStrengthCategory(id)) then
+			print(GetAchievementLink(id)," ("..id..") is a Feat of Strength.")
+			count = count + 1
+		  elseif (crit) then
+			local num = GetAchievementNumCriteria(id)
+			for c in pairs(crit) do
+			  if (c > num) then
+				print(GetAchievementLink(id),"is missing criteria #"..(tostring(c) or "<?>"))
+				count = count + 1
+			  end
+			end
+		  end
+		else
+		  print("Missing ID:",id..(crit and " (with criteria)" or ""))
+		  count = count + 1
+		end
+	  end
+	  print("Overachiever.Debug_GetMissingAch():",count,"problems found.")
+	end
 end
 --]]
 

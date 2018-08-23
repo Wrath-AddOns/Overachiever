@@ -223,31 +223,41 @@ function Overachiever.GetCache(name)
 	if (not factionData) then  return false;  end  -- Need to rebuild cache if we don't have a part we can use for this faction, regardless of other parts. (Even if all the achievement IDs are in "both" somehow, this should at least be an empty table.)
 
 	local anyFactionData = getCachePart(name, "both", ver, build)
-	local otherFactionData = getCachePart(name, otherFaction, ver, build)
+
+	local otherFactionData = getCachePart(name, otherFaction)
+	-- Note that we allow old data (omit ver and build arguments). We'll accept old data from the other faction, since we can't read it as the current character
+	-- and it's better to have old data than no data.
 
 	local data = tCopy(factionData)
 	if (anyFactionData) then  data = mergeCache(data, anyFactionData);  end
-	if (otherFactionData) then
-		data = mergeCache(data, otherFactionData)
-	end
+	if (otherFactionData) then  data = mergeCache(data, otherFactionData);  end
 
 	return data
 end
 
 function Overachiever.GetCachedFactionForData(name, key, ...)
-	if (not getCachePart(name, "both")) then  return nil;  end  -- If we don't have "both" data, then we won't know for sure if this is faction-specific.
-	local set
+	--if (not getCachePart(name, "both")) then  return nil;  end
+	-- If we don't have "both" data, then we won't know for sure if this is faction-specific, but it's still most likely faction-specific if it's in the
+	-- data for the opposing faction and not for the current one, so that's good enough in that case.
+	local set, inAlliance, inHorde
 	local allianceData = getCachePart(name, "Alliance")
 	if (allianceData and allianceData[key]) then
 		set = TjSetList:CreateSet(...)
 		local setList = createSetList(allianceData[key])
-		if (setList:contains(set)) then  return "Alliance";  end
+		if (setList:contains(set)) then  inAlliance = true;  end
 	end
 	local hordeData = getCachePart(name, "Horde")
 	if (hordeData and hordeData[key]) then
 		set = set or TjSetList:CreateSet(...)
 		local setList = createSetList(hordeData[key])
-		if (setList:contains(set)) then  return "Horde";  end
+		if (setList:contains(set)) then  inHorde = true;  end
+	end
+	if (inAlliance and inHorde) then  return nil;  end
+	if (allianceData) then
+		if (inHorde) then  return "Horde";  end
+	end
+	if (hordeData) then
+		if (inAlliance) then  return "Alliance";  end
 	end
 	return nil
 end
