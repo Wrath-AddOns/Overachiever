@@ -76,7 +76,7 @@ end
 
 local function isCacheCompatible(thisVer, cacheVer, thisBuild, cacheBuild)
 	if (thisBuild ~= cacheBuild) then  return false;  end
-	if (cacheVer < "1.0.3") then  return false;  end
+	if (cacheVer < "1.0.4") then  return false;  end
 	return thisVer >= cacheVer -- Discard cache if it claims to be "from the future"
 end
 
@@ -103,7 +103,7 @@ local function getCachePart(name, subname, ver, build)
 end
 
 
-function Overachiever.SaveCache(name, skipPopulate)
+function Overachiever.SaveCache(name, populateExcludeOtherFaction)
 	-- Careful: Don't call this unless TjAchieve's cache was gathered this session and not possibly populated with data from the opposing faction.
 	-- (This function will populate such data in some cases, so it's safest to not call it twice in a session. Also don't call it if GetCache was used for that.)
 
@@ -186,8 +186,8 @@ function Overachiever.SaveCache(name, skipPopulate)
 
 		if (Overachiever_Debug) then  Overachiever.chatprint("- Saved data for all factions.");  end
 
-		if (not skipPopulate) then
-			local data = Overachiever.GetCache(name)
+		if (populateExcludeOtherFaction ~= 0) then
+			local data = Overachiever.GetCache(name, populateExcludeOtherFaction)
 			if (data) then
 				TjAchieve.PopulateCritAssetCache(critType, data)
 				if (Overachiever_Debug) then  Overachiever.chatprint("- Populated TjAchieve cache for asset " .. critType .. ".");  end
@@ -197,7 +197,7 @@ function Overachiever.SaveCache(name, skipPopulate)
 
 end
 
-function Overachiever.GetCache(name)
+function Overachiever.GetCache(name, excludeOtherFaction)
 
 	if (Overachiever_Debug) then  Overachiever.chatprint("|cffffffffGetCache|r called for \"" .. name .. "\".");  end
 
@@ -224,7 +224,8 @@ function Overachiever.GetCache(name)
 
 	local anyFactionData = getCachePart(name, "both", ver, build)
 
-	local otherFactionData = getCachePart(name, otherFaction)
+	local otherFactionData
+	if (not excludeOtherFaction) then  otherFactionData = getCachePart(name, otherFaction);  end
 	-- Note that we allow old data (omit ver and build arguments). We'll accept old data from the other faction, since we can't read it as the current character
 	-- and it's better to have old data than no data.
 

@@ -73,7 +73,8 @@ OVERACHIEVER_MOB_CRIT = {
 	-- For achievements where Overachiever's "kill" criteria lookup doesn't work, e.g. due to the asset ID being for quests instead of NPCs for some
 	-- reason. Format: [<mob ID>] = { <achievement ID>, <ach's criteria index>[, <2nd achievement ID>, <2nd ach's criteria index>[, ...]] }  ()
 
-	--[[ We no longer need these. The regular lookup method seems to work fine.
+	-- LEGION:
+
 	-- Adventurer of Azsuna:
 	[90244] = { 11261, 10 }, -- Unbound Rift (start w/object)
 	[90505] = { 11261, 11 }, -- Syphonus & Leodrath
@@ -197,7 +198,11 @@ OVERACHIEVER_MOB_CRIT = {
 	[112497] = { 11265, 30 }, -- Maia the White
 	[112802] = { 11265, 31 }, -- Mar'tura
 	[102303] = { 11265, 32 }, -- Lieutenant Strathmar
-	--]]
+
+	-- BATTLE FOR AZEROTH:
+
+	-- Adventurer of <x>:
+	--
 };
 
 --[[

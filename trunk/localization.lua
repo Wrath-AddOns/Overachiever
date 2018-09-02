@@ -66,9 +66,9 @@ School of %s
 	ACH_CONSUME_91_INCOMPLETE = "I dare you to eat 91 all at once!";
 	ACH_CONSUME_91_COMPLETE = "Gluttony already proven"; --"1000% Satisfied";
 
-	ACH_PURCHASE_INCOMPLETE = "Need to purchase";
-	ACH_PURCHASE_COMPLETE = "Already purchased";
-	ACH_PURCHASE_INCOMPLETE_EXTRA = "Haven't purchased";
+	ACH_ACQUIRE_INCOMPLETE = "Need to acquire";
+	ACH_ACQUIRE_COMPLETE = "Already acquired";
+	ACH_ACQUIRE_INCOMPLETE_EXTRA = "Haven't acquired";
 
 	ACH_LETITSNOW_INCOMPLETE = "Need to use Handful of Snowflakes";
 	ACH_LETITSNOW_COMPLETE = "Already used Handful of Snowflakes";
@@ -175,8 +175,8 @@ School of %s
 	OPT_SATISFIEDTIPS = "1000% Satisfied?";
 	OPT_SATISFIEDTIPS_TIP = "Add a line to the tooltips of items that are part the achievement's criteria to indicate whether you need to consume them.";
 
-	OPT_PURCHASEDTIPS = "Item Purchased?";
-	OPT_PURCHASEDTIPS_TIP = "Add a line to the tooltips of items to indicate whether you need to purchase them as part of an achievement's criteria.";
+	OPT_ACQUIREDTIPS = "Item Acquired?";
+	OPT_ACQUIREDTIPS_TIP = "Add a line to the tooltips of items to indicate whether you need to acquire them as part of an achievement's criteria.";
 
 	OPT_LABEL_NEEDTOKILL = 'Kill Creature Achievements ("%s," "%s," etc.)';
 	OPT_KILLCREATURETIPS = "Creature killed?";

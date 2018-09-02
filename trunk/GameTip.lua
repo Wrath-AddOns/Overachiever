@@ -836,7 +836,7 @@ local ConsumeItemAch = {
   DarkmoonFaireFeast = { "Darkmoon_consumed", L.ACH_CONSUME_COMPLETE, L.ACH_CONSUME_INCOMPLETE, L.ACH_CONSUME_INCOMPLETE_EXTRA, {} },
 
   -- Item-related achievements that aren't actually about consuming items, but the system should work for them fine:
-  ThreeSheetsToTheWind = { "Item_purchased", L.ACH_PURCHASE_COMPLETE, L.ACH_PURCHASE_INCOMPLETE, L.ACH_PURCHASE_INCOMPLETE_EXTRA, {} },
+  ThreeSheetsToTheWind = { "Item_acquired", L.ACH_ACQUIRE_COMPLETE, L.ACH_ACQUIRE_INCOMPLETE, L.ACH_ACQUIRE_INCOMPLETE_EXTRA, {} },
 };
 
 local MiscItemAch = {
