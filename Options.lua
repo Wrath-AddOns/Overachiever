@@ -26,7 +26,7 @@ Overachiever.DefaultSettings = {
   Item_consumed = true;
   Item_consumed_whencomplete = false;
   Item_satisfied = true;
-  Item_purchased = true;
+  Item_acquired = true;
   CreatureTip_killed = true;
   CreatureTip_killed_exclude_guild = false;
   LetItSnow_flaked = false;
@@ -166,7 +166,7 @@ function Overachiever.CreateOptions(THIS_TITLE, BuildCriteriaLookupTab_check, Au
 	{ variable = "Item_satisfied", text = L.OPT_SATISFIEDTIPS, tooltip = L.OPT_SATISFIEDTIPS_TIP, xOffset = 28 },
 
 	{ type = "Oa_AchLabel", topBuffer = 4, id1 = IDs.ThreeSheetsToTheWind, xOffset = 0 },
-	{ variable = "Item_purchased", text = L.OPT_PURCHASEDTIPS, tooltip = L.OPT_PURCHASEDTIPS_TIP, xOffset = 28 },
+	{ variable = "Item_acquired", text = L.OPT_ACQUIREDTIPS, tooltip = L.OPT_ACQUIREDTIPS_TIP, xOffset = 28 },
 
 	{ type = "labelwrap", text = L.OPT_LABEL_SEASONALACHS, justifyH = "CENTER", topBuffer = 16, xOffset = 0 },
 

@@ -229,29 +229,6 @@ else
   }
 end
 
--- Achievements common to class halls:
-local achClassHall = {
-	10994, -- A Glorious Campaign
-	11223, -- Legendary Research
-	11298, -- A Classy Outfit
-	
-	10461, -- Fighting with Style: Classic
-	10747, -- Fighting with Style: Upgraded
-	10748, -- Fighting with Style: Valorous
-	10749, -- Fighting with Style: War-torn
-	--11612, -- Fighting with Style: Challenging - now a Feat of Strength
-	10852, -- Artifact or Artifiction
-	11171, -- Arsenal of Power
-	11609, -- Power Unbound
-	11144, -- Power Realized
-
-	10706, -- Training the Troops
-	11214, -- Many Missions
-	11218, -- There's a Boss In There
-	11219, -- Need Backup
-	11220, -- Roster of Champions
-}
-
 local achDarkmoonFaire = {
 	6019, 6021, 6023, 6027, 6028, 6029, 6032, 6026, 6025, 6022, 6020, IsAlliance and 6030 or 6031, 6332, 9250, 9885, 9894, 9983, 9755, 9756, 9770, 9786, 9780, 9793, 9800, 9806, 9812, 9819,
 	-- Blight Boar concert:
@@ -333,6 +310,37 @@ local achDraenorGarrisonShipyard = {
 	10165, -- Ironsides
 	IsAlliance and 10256 or 10258, -- Charting a Course
 	10166, -- Naval Mechanics (broken?)
+}
+
+-- Achievements common to class halls:
+local achClassHall = {
+	10994, -- A Glorious Campaign
+	11223, -- Legendary Research
+	11298, -- A Classy Outfit
+	
+	10461, -- Fighting with Style: Classic
+	10747, -- Fighting with Style: Upgraded
+	10748, -- Fighting with Style: Valorous
+	10749, -- Fighting with Style: War-torn
+	11612, -- Fighting with Style: Challenging - now a Feat of Strength --!!
+	10852, -- Artifact or Artifiction
+	11171, -- Arsenal of Power
+	11609, -- Power Unbound
+	11144, -- Power Realized
+
+	10706, -- Training the Troops
+	11214, -- Many Missions
+	11218, -- There's a Boss In There
+	11219, -- Need Backup
+	11220, -- Roster of Champions
+}
+
+-- Battle for Azeroth achievements related to the War Campaign Ship (mission table, etc.)
+local achWarship = {
+	IsAlliance and 12896 or 12867, -- Azeroth at War: The Barrens
+	IsAlliance and 12898 or 12869, -- Azeroth at War: After Lordaeron
+	IsAlliance and 12899 or 12870, -- Azeroth at War: Kalimdor on Fire
+	12872, -- The Dirty Five
 }
 
 local achBrawlersGuild = {
@@ -796,6 +804,8 @@ if (IsAlliance) then
   ACHID_ZONE_MISC["Lunarfall"] = achDraenorGarrison
   ACHID_ZONE_MISC["Shadowmoon Valley (Draenor)"].SUBZONES["Lunarfall Shipyard"] = achDraenorGarrisonShipyard
 
+  ACHID_ZONE_MISC["Wind's Redemption"] = achWarship
+
   ACHID_ZONE_MISC["Deeprun Tram"] = { SUBZONES = { ["Bizmo's Brawlpub"] = achBrawlersGuild } }
 
 else
@@ -817,13 +827,15 @@ else
   -- "The Sunreavers", "Champion of the Horde":
   tinsert(ACHID_ZONE_MISC["Icecrown"], 3677)
   tinsert(ACHID_ZONE_MISC["Icecrown"], 2788)
-  
+
   tinsert(ACHID_ZONE_MISC["Frostfire Ridge"], 8671) -- "You'll Get Caught Up in The... Frostfire!"
   tinsert(ACHID_ZONE_MISC["Frostfire Ridge"], 9606) -- "Frostfire Fridge"
   tinsert(ACHID_ZONE_MISC["Frostfire Ridge"], 9529) -- "On the Shadow's Trail"
 
   ACHID_ZONE_MISC["Frostwall"] = achDraenorGarrison -- !! name not 100% verified (have to run Horde char around outskirts of their garrison, refreshing suggestions, to test)
   ACHID_ZONE_MISC["Frostfire Ridge"].SUBZONES["Frostwall Shipyard"] = achDraenorGarrisonShipyard
+
+  ACHID_ZONE_MISC["Banshee's Wail"] = achWarship	--!! NEED TO VERIFY
 
   ACHID_ZONE_MISC["Brawl'gar Arena"] = achBrawlersGuild
 
