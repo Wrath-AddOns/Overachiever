@@ -62,6 +62,10 @@ OVERACHIEVER_ACHID = {
 	CheckYourHead = 291,	-- "Check Your Head"
 	TurkeyLurkey = 3559,	-- "Turkey Lurkey"
 
+	MissionBarrens = IsAlliance and 12896 or 12867, -- Azeroth at War: The Barrens
+	MissionLordaeron = IsAlliance and 12898 or 12869, -- Azeroth at War: After Lordaeron
+	MissionKalimdor = IsAlliance and 12899 or 12870, -- Azeroth at War: Kalimdor on Fire
+
 	-- Statistics:
 	Stat_ConsumeDrinks = 346,	-- "Beverages consumed"
 	Stat_ConsumeFood = 347,		-- "Food eaten"

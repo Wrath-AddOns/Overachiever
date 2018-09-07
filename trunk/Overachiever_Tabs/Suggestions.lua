@@ -322,7 +322,7 @@ local achClassHall = {
 	10747, -- Fighting with Style: Upgraded
 	10748, -- Fighting with Style: Valorous
 	10749, -- Fighting with Style: War-torn
-	11612, -- Fighting with Style: Challenging - now a Feat of Strength --!!
+	--11612, -- Fighting with Style: Challenging - now a Feat of Strength
 	10852, -- Artifact or Artifiction
 	11171, -- Arsenal of Power
 	11609, -- Power Unbound
