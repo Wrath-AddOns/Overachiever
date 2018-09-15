@@ -114,7 +114,7 @@ v1.0.4
 - "Azeroth at War: The Barrens", "Azeroth at War: After Lordaeron", "Azeroth at War: Kalimdor on Fire" (new): Added an option to display a reminder tooltip in the mission UI for completing missions.
 - "Three Sheets to the Wind" (new): Added an option to display a reminder tooltip for acquiring drinks.
 - Suggestions Tab:
--- Added suggestions for Tol Dagor (dungeon) and the War Campaign Ships (Banshee's Wail and Wind's Redemption).
+-- Added suggestions for Tol Dagor (dungeon) and the War Campaign Ships (The Banshee's Wail and Wind's Redemption).
 -- Removed suggestions that are now Feats of Strength.
 - Fixed an issue where tooltips indicating whether an item needs to be consumed would appear even when the related option's checkbox was unchecked.
 - Fixed reminder tooltip not showing for some mobs required for Legion's "Adventurer of..." achievements.

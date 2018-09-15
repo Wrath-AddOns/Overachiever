@@ -835,7 +835,7 @@ else
   ACHID_ZONE_MISC["Frostwall"] = achDraenorGarrison -- !! name not 100% verified (have to run Horde char around outskirts of their garrison, refreshing suggestions, to test)
   ACHID_ZONE_MISC["Frostfire Ridge"].SUBZONES["Frostwall Shipyard"] = achDraenorGarrisonShipyard
 
-  ACHID_ZONE_MISC["Banshee's Wail"] = achWarship	--!! NEED TO VERIFY
+  ACHID_ZONE_MISC["The Banshee's Wail"] = achWarship
 
   ACHID_ZONE_MISC["Brawl'gar Arena"] = achBrawlersGuild
 
