@@ -1146,6 +1146,15 @@ local ACHID_INSTANCES = {
 
 -- Battle for Azeroth Dungeons
 	["Tol Dagor"] = 12840, -- Tol Dagor (series: normal -> heroic -> mythic)
+
+-- Battle for Azeroth Warfronts
+	["Battle for Stromgarde"] = {
+		IsAlliance and 12888 or 12877, -- Strike Hard -> Strike Fast
+		IsAlliance and 12881 or 12873, -- War is Hell
+		12874, -- An Eventful Battle
+		IsAlliance and 12886 or 12879, -- Tour of War
+		IsAlliance and 12884 or 12878, -- Leader of Troops
+	},
 }
 -- Aliases
 ACHID_INSTANCES["Molten Core"] = ACHID_INSTANCES["The Molten Core"]

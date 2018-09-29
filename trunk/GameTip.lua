@@ -495,7 +495,8 @@ function Overachiever.ExamineSetUnit(tooltip)
 
   elseif (name) then
     local type = UnitCreatureType(unit)
-    if (type == L.CRITTER or type == L.WILDPET) then
+    --if (type == L.CRITTER or type == L.WILDPET) then
+    if (type == L.CRITTER or type == L.WILDPET or UnitLevel(unit) < 10) then  -- Some critters aren't called critters any more for some reason. The unit level check should help.
       for key,tab in pairs(CritterAch) do
         if (Overachiever_Settings[ tab[1] ]) then
           id, text, complete = CritterCheck(key, name)
@@ -1406,6 +1407,16 @@ local function missionButtonOnEnter(self, ...)
 					GameTooltip:AddLine(text, r, g, b)
 					GameTooltip:AddTexture(AchievementIcon)
 					GameTooltip:Show()
+
+					if (not complete) then
+						-- Two ways to get the name; both of them work.
+						--local info = C_Garrison.GetBasicMissionInfo(missionID)
+						--flagReminder(id, info.name)
+						-- Went with this way since it seems less likely there'd be a localization problem, though I'm pretty sure the other way is fine, too:
+						local name = self.info and self.info.name or self.Title and self.Title:GetText()
+						flagReminder(id, name)
+					end
+
 					break
 				end
 			end
