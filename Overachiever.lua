@@ -681,10 +681,11 @@ function Overachiever.CheckDraggable_AchFrame_redo()
   end
 end
 
-local orig_AchievementFrame_OnShow
+local AchievementUI_OnShow_post_called
 
-local function AchievementUI_FirstShown_post()
-  Overachiever.MainFrame:Hide()
+local function AchievementUI_OnShow_post()
+  if (AchievementUI_OnShow_post_called) then  return;  end
+  AchievementUI_OnShow_post_called = true
   -- Delayed setting the area attribute until now so that if Blizzard_AchievementUI was loaded just before the
   -- AchievementFrame is to be shown, AchievementFrame wouldn't be set as the current UI panel by code in
   -- UIParent.lua, which causes problems when we don't want it to interact with other UI panels in the standard
@@ -707,9 +708,11 @@ local function AchievementUI_FirstShown_post()
     --orig_AchievementFrame_area = nil
   end
   CheckDraggable_AchFrame(nil, nil, nil, nil, true)
-  if (not Overachiever_Settings.DragSave_AchFrame) then
+  --if (not Overachiever_Settings.DragSave_AchFrame) then
+  if (Overachiever_Settings.Draggable_AchFrame and not Overachiever_Settings.DragSave_AchFrame) then
   -- If we aren't saving the position, then re-open the frame to put it in the standard place. (It'll do this
   -- automatically from now on.)
+  -- This is needed in case some other frame that modifies the position is already open (like the character panel).
     local prevfunc = AchievementFrame:GetScript("OnHide")
     AchievementFrame:SetScript("OnHide", nil)
     HideUIPanel(AchievementFrame)
@@ -719,19 +722,6 @@ local function AchievementUI_FirstShown_post()
     ShowUIPanel(AchievementFrame)
     AchievementFrame:SetScript("OnShow", prevfunc)
   end
-end
-
-local function AchievementUI_FirstShown(...)
-  AchievementFrame:SetScript("OnShow", orig_AchievementFrame_OnShow)
-  --[[ Pre-3.1 method:
-  AchievementFrame_OnShow = orig_AchievementFrame_OnShow
-  --]]
-  orig_AchievementFrame_OnShow = nil
-  -- Delayed call to AchievementUI_FirstShown_post() - let everything else process first:
-  Overachiever.MainFrame:Show()
-  -- Call original function:
-  AchievementFrame_OnShow(...)
-  AchievementUI_FirstShown = nil
 end
 
 
@@ -1616,19 +1606,14 @@ function Overachiever.OnEvent(self, event, arg1, ...)
     tinsert(UISpecialFrames, "AchievementFrame");
 
     -- Make main achievement UI draggable:
-    -- - Prevent UIParent.lua from seeing area field (or it'll do things that mess up making the frame draggable). (Not sure if that's true any more, but setting orig_AchievementFrame_area is still useful.)
+    -- - Prevent UIParent.lua from seeing area field (or it'll do things that mess up making the frame draggable, at least when you want the position to be saved: it snaps to another position when another panel, e.g. Character, opens).
     if (UIPanelWindows["AchievementFrame"]) then  -- This if statement prevents error messages when the addon MoveAnything is used to move AchievementFrame.
       orig_AchievementFrame_area = UIPanelWindows["AchievementFrame"].area
       UIPanelWindows["AchievementFrame"].area = nil
     end
-    -- - Hook the first OnShow call to complete this. (Not done now in case saved variables aren't ready or the frame
+    -- - Hook the first OnShow call to complete this. (Function not called now in case saved variables aren't ready or the frame
     --   isn't showing right away.)
-    orig_AchievementFrame_OnShow = AchievementFrame:GetScript("OnShow")
-    AchievementFrame:SetScript("OnShow", AchievementUI_FirstShown)
-    --[[ Pre-3.1 method:
-    orig_AchievementFrame_OnShow = AchievementFrame_OnShow
-    AchievementFrame_OnShow = AchievementUI_FirstShown
-    --]]
+    AchievementFrame:HookScript("OnShow", AchievementUI_OnShow_post)
 
     -- Make the default UI's "Achievement Filter" dropdown respond to clicks anywhere instead of only on the down-arrow button:
     --AchievementFrameFilterDropDownButton:SetWidth( AchievementFrameFilterDropDown:GetWidth() )
@@ -1658,10 +1643,10 @@ function Overachiever.OnEvent(self, event, arg1, ...)
       Overachiever_CharVars.TrackedAch = nil
     end
    --]]
-  
+
   --else
     --chatprint(event)
-  
+
   end
 end
 
@@ -2019,7 +2004,6 @@ Overachiever.MainFrame:RegisterEvent("CRITERIA_EARNED")
 Overachiever.MainFrame:RegisterEvent("PLAYER_LOGOUT")
 
 Overachiever.MainFrame:SetScript("OnEvent", Overachiever.OnEvent)
-Overachiever.MainFrame:SetScript("OnUpdate", AchievementUI_FirstShown_post)
 
 --Overachiever.MainFrame:RegisterEvent("PLAYER_LOGIN")
 

@@ -464,6 +464,13 @@ if (WOW_BFA) then
 		["Karazhan"] = { -- !! double check this is the zone name
 			[1651] = "Return to Karazhan", -- !! confirm this weeks in both Upper and Lower
 		},
+		-- !! need to confirm these next two work:
+		["Warfronts Arathi - Alliance"] = {
+			[1943] = "Battle for Stromgarde",
+		},
+		["Warfronts Arathi - Horde"] = {
+			[1943] = "Battle for Stromgarde", -- !! need the ID for Horde version
+		},
 	}
 else
 	Overachiever.ZONE_RENAME = {
