@@ -593,6 +593,7 @@ local WorldObjAch = {
   --   4. bool: fishing, 5. possible criteria format, 6. bool: show nothing if entire achievement is complete }
   WellRead = { "WellReadTip_read", L.ACH_WELLREAD_COMPLETE, L.ACH_WELLREAD_INCOMPLETE },
   HigherLearning = { "WellReadTip_read", L.ACH_WELLREAD_COMPLETE, L.ACH_WELLREAD_INCOMPLETE },
+  EatYourGreens = { "EatYourGreensTip_eat", L.ACH_EATYOURGREENS_COMPLETE, L.ACH_EATYOURGREENS_INCOMPLETE },
   Scavenger = { "AnglerTip_fished", L.ACH_ANGLER_COMPLETE, L.ACH_ANGLER_INCOMPLETE, true },
   OutlandAngler = { "AnglerTip_fished", L.ACH_ANGLER_COMPLETE, L.ACH_ANGLER_INCOMPLETE, true },
   NorthrendAngler = { "AnglerTip_fished", L.ACH_ANGLER_COMPLETE, L.ACH_ANGLER_INCOMPLETE, true },

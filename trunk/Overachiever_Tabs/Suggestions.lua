@@ -1145,7 +1145,16 @@ local ACHID_INSTANCES = {
 	["The Deaths of Chromie"] = 11941, -- Chromie Homie
 
 -- Battle for Azeroth Dungeons
-	["Tol Dagor"] = 12840, -- Tol Dagor (series: normal -> heroic -> mythic)
+	["Freehold"] = 12831, -- Freehold (series: normal -> heroic -> mythic guild run)
+	["Shrine of the Storm"] = 12835, -- Shrine of the Storm (series)
+	["Waycrest Manor"] = 12483, -- Waycrest Manor (series)
+	["Tol Dagor"] = 12840, -- Tol Dagor (series)
+	["Siege of Boralus"] = 12847, -- Siege of Boralus
+	["Atal'Dazar"] = 12824, -- Atal'Dazar (series)
+	["The MOTHERLODE!!"] = 12844, -- The MOTHERLODE!! (series)
+	["The Underrot"] = 12500, -- The Underrot (series)
+	["Temple of Sethraliss"] = 12504, -- The Temple of Sethraliss (series)
+	["Kings' Rest"] = 12848, -- Kings' Rest
 
 -- Battle for Azeroth Warfronts
 	["Battle for Stromgarde"] = {
@@ -1545,9 +1554,71 @@ local ACHID_INSTANCES_MYTHIC = {
 	},
 
 -- Battle for Azeroth Dungeons
+	["Freehold"] = {
+		12833, -- Mythic: Freehold
+		"13075:1", -- Battle for Azeroth Keymaster
+		12548, -- I'm in Charge Now!
+		12550, -- Pecking Order
+		12998, -- That Sweete Booty
+	},
+	["Shrine of the Storm"] = {
+		12838, -- Mythic: Shrine of the Storm
+		"13075:3", -- Battle for Azeroth Keymaster
+		12600, -- Breath of the Shrine
+		12601, -- The Void Lies Sleeping
+		12602, -- Trust No One
+	},
+	["Waycrest Manor"] = {
+		12488, -- Mythic: Waycrest Manor
+		"13075:2", -- Battle for Azeroth Keymaster
+		12490, -- Alchemical Romance
+		12495, -- Run Wild Like a Man On Fire
+		12489, -- Losing My Profession
+	},
 	["Tol Dagor"] = {
+		12842, -- Mythic: Tol Dagor
+		"13075:7", -- Battle for Azeroth Keymaster
 		12457, -- Remix to Ignition
 		12462, -- Shot Through the Heart
+	},
+	["Siege of Boralus"] = {
+		"13075:9", -- Battle for Azeroth Keymaster
+		12726, -- A Fish Out of Water
+		12727, -- Stand By Me
+		12489, -- Losing My Profession
+	},
+	["Atal'Dazar"] = {
+		12826, -- Mythic: Atal'Dazar
+		"13075:4", -- Battle for Azeroth Keymaster
+		12270, -- Bringing Hexy Back
+		12272, -- Gold Fever
+		12273, -- It's Lit!
+	},
+	["The MOTHERLODE!!"] = {
+		12846, -- Mythic: The MOTHERLODE!!
+		"13075:8", -- Battle for Azeroth Keymaster
+		12855, -- Pitch Invasion
+		12854, -- Ready for Raiding VI
+	},
+	["The Underrot"] = {
+		12502, -- Mythic: Underrot
+		"13075:5", -- Battle for Azeroth Keymaster
+		12549, -- Not a Fun Guy
+		12499, -- Sporely Alive
+		12498, -- Taint Nobody Got Time For That
+	},
+	["Temple of Sethraliss"] = {
+		12506, -- Mythic: The Temple of Sethraliss
+		"13075:6", -- Battle for Azeroth Keymaster
+		12508, -- Good Night, Sweet Prince
+		12507, -- Snake Eater
+		12503, -- Snake Eyes
+	},
+	["Kings' Rest"] = {
+		"13075:10", -- Battle for Azeroth Keymaster
+		12723, -- How to Keep a Mummy
+		12721, -- Wrap God
+		12722, -- It Belongs in a Mausoleum!
 	},
 }
 

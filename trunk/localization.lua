@@ -39,6 +39,8 @@ OVERACHIEVER_STRINGS = {
 
 	ACH_WELLREAD_INCOMPLETE = "Needs to be read";
 	ACH_WELLREAD_COMPLETE = "Already read";
+	ACH_EATYOURGREENS_INCOMPLETE = "Need to eat";
+	ACH_EATYOURGREENS_COMPLETE = "Already eaten";
 
 	ACH_ANGLER_INCOMPLETE = "Need to fish";
 	ACH_ANGLER_COMPLETE = "Already fished";
@@ -153,6 +155,9 @@ School of %s
 	OPT_PESTCONTROLTIPS_TIP = "If this achievement is incomplete, add a line to the tooltips of critters that are part of its criteria to indicate whether you still need to exterminate them.";
 	OPT_WELLREADTIPS = "Book read?";
 	OPT_WELLREADTIPS_TIP = "If the achievement is incomplete, add a line to the tooltips of books that are part of its criteria to indicate whether you need to read them.";
+	OPT_EATYOURGREENSTIPS = "Green eaten?";
+	OPT_EATYOURGREENSTIPS_TIP = "If the achievement is incomplete, add a line to the tooltips of plants in Nazmir that you need to eat.";
+
 	OPT_ANGLERTIPS = "Fishing node fished?";
 	OPT_ANGLERTIPS_TIP = "If the achievement is incomplete, add a line to the tooltips of fishing nodes that are part of its criteria to indicate whether you need to fish from them.";
 	OPT_ANGLERTIPS_TIP_ALWAYS = "Add a line to the tooltips of fishing nodes that are part of its criteria to indicate whether you need to fish from them.";

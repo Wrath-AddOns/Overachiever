@@ -112,7 +112,12 @@ The change log lists changes of particular note to users, not every change made.
 
 v1.0.5
 - WIP
-- Suggestions Tab: Added suggestions for the Battle for Stromgarde warfront.
+- "Eat Your Greens" (new): Added an option to display a reminder tooltip for eating plants in Nazmir.
+- Suggestions Tab:
+-- Added suggestions for the Battle for Stromgarde warfront.
+-- Added suggestions for the dungeons Freehold, Shrine of the Storm, Waycrest Manor, Siege of Boralus, Atal'Dazar, The MOTHERLODE!!, The Underrot, Temple of Sethraliss, and Kings' Rest.
+-- Added more suggestions for Tol Dagor (dungeon).
+- Battle for Azeroth's "Adventurer of..." achievements: Added "need to kill" reminders for the criteria that needed manual entry of mob IDs.
 - "To All the Squirrels..." achievements: Fix reminder tooltip not showing for certain critters that aren't / are no longer technically classed as critters (such as the sheep in Elwynn Forest).
 - "Azeroth at War..." achievements: Missions can now be flagged as recently spotted objectives for the Recent Reminders feature.
 - Attempt to make the draggable achievement frame feature more compatible with other addons.
