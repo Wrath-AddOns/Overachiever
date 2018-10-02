@@ -20,6 +20,7 @@ Overachiever.DefaultSettings = {
   CritterTip_loved = true;
   CritterTip_killed = true;
   WellReadTip_read = true;
+  EatYourGreensTip_eat = true;
   AnglerTip_fished = true;
   SchoolTip_fished = true;
   DraenorAnglerTip_fished = true;
@@ -146,6 +147,9 @@ function Overachiever.CreateOptions(THIS_TITLE, BuildCriteriaLookupTab_check, Au
 
 	{ type = "Oa_AchLabel", text = L.OPT_LABEL_ACHTWO, topBuffer = 4, id1 = IDs.WellRead, id2 = IDs.HigherLearning, xOffset = 0 },
 	{ variable = "WellReadTip_read", text = L.OPT_WELLREADTIPS, tooltip = L.OPT_WELLREADTIPS_TIP, xOffset = 28 },
+
+	{ type = "Oa_AchLabel", topBuffer = 4, id1 = IDs.EatYourGreens, xOffset = 0 },
+	{ variable = "EatYourGreensTip_eat", text = L.OPT_EATYOURGREENSTIPS, tooltip = L.OPT_EATYOURGREENSTIPS_TIP, xOffset = 28 },
 
 	{ type = "Oa_AchLabel", text = L.OPT_LABEL_ACHFOUR, topBuffer = 4, id1 = IDs.Scavenger, id2 = IDs.OutlandAngler, id3 = IDs.NorthrendAngler, id4 = IDs.PandarianAngler, xOffset = 0 },
 	{ variable = "AnglerTip_fished", text = L.OPT_ANGLERTIPS, tooltip = L.OPT_ANGLERTIPS_TIP_ALWAYS, xOffset = 28 },
