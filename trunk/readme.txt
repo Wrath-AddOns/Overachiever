@@ -112,7 +112,6 @@ The change log lists changes of particular note to users, not every change made.
 
 v1.0.5
 - Updated for WoW patch 8.1.
-- WIP
 - "Eat Your Greens" (new): Added an option to display a reminder tooltip for eating plants in Nazmir.
 - Suggestions Tab:
 -- Added suggestions for the Battle for Stromgarde warfront.
