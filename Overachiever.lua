@@ -926,12 +926,15 @@ local function ReactToCriteriaToast(achievementID, criteriaString)
     chatprint("", L.MSG_CRITERIAPROGRESS:format(link, criteriaString))
   end
   if (Overachiever_Settings.ProgressToast_Suggest) then
-    Overachiever.FlagReminder(achievementID, criteriaString)
+    local crit = Overachiever.IsCriteria(achievementID, criteriaString)
+    Overachiever.FlagReminder(achievementID, crit or criteriaString)
   end
   if (Overachiever_Settings.ProgressToast_AutoTrack) then
     setTracking(achievementID)
   end
 end
+--TEST_ReactToCriteriaToast = ReactToCriteriaToast
+--/dump TEST_ReactToCriteriaToast(12510, "A Golden Opportunity")
 
 
 -- META-CRITERIA TOOLTIP
@@ -1024,11 +1027,11 @@ do
 	    --if (notInUI and notInUI[name]) then  name = IconNotReadyX .. " " .. name;  end
         if (completed) then
           tooltip:AddLine(name, r_com, g_com, b_com)
-          tooltip:AddTexture("Interface\\RAIDFRAME\\ReadyCheck-Ready");
+          tooltip:AddTexture("Interface\\RAIDFRAME\\ReadyCheck-Ready")
         else
           tooltip:AddLine(name, 1, 1, 1) --, r_inc, g_inc, b_inc)
           if (anycomplete) then
-            tooltip:AddTexture(""); -- fake texture to push the text over
+            tooltip:AddTexture("") -- fake texture to push the text over
           end
         end
       end
@@ -1060,7 +1063,7 @@ do
 	  --]]
       if (completed) then
         tooltip:AddLine(name, r_com, g_com, b_com)
-        tooltip:AddTexture("Interface\\RAIDFRAME\\ReadyCheck-Ready");
+        tooltip:AddTexture("Interface\\RAIDFRAME\\ReadyCheck-Ready")
       else
         tooltip:AddLine(name, 1, 1, 1) --, r_inc, g_inc, b_inc)
       end
@@ -1129,10 +1132,10 @@ do
           GameTooltip:AddLine(name, r_inc, g_inc, b_inc)
         end
         if (completed) then
-          GameTooltip:AddTexture("Interface\\RAIDFRAME\\ReadyCheck-Ready");
+          GameTooltip:AddTexture("Interface\\RAIDFRAME\\ReadyCheck-Ready")
           anycomplete = true
         elseif (anycomplete) then
-          GameTooltip:AddTexture(""); -- fake texture to push the text over
+          GameTooltip:AddTexture("") -- fake texture to push the text over
         end
         ach, completed = GetNextAchievement(ach)
       end
@@ -1185,15 +1188,22 @@ do
 	  end
     end
 
-    local reminders = Overachiever.GetRecentReminders(id, true)
+    local reminders, anycomplete = Overachiever.GetRecentReminders(id, true, true)
     if (reminders) then
       if (tipset == 1) then  GameTooltip:AddLine(" ");  end
       tipset = 2 --tipset + 1
       GameTooltip:AddLine(L.RECENTREMINDERCRITERIA)
       GameTooltip:AddLine(" ")
-      for i,s in ipairs(reminders) do
-        --if (type(s) == "number") then  s = GetAchievementCriteriaInfo(id, s);  end
-		GameTooltip:AddLine(s, 1, 1, 1)
+      for i,critArr in ipairs(reminders) do
+	    if (critArr[2]) then
+		  GameTooltip:AddLine(critArr[1], r_com, g_com, b_com)
+		  GameTooltip:AddTexture("Interface\\RAIDFRAME\\ReadyCheck-Ready")
+		else
+		  GameTooltip:AddLine(critArr[1], 1, 1, 1)
+		  if (anycomplete) then
+		    GameTooltip:AddTexture("") -- fake texture to push the text over
+		  end
+		end
       end
       GameTooltip:AddLine(" ")
     end
