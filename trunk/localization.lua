@@ -168,7 +168,7 @@ School of %s
 	OPT_FISTFULOFLOVETIPS = "Handful of Rose Petals used?";
 	OPT_FISTFULOFLOVETIPS_TIP = "If the achievement is incomplete, add a line to the tooltips of players of an appropriate race/class combo to indicate whether you need to use a Handful of Rose Petals on them.";
 	OPT_BUNNYMAKERTIPS = "Spring Flowers used?";
-	OPT_BUNNYMAKERTIPS_TIP = "If the achievement is incomplete, add a line to the tooltips of players of an appropriate gender and level to indicate whether you need to use Spring Flowers on them. Note that enemy players that are 10 or more levels higher than you are assumed to be at least level 18.";
+	OPT_BUNNYMAKERTIPS_TIP = "If the achievement is incomplete, add a line to the tooltips of players of an appropriate level to indicate whether you need to use Spring Flowers on them. Note that enemy players that are 10 or more levels higher than you are assumed to be at least level 18.";
 	OPT_CHECKYOURHEADTIPS = "Weighted Jack-o'-Lantern used?";
 	OPT_CHECKYOURHEADTIPS_TIP = "If the achievement is incomplete, add a line to the tooltips of players to indicate whether you need to use a Weighted Jack-o'-Lantern on them.";
 	OPT_TURKEYLURKEYTIPS = "Turkey Shooter used?";
