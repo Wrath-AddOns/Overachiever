@@ -271,6 +271,9 @@ School of %s
 	SOUND_SIMON_DING = "Simon Ding";
 	SOUND_SIMON_STARTGAME = "Simon Start Game";
 	SOUND_SIMON_STARTLEVEL = "Simon Start Level";
+	SOUND_SIMON_BADPRESS = "Simon Bad Press";
+	SOUND_SIMON_FAIL_LARGE = "Simon Fail Large";
+	SOUND_SIMON_FAIL_SMALL = "Simon Fail Small";
 	SOUND_YAR = "Yarrrr";
 	SOUND_AGGRO_WARNING = "Aggro Warning";
 	SOUND_AGGRO_PULLED = "Aggro Pulled";
@@ -278,9 +281,18 @@ School of %s
 	SOUND_GLYPH_CREATE_MINOR = "Glyph Create Minor";
 	SOUND_GLYPH_DESTROY_MAJOR = "Glyph Destroy Major";
 	SOUND_GLYPH_DESTROY_MINOR = "Glyph Destroy Minor";
-	SOUND_BGTIMER = "Battleground Timer";
+	SOUND_BGTIMER = "Battleground Countdown";
+	SOUND_BGTIMER_END = "Battleground Countdown End";
 	SOUND_MEDAL_EXPIRES = "Medal Expires";
 	SOUND_GARRISON_INVASION = "Garrison Invasion Alert";
+	SOUND_BONUSEVENT = "Bonus Event";
+	SOUND_DIGSITE_COMPLETE = "Digsite Complete";
+	SOUND_STORE_CONFIRM = "Store Confirmation";
+	SOUND_MEDAL_GOLDTOSILVER = "Medal Gold to Silver";
+	SOUND_MEDAL_SILVERTOBRONZE = "Medal Silver to Bronze";
+	SOUND_CHAR_CREATE = "Create Character";
+	SOUND_QUEST_COMPLETE = "Quest Complete";
+	SOUND_LEVELUP = "Level Up";
 }
 
 local L, locale = OVERACHIEVER_STRINGS, GetLocale()
