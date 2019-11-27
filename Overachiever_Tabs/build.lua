@@ -211,7 +211,7 @@ local function displayAchievement(button, frame, achievement, index, selectionID
       saturatedStyle = "account";
     else
       button.accountWide = nil;
-      if ( IN_GUILD_VIEW ) then
+      if ( In_Guild_View ) then
         saturatedStyle = "guild";
       else
         saturatedStyle = "normal";

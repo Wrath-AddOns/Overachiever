@@ -777,7 +777,7 @@ local ACHID_ZONE_MISC = {
 		13720, -- Supplying the Assassins
 		13569, -- Tour of Duty: Nazjatar
 	},
-	["Mechagon Island"] = {
+	["Mechagon"] = {
 		13541, -- Mecha-Done
 		13555, -- Junkyard Tinkmaster
 		13472, -- Diversed Investments
