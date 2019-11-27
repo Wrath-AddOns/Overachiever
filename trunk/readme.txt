@@ -1,5 +1,5 @@
 
-Overachiever v1.0.8
+Overachiever v1.0.9
 ==============================
 
 Author: Tuhljin
@@ -109,6 +109,11 @@ Change log
 ==========
 
 The change log lists changes of particular note to users, not every change made.
+
+v1.0.9
+- Fix missing tooltip textures for achievement reminders and missing checkmark texture for completed achievements in various places (recent reminders, series list, meta requirements).
+- Add options to show reminder text for kill-criteria achievements and the "Azeroth at War..." (mission table) achievements when the achievement is complete.
+- Suggestions Tab: Fix Mechagon Island suggestions not appearing. (Now listed under "Mechagon.")
 
 v1.0.8
 - Updated TOC for WoW patch 8.2.5.
