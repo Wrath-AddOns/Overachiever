@@ -137,7 +137,8 @@ end
 
 local function addTooltipLineWithTexture(tooltip, text, texture, r, g, b)
 	--tooltip:AddLine(text, r, g, b)
-	--tooltip:AddTexture(AchievementIcon) -- This method stopped working. I don't see a statement that this is intended so it seems to be a bug in WoW. Working around it:
+	--tooltip:AddTexture(AchievementIcon)
+	-- Above method stopped working. I don't see a statement that this is intended so it seems to be a bug in WoW. Working around it:
 	tooltip:AddLine("|T"..texture..":0|t " .. text, r, g, b)
 end
 
