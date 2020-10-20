@@ -26,12 +26,10 @@ local activeNoticeFrames = {}
 local r_desc, g_desc, b_desc = 0.741, 1, 0.467
 
 
--- BFA
-local CalendarGetDate = CalendarGetDate or function(...)
-	local info = C_Calendar.GetDate(...)
+local function CalendarGetDate()
+	local info = C_DateAndTime.GetCurrentCalendarTime()
 	return info.weekday, info.month, info.monthDay, info.year, info.hour, info.minute
 end
--- BFA
 
 
 local ACHID_HOLIDAY = Overachiever.SUGGESTIONS.holiday;
