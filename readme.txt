@@ -1,5 +1,5 @@
 
-Overachiever v1.1.1
+Overachiever v1.1.2
 ==============================
 
 Author: Tuhljin
@@ -104,15 +104,28 @@ option under the "Main Achievement UI frame" option. Once in the position you de
 
 EXPLORATION AUTO-TRACKING:
 
-When enabled, Overachiever automatically switches tracking to the Exploration achievement for your current zone
-as you travel unless you've completed that achievement or you are tracking the maximum number of achievements and
-all of them are non-Exploration achievements.
+When enabled, Overachiever automatically starts tracking the Exploration achievement for your current zone as you travel
+(unless you've completed that achievement).
 
 
 Change log
 ==========
 
 The change log lists changes of particular note to users, not every change made.
+
+v1.1.2
+- Suggestions Tab:
+-- You can now auto-track suggested achievements. Shift+alt+click on an achievement in the Suggestions tab to toggle its flag. When you enter a location where a flagged achievement is suggested, it will automatically be tracked. It is untracked when you leave the area.
+-- Enter "autotracked" into the Location field to see all achievements you've flagged for auto-tracking.
+- Reworked the auto-tracking system. It should more intelligently handle which achievements are tracked, factoring in the number of available slots (exludes slots taken up by non-auto-tracked achievements) and priority levels.
+-- If the tracking limit is reached, then lower priority achievements may be untracked to make space for higher priority ones.
+-- Timed achievements have priority over exploration and suggested achievements.
+-- Manually tracked achievements should not be automatically untracked. (This should already have been the case but may have failed under certain atypical circumstances.)
+-- Manually untracked achievements will not be automatically tracked again until the player leaves the current zone. This excludes timed achievements; they will be tracked again if the timer restarts.
+-- Auto-tracking in reaction to an "Achievement Progress" toast still simply tracks if space is available (no priority) and doesn't automatically untrack, so it isn't part of this system.
+- Added achievements for Shadowlands zones to exploration auto-tracking.
+- Fixed tooltip not showing when the cursor is over a tracked achievement in the Objectives frame.
+- Tabs module: Shortened the tooltip shown for the Help ("?") icon showed on each tab so it is more specific to the selected tab. Hold Shift to see the full instructions as before.
 
 v1.1.1
 - Fixed an error that appeared when the cursor was over a graphical notice for an active holiday.

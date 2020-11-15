@@ -553,6 +553,12 @@ OVERACHIEVER_EXPLOREZONEID = {
 	["Zuldazar"] = 12559,
 	["Nazjatar"] = 13712,
 	["Mechagon Island"] = 13776,
+-- Shadowlands
+	["Bastion"] = 14303,
+	["Maldraxxus"] = 14305,
+	["Ardenweald"] = 14304,
+	["Revendreth"] = 14306,
+	["The Maw"] = 14663,
 };
 OVERACHIEVER_EXPLOREZONEID["Thunder Totem"] = OVERACHIEVER_EXPLOREZONEID["Highmountain"]
 -- "Explore Cataclysm": 4868
@@ -622,7 +628,7 @@ if (WOW_BFA) then
 			[1220] = "Dalaran (Broken Isles)", -- 1220 = Broken Isles
 		},
 		["Karazhan"] = { -- !! double check this is the zone name
-			[1651] = "Return to Karazhan", -- !! confirm this weeks in both Upper and Lower
+			[1651] = "Return to Karazhan", -- !! confirm this works in both Upper and Lower
 		},
 		-- !! need to confirm these next two work:
 		["Warfronts Arathi - Alliance"] = {
@@ -683,7 +689,7 @@ function Overachiever.GetZoneKey(zoneName) -- zoneName here is expected to be in
 			return INSTANCE_RENAME[zoneName][insMapID]
 		end
 	end
-return zoneName
+	return zoneName
 end
 
 ----- :BFA
