@@ -19,6 +19,7 @@ local trackableAchs = {}		-- Note that the same achievement can be listed multip
 
 local autoTrackedAchs = {}
 local manuallyUntrackedAchs = {}
+local timedAchs = {}
 
 local autoTrackedBGTimer = false
 
@@ -221,9 +222,11 @@ local function updateLocationTrackables(zoneChanged)
 	updateTracking()
 end
 
-local function untrackAllAutoTracked()
+local function untrackAllAutoTracked(excludeTimed)
 	for id in pairs(autoTrackedAchs) do
-		untrackAchievement(id)
+		if (not excludeTimed or not timedAchs[id]) then
+			untrackAchievement(id)
+		end
 	end
 end
 
@@ -260,7 +263,7 @@ trackingFrame:SetScript("OnEvent", function(self, event, arg1, arg2, ...)
 	
 	elseif (event == "PLAYER_LOGOUT") then
 		-- Untrack the auto-tracked on logout (or interface reload) to prevent auto-tracked achievements being seen as manually-tracked when you log back in.
-		untrackAllAutoTracked()
+		untrackAllAutoTracked(true)
 	end
 end)
 
@@ -271,6 +274,7 @@ function Overachiever.TrackTimedAchievement(id, isBGTimer)
 	else
 		addTrackableAch(id, PRIORITY_TIMER, UNTRACK_NEVER)
 	end
+	timedAchs[id] = true
 	updateTracking()
 end
 
