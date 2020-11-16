@@ -125,7 +125,10 @@ v1.1.2
 -- Auto-tracking in reaction to an "Achievement Progress" toast still simply tracks if space is available (no priority) and doesn't automatically untrack, so it isn't part of this system.
 - Added achievements for Shadowlands zones to exploration auto-tracking.
 - Fixed tooltip not showing when the cursor is over a tracked achievement in the Objectives frame.
-- Tabs module: Shortened the tooltip shown for the Help ("?") icon showed on each tab so it is more specific to the selected tab. Hold Shift to see the full instructions as before.
+- Tabs module: Shortened the tooltip shown for the Help ("?") icon on each tab so it is more specific to the selected tab. Hold Shift to see the full instructions as before.
+- Trade module:
+-- Now uses recipe IDs instead of names for achievement lookup. This solves some possible problems with finding cooking achievement criteria. (Theoretically, this was a problem for some non-English locales.)
+-- Added support for a potential Skillet plugin.
 
 v1.1.1
 - Fixed an error that appeared when the cursor was over a graphical notice for an active holiday.
