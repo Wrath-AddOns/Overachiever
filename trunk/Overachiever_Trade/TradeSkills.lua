@@ -192,8 +192,16 @@ end
 -- Skillet:
 
 function Overachiever.GetIconForRecipe(recipeID)
-  local ach = TradeSkillCheckAll(recipeID)
-  return ach and iconAchShield or ""
+  local achIDs = TradeSkillCheckAll(recipeID, true)
+  if (achIDs) then
+    local list = {}
+    for i,id in ipairs(achIDs) do
+      local _, name = GetAchievementInfo(id)
+      list[i] = { id = id, name = name }
+    end
+    return iconAchShield, list
+  end
+  return ""
 end
 
 --[[ Very old code!
