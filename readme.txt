@@ -114,6 +114,7 @@ Change log
 The change log lists changes of particular note to users, not every change made.
 
 v1.1.2
+- Updated TOC for WoW patch 9.0.2.
 - Suggestions Tab:
 -- You can now auto-track suggested achievements. Shift+alt+click on an achievement in the Suggestions tab to toggle its flag. When you enter a location where a flagged achievement is suggested, it will automatically be tracked. It is untracked when you leave the area.
 -- Enter "autotracked" into the Location field to see all achievements you've flagged for auto-tracking.
