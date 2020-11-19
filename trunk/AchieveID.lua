@@ -10,12 +10,10 @@ OVERACHIEVER_ACHID = {
 	LoveCritters2 = 2557,	-- "To All The Squirrels Who Shared My Life"
 	LoveCritters3 = 5548,	-- "To All the Squirrels Who Cared for Me"
 	LoveCritters4 = 6350,	-- "To All the Squirrels I Once Caressed?"
-	--[[
 	LoveCritters5 = 14728,	-- "To All the Squirrels Through Time and Space"
 	LoveCritters6 = 14729,	-- "To All the Squirrels I Love Despite Their Scars"
 	LoveCritters7 = 14730,	-- "To All the Squirrels I Set Sail to See"
 	LoveCritters8 = 14731,	-- "To All the Squirrels I've Love and Lost"
-	--]]
 	PestControl = 2556,		-- "Pest Control"
 	WellRead = 1244,		-- "Well Read"
 	HigherLearning = 1956,	-- "Higher Learning"
