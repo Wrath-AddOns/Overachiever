@@ -1,5 +1,5 @@
 
-Overachiever v1.1.3
+Overachiever v1.1.4
 ==============================
 
 Author: Tuhljin
@@ -113,6 +113,15 @@ Change log
 
 The change log lists changes of particular note to users, not every change made.
 
+v1.1.4
+- WIP
+- Suggestions Tab:
+-- Added numerous suggestions for Shadowlands zones.
+-- Added suggestions for Shadowlands covenants. If outside your covenant sanctum, you can see them by entering "Covenant" as the location. Other covenants' achievements can be seen using "Covenant (Kyrian)", "Covenant (Necrolord)", "Covenant (Night Fae)", or "Covenant (Venthyr)". (WIP: Currently only detects if you're at the Kyrian covenant.)
+-- If the Location field is invalid, no achievements are suggested rather than defaulting to the current location's suggestions.
+-- If there are no suggestions, the text indicating this will refer to a "specified location" if the Location field is used.
+-- Fixed detection of whether the Cooking window is open.
+
 v1.1.3
 - Fixed an error where auto-tracking tried to track a completed achievement.
 
@@ -138,7 +147,7 @@ v1.1.2
 
 v1.1.1
 - Fixed an error that appeared when the cursor was over a graphical notice for an active holiday.
-- Suggestions tab: Added suggestions for the raids Uldir, Battle of Dazar'alor, Crucible of Storms, and Ny'alotha, the Waking City.
+- Suggestions Tab: Added suggestions for the raids Uldir, Battle of Dazar'alor, Crucible of Storms, and Ny'alotha, the Waking City.
 
 v1.1.0
 - Updated for Shadowlands pre-patch (WoW patch 9.0.1). Updated TOC and made several required changes.
