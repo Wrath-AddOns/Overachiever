@@ -345,6 +345,13 @@ OVERACHIEVER_MOB_CRIT = {
 	[139988] = { 12940, 32 }, -- Sandfang
 	[139980] = { 12940, 33 }, -- Taja the Tidehowler
 	[IsAlliance and 141043 or 140925] = { 12940, 34 }, -- Doc Marrtens or Jakala the Cruel (kill type but asset ID 0)
+	
+	-- SHADOWLANDS
+	
+	-- Adventurer of Bastion:
+	--!!
+	-- Adventurer of Maldraxxus:
+	--   lookup not needed; all are kill type
 };
 
 --[[
@@ -359,7 +366,7 @@ function Overachiever.Debug_WHICHCRIT(id)
 		if (crittype == 27) then
 			print("- quest type:|cff7eff00", id, i, name)
 			c = c + 1
-			s = s.."\n  [] = { "..id..", "..i.." }, -- "..name
+			s = s.."\n  [NPC_ID] = { "..id..", "..i.." }, -- "..name --.." (quest "..assetID..")"
 		elseif (crittype == 0) then
 			if (assetID and assetID ~= 0) then
 				print("- kill type:|cff7f7f7f", id, i, name);
@@ -389,6 +396,9 @@ end
 --/run error(Overachiever.Debug_WHICHCRIT(12941)) -- Adventurer of Drustvar
 --/run error(Overachiever.Debug_WHICHCRIT(12939)) -- Adventurer of Tiragarde Sound
 --/run error(Overachiever.Debug_WHICHCRIT(12940)) -- Adventurer of Stormsong Valley
+
+--/run error(Overachiever.Debug_WHICHCRIT(14307)) -- Adventurer of Bastion
+--/run error(Overachiever.Debug_WHICHCRIT(14308)) -- Adventurer of Maldraxxus
 --]]
 
 
