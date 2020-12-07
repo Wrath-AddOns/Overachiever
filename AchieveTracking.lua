@@ -142,9 +142,11 @@ local function getCurrentExplorationTrackable()
 				--local id = Overachiever.FindExplorationAchievementForZone(zone) -- Decided against this call because it caused slight hitching when entering a zone that has no predefined exploration achievement (so it tries to look it up the long way). So be sure to have the exploration achievements saved in AchieveID.lua!
 				local id = Overachiever.ExploreZoneIDLookup(zone)
 				if (id) then
-					local _, complete
-					_, _, _, complete = GetAchievementInfo(id)
-					if (not complete) then
+					--local _, completed
+					--_, _, _, completed = GetAchievementInfo(id)
+					local _, completed, wasEarnedByMe
+					_, _, _, completed, _, _, _, _, _, _, _, _, wasEarnedByMe = GetAchievementInfo(id)
+					if (not completed or (Overachiever_Settings.Explore_AutoTrack_Completed and not wasEarnedByMe)) then
 						return id
 					end
 				end
@@ -232,15 +234,13 @@ local function updateLocationTrackables(zoneChanged)
 		end
 	end
 
-	if (zoneChanged) then
-		--local t = debugprofilestop()
-		local expID = getCurrentExplorationTrackable()
-		--print("getCurrentExplorationTrackable() took",(debugprofilestop() - t) / 1000,"seconds")
-		if (expID) then
-			addTrackableAch(expID, PRIORITY_EXPLORE, UNTRACK_SUBZONE)
-			if (not tab) then  tab = {};  end
-			tab[expID] = true
-		end
+	--local t = debugprofilestop()
+	local expID = getCurrentExplorationTrackable()
+	--print("getCurrentExplorationTrackable() took",(debugprofilestop() - t) / 1000,"seconds")
+	if (expID) then
+		addTrackableAch(expID, PRIORITY_EXPLORE, UNTRACK_SUBZONE)
+		if (not tab) then  tab = {};  end
+		tab[expID] = true
 	end
 
 	removeAllUntrackReasonAchsExcept(UNTRACK_SUBZONE, tab)
