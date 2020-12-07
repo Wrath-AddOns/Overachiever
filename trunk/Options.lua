@@ -16,7 +16,7 @@ Overachiever.DefaultSettings = {
   Tracker_AutoTimer = true;
   Tracker_AutoTimer_BG = true;
   Explore_AutoTrack = false;
-  --Explore_AutoTrack_Completed = false;
+  Explore_AutoTrack_Completed = false;
   CritterTip_loved = true;
   CritterTip_killed = true;
   WellReadTip_read = true;
@@ -88,9 +88,9 @@ function Overachiever.CreateOptions(THIS_TITLE, BuildCriteriaLookupTab_check, Au
 	{ variable = "Tracker_AutoTimer_BG", text = L.OPT_AUTOTRACKTIMED_BG, tooltip = L.OPT_AUTOTRACKTIMED_TIP_BG },
 	{ variable = "Explore_AutoTrack", text = L.OPT_AUTOTRACKEXPLORE,
 	  tooltip = L.OPT_AUTOTRACKEXPLORE_TIP, OnChange = AutoTrackCheck_Explore },
-	--{ variable = "Explore_AutoTrack_Completed", text = L.OPT_AUTOTRACKEXPLORE_COMPLETED,
-	--  xOffset = 10, OnChange = AutoTrackCheck_Explore },
-	{ variable = "ProgressToast_AutoTrack", text = L.OPT_AUTOTRACK_CRITERIATOAST, tooltip = L.OPT_AUTOTRACK_CRITERIATOAST_TIP },
+	{ variable = "Explore_AutoTrack_Completed", text = L.OPT_AUTOTRACKEXPLORE_COMPLETED,
+	  xOffset = 10, OnChange = AutoTrackCheck_Explore },
+	{ variable = "ProgressToast_AutoTrack", text = L.OPT_AUTOTRACK_CRITERIATOAST, tooltip = L.OPT_AUTOTRACK_CRITERIATOAST_TIP, xOffset = 0 },
 	
 	{ type = "labelwrap", text = L.OPT_LABEL_CRITERIATOAST, topBuffer = 4 },
 	{ variable = "ProgressToast_ChatLog", text = L.OPT_CRITERIATOAST_CHATLOG, tooltip = L.OPT_CRITERIATOAST_CHATLOG_TIP },

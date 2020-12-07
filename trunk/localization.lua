@@ -134,12 +134,12 @@ School of %s
 
 	OPT_LABEL_TRACKING = "Achievement Tracking";
 	OPT_AUTOTRACKTIMED = "Auto-track timed achievements (non-battleground)";
-	OPT_AUTOTRACKTIMED_TIP = "Automatically track achievements with timed criteria when the timer starts. If you are already tracking the maximum number of achievements, it will attempt to take the place of an auto-tracked exploration achievement; otherwise, it won't be tracked.|n|nExcludes battleground-specific achievements.";
+	OPT_AUTOTRACKTIMED_TIP = "Automatically track achievements with timed criteria when the timer starts. If you are already tracking the maximum number allowed, it may take the place of a previously auto-tracked achievement.|n|nExcludes battleground-specific achievements.";
 	OPT_AUTOTRACKTIMED_BG = "Auto-track timed battleground achievements";
-	OPT_AUTOTRACKTIMED_TIP_BG = "Automatically track battleground achievements with timed criteria when the timer starts. (For example, those for winning the match or capturing a flag within a set time.)|n|nThe achievement is untracked upon leaving the battleground.";
+	OPT_AUTOTRACKTIMED_TIP_BG = "Automatically track battleground achievements with timed criteria when the timer starts. (For example, those that require a win or flag capture within a certain time frame.)|n|nThe achievement is untracked upon leaving the battleground.";
 	OPT_AUTOTRACKEXPLORE = "Auto-track exploration achievements as you travel";
-	OPT_AUTOTRACKEXPLORE_TIP = "When you enter a zone, automatically track its exploration achievement. If already tracking an exploration achievement, this will replace the previous automatically-tracked one if there is one or another exploration achievement otherwise.";
-	OPT_AUTOTRACKEXPLORE_COMPLETED = "Including completed achievements";
+	OPT_AUTOTRACKEXPLORE_TIP = "When you enter a zone, automatically track its exploration achievement. It will be untracked when you leave the zone.";
+	OPT_AUTOTRACKEXPLORE_COMPLETED = "Including those completed on a different character";
 	OPT_AUTOTRACK_CRITERIATOAST = 'Auto-track upon "Achievement Progress" toast';
 	OPT_AUTOTRACK_CRITERIATOAST_TIP = 'When the "Achievement Progress" toast appears, automatically track the achievement (if the tracking limit permits).';
 

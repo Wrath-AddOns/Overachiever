@@ -121,6 +121,8 @@ v1.1.4
 -- If the Location field is invalid, no achievements are suggested rather than defaulting to the current location's suggestions.
 -- If there are no suggestions, the text indicating this will refer to a "specified location" if the Location field is used.
 -- Fixed detection of whether the Cooking window is open.
+- Fixed automatically untracking exploration exploration achievements too soon.
+- Added an option to track exploration achievements when incomplete on the current character but completed by a different one.
 
 v1.1.3
 - Fixed an error where auto-tracking tried to track a completed achievement.
