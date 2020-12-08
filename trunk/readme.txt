@@ -123,6 +123,7 @@ v1.1.4
 -- Fixed detection of whether the Cooking window is open.
 - Fixed automatically untracking exploration exploration achievements too soon.
 - Added an option to track exploration achievements when incomplete on the current character but completed by a different one.
+- Fixed possible failure to automatically untrack timed battleground achievements.
 
 v1.1.3
 - Fixed an error where auto-tracking tried to track a completed achievement.
