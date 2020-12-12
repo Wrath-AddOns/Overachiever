@@ -71,6 +71,9 @@ OVERACHIEVER_ACHID = {
 	MissionLordaeron = IsAlliance and 12898 or 12869, -- Azeroth at War: After Lordaeron
 	MissionKalimdor = IsAlliance and 12899 or 12870, -- Azeroth at War: Kalimdor on Fire
 
+	--WhatWeRideInTheShadows = 14770,	-- "What We Ride in the Shadows"
+	AfterlifeExpress = 14771,				-- "The Afterlife Express"
+
 	-- Statistics:
 	Stat_ConsumeDrinks = 346,	-- "Beverages consumed"
 	Stat_ConsumeFood = 347,		-- "Food eaten"
@@ -604,6 +607,8 @@ OVERACHIEVER_HEROIC_CRITERIA = {
 		  [13] = true, [14] = true, [15] = true },
 --]]
 };
+
+OVERACHIEVER_MYTHIC_CRITERIA = {} -- Unused for now, but checked in GameTip.lua
 
 
 

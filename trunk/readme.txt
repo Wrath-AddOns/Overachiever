@@ -114,7 +114,7 @@ Change log
 The change log lists changes of particular note to users, not every change made.
 
 v1.1.4
-- WIP
+- "Afterlife Express" (new): Added an option to display a reminder tooltip for riding carriages in Revendreth.
 - Suggestions Tab:
 -- Added numerous suggestions for Shadowlands zones.
 -- Added suggestions for Shadowlands covenants. If outside your covenant sanctum, you can see them by entering "Covenant" as the location. Other covenants' achievements can be seen using "Covenant (Kyrian)", "Covenant (Necrolord)", "Covenant (Night Fae)", or "Covenant (Venthyr)". (WIP: Currently only detects if you're at the Kyrian covenant.)
