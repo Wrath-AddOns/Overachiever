@@ -75,6 +75,9 @@ School of %s
 	ACH_MISSIONCOMPLETE_INCOMPLETE = "Need to complete";
 	ACH_MISSIONCOMPLETE_COMPLETE = "Previously completed";
 
+	ACH_RIDE_INCOMPLETE = "Need to ride";
+	ACH_RIDE_COMPLETE = "Already ridden";
+
 	ACH_LETITSNOW_INCOMPLETE = "Need to use Handful of Snowflakes";
 	ACH_LETITSNOW_COMPLETE = "Already used Handful of Snowflakes";
 	ACH_FISTFULOFLOVE_INCOMPLETE = "Need to use Handful of Rose Petals";
@@ -190,6 +193,9 @@ School of %s
 	OPT_MISSIONCOMPLETE = "Mission completed?";
 	OPT_MISSIONCOMPLETE_TIP = "Add a line to the tooltips of missions to indicate whether you need to complete them for an achievement.";
 	OPT_MISSIONCOMPLETE_WHENCOMPLETE = "Show even if achievement is complete";
+
+	OPT_VEHICLERIDDENTIPS = "Vehicle/creature ridden?";
+	OPT_VEHICLERIDDENTIPS_TIP = "Add a line to the tooltips of vehicles and creatures that you need to ride to complete an achievement.";
 
 	OPT_LABEL_NEEDTOKILL = 'Kill Creature Achievements ("%s," "%s," etc.)';
 	OPT_KILLCREATURETIPS = "Creature killed?";

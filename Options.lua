@@ -33,6 +33,7 @@ Overachiever.DefaultSettings = {
   CreatureTip_killed = true;
   CreatureTip_killed_whencomplete = true;
   CreatureTip_killed_exclude_guild = false;
+  VehicleTip_ridden = true;
   LetItSnow_flaked = false;
   FistfulOfLove_petals = false;
   BunnyMaker_eared = false;
@@ -182,6 +183,9 @@ function Overachiever.CreateOptions(THIS_TITLE, BuildCriteriaLookupTab_check, Au
 	{ type = "Oa_AchLabel", text = L.OPT_LABEL_ACHTHREE, topBuffer = 4, id1 = IDs.MissionBarrens, id2 = IDs.MissionLordaeron, id3 = IDs.MissionKalimdor, xOffset = 0 },
 	{ variable = "Mission_complete", text = L.OPT_MISSIONCOMPLETE, tooltip = L.OPT_MISSIONCOMPLETE_TIP, xOffset = 28 },
 	{ variable = "Mission_complete_whencomplete", text = L.OPT_MISSIONCOMPLETE_WHENCOMPLETE, xOffset = 39 },
+
+  { type = "Oa_AchLabel", topBuffer = 4, id1 = IDs.AfterlifeExpress, xOffset = 0 },
+	{ variable = "VehicleTip_ridden", text = L.OPT_VEHICLERIDDENTIPS, tooltip = L.OPT_VEHICLERIDDENTIPS_TIP, xOffset = 28 },
 
 	{ type = "labelwrap", text = L.OPT_LABEL_SEASONALACHS, justifyH = "CENTER", topBuffer = 16, xOffset = 0 },
 
