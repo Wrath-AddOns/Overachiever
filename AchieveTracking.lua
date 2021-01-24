@@ -91,12 +91,15 @@ local function addTrackableAch(id, priority, untrackReason)
 end
 
 local function flagRemoveTrackableAch(id, priority, untrackReason)
+	local anyFound = false
 	for i,track in ipairs(trackableAchs) do
 		if (track.id == id and (not priority or track.priority == priority) and (not untrackReason or track.untrackReason == untrackReason)) then
 			track.del = true
 			--tremove(trackableAchs, i)
+			anyFound = true
 		end
 	end
+	return anyFound
 end
 
 local function cleanTrackableAch()
@@ -111,6 +114,12 @@ local function cleanTrackableAch()
 		end
 	end
 	trackableAchs = tab
+end
+
+local function removeTrackableAch(id, priority, untrackReason)
+	if (flagRemoveTrackableAch(id, priority, untrackReason)) then
+		cleanTrackableAch()
+	end
 end
 
 local function removeAllUntrackReasonAchsExcept(untrackReason, exceptLookup)
@@ -292,6 +301,7 @@ local function OnEvent(self, event, arg1, arg2, ...)
 			if (not doingUntrack and autoTrackedAchs[arg1]) then
 				autoTrackedAchs[arg1] = nil
 				manuallyUntrackedAchs[arg1] = true
+				removeTrackableAch(arg1)
 			end
 		end
 
@@ -345,7 +355,8 @@ if (Overachiever_Debug) then
 	function Overachiever.Debug_Test()
 		teststate = not teststate
 		if (teststate) then
-			Overachiever.TrackTimedAchievement(5216, true)
+			--Overachiever.TrackTimedAchievement(5216, true)
+			Overachiever.TrackTimedAchievement(1873, false)
 		else
 			OnEvent(trackingFrame, "ZONE_CHANGED_NEW_AREA")
 		end

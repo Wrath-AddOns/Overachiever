@@ -25,13 +25,25 @@ local suggested = {}
 local showHidden, numHidden = false, 0
 
 
+local function copytab(from, to)
+  for k,v in pairs(from) do
+    if(type(v) == "table") then
+      to[k] = {}
+      copytab(v, to[k]);
+    else
+      to[k] = v;
+    end
+  end
+end
+
+
 local IsAlliance = UnitFactionGroup("player") == "Alliance"
 
 local COVENANT_IDS = {
 }
 for i,id in ipairs(C_Covenants.GetCovenantIDs()) do
 	local data = C_Covenants.GetCovenantData(id)
-	-- We're assuming data.name is localized and but data.textureKit is not, so the latter can be used for looking things up.
+	-- We're assuming data.name is localized but data.textureKit is not, so the latter can be used for looking things up.
 	COVENANT_IDS[id] = { key = data.textureKit, name = data.name }
 	-- Possible textureKit values: "Kyrian", "Venthyr", "NightFae" (note the lack of a space!), or "Necrolord"
 end
@@ -78,6 +90,21 @@ local ZONE_SPECIAL_REDIR = {
 			if ((mapID == 1707 or mapID == 1708) and isPlayerCovenant("Kyrian")) then
 				return "Covenant (Kyrian)"
 			end
+    elseif (zone == "Maldraxxus") then
+			local mapID = C_Map.GetBestMapForUnit("player")
+			if ((mapID == 1698) and isPlayerCovenant("Necrolord")) then -- !! confirm map IDs
+				return "Covenant (Necrolord)"
+			end
+		elseif (zone == "Ardenweald") then
+			local mapID = C_Map.GetBestMapForUnit("player")
+			if ((mapID == 1701 or mapID == 1702 or mapID == 1703) and isPlayerCovenant("NightFae")) then -- !! confirm map IDs
+				return "Covenant (Night Fae)"
+			end
+    elseif (zone == "Revendreth") then
+      local mapID = C_Map.GetBestMapForUnit("player")
+      if ((mapID == 1699 or mapID == 1700) and isPlayerCovenant("Venthyr")) then -- !! confirm map IDs
+        return "Covenant (Venthyr)"
+      end
 		end
 	end,
 }
@@ -94,15 +121,41 @@ local function GetZoneSpecialOverride(zone, subzone)
   return zone, subzone
 end
 
-local function copytab(from, to)
-  for k,v in pairs(from) do
-    if(type(v) == "table") then
-      to[k] = {}
-      copytab(v, to[k]);
-    else
-      to[k] = v;
-    end
-  end
+local function getFirstAchievementOfSeriesInCategory(id, category)
+	local cat
+	local ach, last = id, id
+	if (not category) then  category = GetAchievementCategory(id);  end
+	while (ach) do
+		ach = GetPreviousAchievement(ach)
+		if (ach) then
+			cat = GetAchievementCategory(ach)
+			if (cat == category) then  last = ach;  end
+		end
+	end
+	return last
+end
+
+local function getSuggestionsFromCategory(category)
+	-- Intelligently suggested achievements from a category. Omit those in a series if an earlier achievement in the series is in the same category.
+	-- TODO: Make it omit achievements that are requirements for a meta-achievement that's in the same category.
+	local tab = {}
+	for i=1,GetCategoryNumAchievements(category) do
+		local id = GetAchievementInfo(category, i)
+		if (not id) then
+			-- Absurdly, GetCategoryNumAchievements now seems to be giving the WRONG NUMBER for at least some categories. (Confirmed in WoW 6.2.2. Might have started earlier.)
+			-- Consequently, we need to watch for nil IDs and skip them.
+		else
+			local first = getFirstAchievementOfSeriesInCategory(id, category)
+			if (first) then  tab[first] = true;  end
+		end
+	end
+	local ret = {}
+	local i = 0
+	for id in pairs(tab) do
+		i = i + 1
+		ret[i] = id
+	end
+	return ret
 end
 
 
@@ -891,6 +944,8 @@ local ACHID_ZONE_MISC = {
 		14788, -- Fractured Faerie Tales - !! tooltips?
 		14800, -- Sojourner of Ardenweald
 		14337, -- The Wild Hunt
+		14671, -- Something's Not Quite Right....
+    14672, -- A Bit of This, A Bit Of That (world quest)
 	},
 	["Revendreth"] = {
 		13878, -- The Master of Revendreth
@@ -904,6 +959,7 @@ local ACHID_ZONE_MISC = {
 		14771, -- The Afterlife Express - !! tooltips? mobID?
 		14798, -- Sojourner of Revendreth
 		14338, -- Court of Harvesters
+		14772, -- Caught in a Bat Romance
 	},
 	["The Maw"] = {
 		14334, -- Into the Maw
@@ -919,6 +975,7 @@ local ACHID_ZONE_MISC = {
 		14746, -- Prepare for Trouble!
 		14747, -- Make it Double!
 		14761, -- Deciphering Death's Intentions - !! tooltips?
+		14894, -- To 'Ghast, Two Curios
 	},
 	["Covenant (Kyrian)"] = {
 		14851, -- Bastion of Protection
@@ -974,9 +1031,10 @@ local ACHID_ZONE_MISC = {
 		-- !! check these. any issues?
 	},
 }
--- Make some subzones / quasi-subzone show suggestions from the main zone - !! not perfect as it won't tie in Explore achievements! TODO
+-- Make some subzones / quasi-subzones show suggestions from the main zone - !! not perfect as it won't tie in Explore achievements! TODO - maybe new system, use map IDs.
 ACHID_ZONE_MISC["Thunder Totem"] = ACHID_ZONE_MISC["Highmountain"]
 ACHID_ZONE_MISC["Darkhaven"] = ACHID_ZONE_MISC["Revendreth"]
+ACHID_ZONE_MISC["The Eternal Terrace Lift"] = ACHID_ZONE_MISC["Revendreth"]
 
 if (IsAlliance) then
   tinsert(ACHID_ZONE_MISC["Grizzly Hills"], 2016) -- "Grizzled Veteran"
@@ -1477,6 +1535,9 @@ local ACHID_INSTANCES = {
 		-- Heroic:
 		IsAlliance and 14150 or 14149, -- Heroic: War for the Shore
 	},
+
+-- Shadowlands Dungeons / Torghast
+	["Torghast, Tower of the Damned"] = getSuggestionsFromCategory(15440),
 }
 -- Aliases
 ACHID_INSTANCES["Molten Core"] = ACHID_INSTANCES["The Molten Core"]
