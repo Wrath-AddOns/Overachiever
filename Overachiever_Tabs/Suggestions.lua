@@ -48,12 +48,20 @@ for i,id in ipairs(C_Covenants.GetCovenantIDs()) do
 	-- Possible textureKit values: "Kyrian", "Venthyr", "NightFae" (note the lack of a space!), or "Necrolord"
 end
 
-local function isPlayerCovenant(key)
-	local covID = C_Covenants.GetActiveCovenantID()
-	if (covID) then
+local function getPlayerCovenant()
+  local covID = C_Covenants.GetActiveCovenantID()
+	if (covID and covID ~= 0) then
 		local cov = COVENANT_IDS[covID]
 		assert(cov, "Shadowlands Covenant not found.")
-		if (cov.key == key) then  return true, cov.name;  end
+		return cov.key, cov.name
+	end
+	return false
+end
+
+local function isPlayerCovenant(key)
+	local covKey, covName = getPlayerCovenant()
+	if (covKey == key) then
+		return true, covName
 	end
 	return false
 end
@@ -68,6 +76,7 @@ local ZONE_RENAME_REV = { -- lookup table so localizations can use their own ren
 	[L.SUGGESTIONS_ZONERENAME_NAGRAND_OUTLAND] = "Nagrand (Outland)",
 	[L.SUGGESTIONS_ZONERENAME_NAGRAND_DRAENOR] = "Nagrand (Draenor)",
 	[L.SUGGESTIONS_ZONERENAME_KARAZHAN_LEGION] = "Return to Karazhan",
+  [L.SUGGESTIONS_ZONERENAME_COVENANT] = "Covenant",
 	[L.SUGGESTIONS_ZONERENAME_COVENANT_KYRIAN] = "Covenant (Kyrian)",
 	[L.SUGGESTIONS_ZONERENAME_COVENANT_NECROLORD] = "Covenant (Necrolord)",
 	[L.SUGGESTIONS_ZONERENAME_COVENANT_NIGHTFAE] = "Covenant (Night Fae)",
@@ -1030,6 +1039,11 @@ local ACHID_ZONE_MISC = {
 		--14727,  -- Master of Ceremonies
 		-- !! check these. any issues?
 	},
+  ["Torghast, Tower of the Damned"] = {
+    SUBZONES = {
+      --["The Runecarver's Oubliette"] = 14759, -- !! Currently redunant with the other Torghast grouping that uses getSuggestionsFromCategory. May want to add feature to narrow things down so it doesn't show the others in this subzone (but check case by case; might be more to put here).
+    }
+  },
 }
 -- Make some subzones / quasi-subzones show suggestions from the main zone - !! not perfect as it won't tie in Explore achievements! TODO - maybe new system, use map IDs.
 ACHID_ZONE_MISC["Thunder Totem"] = ACHID_ZONE_MISC["Highmountain"]
@@ -1172,6 +1186,17 @@ do
 	mergelist(covSanctum, ACHID_ZONE_MISC["Covenant (Necrolord)"])
 	mergelist(covSanctum, ACHID_ZONE_MISC["Covenant (Night Fae)"])
 	mergelist(covSanctum, ACHID_ZONE_MISC["Covenant (Venthyr)"])
+
+  local covKey = getPlayerCovenant()
+  if (covKey == "Kyrian") then
+    ACHID_ZONE_MISC["Covenant"] = ACHID_ZONE_MISC["Covenant (Kyrian)"]
+  elseif (covKey == "Necrolord") then
+    ACHID_ZONE_MISC["Covenant"] = ACHID_ZONE_MISC["Covenant (Necrolord)"]
+  elseif (covKey == "NightFae") then
+    ACHID_ZONE_MISC["Covenant"] = ACHID_ZONE_MISC["Covenant (Night Fae)"]
+  elseif (covKey == "Venthyr") then
+    ACHID_ZONE_MISC["Covenant"] = ACHID_ZONE_MISC["Covenant (Venthyr)"]
+  end
 end
 
 -- Alias:
@@ -2792,10 +2817,10 @@ do
     for i=1,select("#", ...) do
       tab = select(i, ...)
       for k,v in pairs(tab) do
-	    list[ (locallookup and locallookup[k]) or LBZ[k] or ZONE_RENAME_REV[k] or k ] = true  -- Add localized version of zone/instance names.
-		--print("adding: k = "..(LBZ[k] or k)..(LBZ[k] and "" or "no LBZ[k]"))
-		if (Overachiever_Debug and (not (locallookup and locallookup[k])) and not LBZ[k] and not ZONE_RENAME_REV[k]) then  Overachiever.chatprint("POSSIBLE ERROR - no LBZ lookup found for "..k);  end
-	  end
+  	    list[ (locallookup and locallookup[k]) or LBZ[k] or ZONE_RENAME_REV[k] or k ] = true  -- Add localized version of zone/instance names.
+    		--print("adding: k = "..(LBZ[k] or k)..(LBZ[k] and "" or "no LBZ[k]"))
+    		if (Overachiever_Debug and (not (locallookup and locallookup[k])) and not LBZ[k] and not ZONE_RENAME_REV[k]) then  Overachiever.chatprint("POSSIBLE ERROR - no LBZ lookup found for "..k);  end
+  	  end
     end
   end
   addtolist(places, ACHID_INSTANCES, ACHID_INSTANCES_NORMAL, ACHID_INSTANCES_HEROIC, ACHID_INSTANCES_HEROIC_PLUS,
