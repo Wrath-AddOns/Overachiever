@@ -1,5 +1,5 @@
 
-Overachiever v1.1.4 (beta)
+Overachiever v1.1.4
 ==============================
 
 Author: Tuhljin
